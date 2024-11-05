@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Página de jogo</title>
   <link href="./output.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
 </head>
 <body class="font-fira">
@@ -13,47 +14,66 @@
       <div class="flex flex-col items-center">
         <a href="#">GAMELOG</a>
       </div>
-      
-      <ul class="gap-5 hidden md:flex">
+    
+      <div class="md:hidden flex items-center">
+        <button id="menu-toggle" class="text-white">
+          <!-- Ícone de hambúrguer -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 5h16M4 12h16M4 19h16"></path>
+          </svg>
+        </button>
+      </div>
+    
+      <ul id="menu" class="gap-5 hidden md:flex">
         <li><a href="./index.html">Jogos</a></li>
         <li><a href="./listas.html">Listas</a></li>
         <li><a href="./forum.html">Fórum</a></li>
         <li><a href="./ranking.html">Ranking</a></li>
         <li><a href="./usuario.html">Perfil</a></li>
       </ul>
+    
+      <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const menu = document.getElementById('menu');
+    
+        menuToggle.addEventListener('click', () => {
+          menu.classList.toggle('hidden');
+        });
+      </script>
     </nav>
+    
     
   </header>
 
   <main class="mb-10">
 
-  <section class ="w-full bg-zinc-600 mx-auto my-0 px-10 py-10 md:px-64 py-20">
+  <section class ="w-full bg-zinc-600 mx-auto my-0 px-10 md:px-64 py-20">
 
     <div class="flex justify-between">
       <a href="" class="items-center gap-1 inline-flex px-4 py-2 rounded-lg border-2 border-cyan-600 text-white hover:bg-cyan-600 font-inter">
-        <img src="../img/noun-go-back-5418737.svg" class="w-5 h-5" alt="">
+        <img src="../img/noun-go-back-5418737.svg" class="w-4 h-4 md:w-5 md:h-5" alt="">
         Voltar
       </a>
       <a href="ranking.html">
         <h3 class="text-white rounded-lg bg-gradient-to-tl from-indigo-500 to-cyan-600 px-4 py-2">Rank - ####</h3>
-    </div>
       </a>
+    </div>
 
     <div class="flex flex-col items-center m-10">
-      <img class="mb-8" style= "height: 300px; width: 235px;" src="../img/Grand_Theft_Auto_V_capa.png" alt="">
-        <h2 class ="text-3xl font-inter font-bold text-white mb-3">Grand Theft Auto V</h2>
+      <img class="mb-8 w-full sm:w-auto max-w-xs md:max-w-md lg:max-w-lg" src="../img/Grand_Theft_Auto_V_capa.png" alt="">
+        <h2 class ="text-xl sm:text-2xl lg:text-3xl font-inter font-bold text-white mb-3">Grand Theft Auto V</h2>
         <p class="text-white rounded bg-gradient-to-tl from-indigo-500 to-cyan-600 px-5 py-2">Nota média: 9.7</p>
 
       </div>
       <div class="flex justify-center mt-16">
-        <button class="text-lg gap-1 flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter" onclick="window.location.href='listas.html'">
+        <button class="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter" onclick="window.location.href='listas.html'">
           <img class="w-4 h-4" src="../img/noun-add-to-playlist-4700648.svg" alt="">
           Adicionar à lista
         </button>
       </div>
   </section>
 
-<section class="mx-auto my-0 px-10 py-8 md:px-64 py-20">
+<section class="mx-auto my-0 px-10 md:px-64 py-20">
 
   <div class="flex flex-col gap-3 mt-7">
     <div class = "flex space-x-4 mb-7">
@@ -63,17 +83,17 @@
     </div>
 
     <hr class="border-2">
-    <div class = "flex justify-between font-medium">
-    <h2 class = "text-lg">Data de lançamento</h2>
-    <h2 class = "text-lg">17/09/2013</h2>
+    <div class = "flex justify-between text-sm sm:text-lg font-medium">
+    <h2 class = "text-sm sm:text-lg">Data de lançamento</h2>
+    <h2 class = "text-sm sm:text-lg">17/09/2013</h2>
     </div>
-    <div class = "flex justify-between font-medium">
-      <h2 class = "text-lg">Desenvolvedora</h2>
-      <h2 class = "text-lg">Rockstar North</h2>
+    <div class = "flex justify-between text-sm sm:text-lg font-medium">
+      <h2 class = "text-sm sm:text-lg">Desenvolvedora</h2>
+      <h2 class = "text-sm sm:text-lg">Rockstar North</h2>
     </div>
-    <div class = "flex justify-between font-medium">
-      <h2 class = "text-lg">Distribuidora</h2>
-      <h2 class = "text-lg">Rockstar Games</h2>
+    <div class = "flex justify-between text-sm sm:text-lg font-medium">
+      <h2 class = "text-sm sm:text-lg">Distribuidora</h2>
+      <h2 class = "text-sm sm:text-lg">Rockstar Games</h2>
     </div>
 
     <hr class="border-2">
@@ -82,7 +102,7 @@
 </section>
 
 
-  <section class="bg-zinc-300 mx-auto my-5 px-10 py-8 text-left md:px-64 py-20">
+  <section class="bg-zinc-300 mx-auto my-5 px-10 text-left md:px-64 py-20">
     <h2 class="text-2xl p-4 font-bold font-inter">Sumário</h2>
       <div class="flex space-x-4 p-4 w-full">
         <p>
@@ -98,7 +118,7 @@
 
   <br>
   
-  <section class="mx-auto my-5 px-10 py-8 text-left md:px-64 py-20">
+  <section class="mx-auto my-5 px-10 text-left md:px-64 py-20">
    
           <h2 class="text-2xl p-4 font-bold font-inter">Avaliações</h2>
           <div class="flex flex-col items-center space-x-4 py-8 px-8 bg-indigo-100 rounded-lg w-full mb-8 lg:flex-row">
@@ -121,8 +141,8 @@
           
     </section>
 
-    <div class="mx-auto my-0 px-10 py-8 text-center md:px-64 py-20"> 
-      <div class="flex items-center gap-2 flex-col py-4 px-8 bg-gradient-to-tl from-indigo-500 to-cyan-600 px-5 py-2 rounded-lg w-full mb-8">
+    <div class="mx-auto my-0 px-10 text-center md:px-64 py-20"> 
+      <div class="flex items-center gap-2 flex-col py-4 px-8 bg-gradient-to-tl from-indigo-500 to-cyan-600 rounded-lg w-full mb-8">
         
         <a href="forum.html" class="text-white text-2xl px-4 py-2 font-inter font-bold underline decoration-solid"> Acesse o fórum do Grand Theft Auto V</a>
         <p class="text-gray-300 text-md"> Converse • Tire dúvidas • Compartilhe curiosidades</p>

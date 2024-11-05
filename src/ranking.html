@@ -13,15 +13,34 @@
           <div class="flex flex-col items-center">
             <a href="#">GAMELOG</a>
           </div>
-          
-          <ul class="gap-5 hidden md:flex">
+        
+          <div class="md:hidden flex items-center">
+            <button id="menu-toggle" class="text-white">
+              <!-- Ícone de hambúrguer -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 5h16M4 12h16M4 19h16"></path>
+              </svg>
+            </button>
+          </div>
+        
+          <ul id="menu" class="gap-5 hidden md:flex">
             <li><a href="./index.html">Jogos</a></li>
             <li><a href="./listas.html">Listas</a></li>
             <li><a href="./forum.html">Fórum</a></li>
             <li><a href="./ranking.html">Ranking</a></li>
             <li><a href="./usuario.html">Perfil</a></li>
           </ul>
+        
+          <script>
+            const menuToggle = document.getElementById('menu-toggle');
+            const menu = document.getElementById('menu');
+        
+            menuToggle.addEventListener('click', () => {
+              menu.classList.toggle('hidden');
+            });
+          </script>
         </nav>
+        
         
       </header>
 
