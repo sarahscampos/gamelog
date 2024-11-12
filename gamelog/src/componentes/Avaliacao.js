@@ -1,26 +1,33 @@
-import React, { createContext, useContext } from 'react';
+import React, { useContext } from 'react';
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
-const AvaliacoesContext = createContext();
+import trevor from '../assets/img/icon-trevor.jpg';
 
 const Avaliacao = () => {
-    const avaliacoes = useContext(AvaliacoesContext);
+  
+  const dadosAvaliacao = {
+    usuario: "Luigi",
+    nota: 10,
+    comentario: "Adorei o jogo!",
+    imgSrc: trevor,
+  }
 
-    return (
-        <>
-        {avaliacoes.map((avaliacao, index) => (
-        <div key={index} className="flex flex-col items-center space-x-4 py-8 px-8 bg-indigo-100 rounded-lg w-full mb-8 lg:flex-row">
-          <img src={avaliacao.imgSrc} alt={`Foto do usuário ${avaliacao.usuario}`} className="w-16 h-16 ring-4 ring-indigo-600 rounded-full" />
-          <div className="flex flex-col gap-2 p-4">
-            <p className="text-gray-800 text-sm italic">{avaliacao.usuario}</p>
-            <p className="text-0.8xl text-indigo-600 font-bold font-inter">Nota: {avaliacao.nota}</p>
-            <p className="text-md">{avaliacao.comentario}</p>
-            <div className="flex justify-end">
-              <AiOutlineLike/>
-              <AiOutlineDislike/>
+  return (
+    <>
+    <section class = "mx-auto my-5 px-10 text-left md:px-64 py-20">
+    <h2 class="text-2xl p-4 font-bold font-inter">Avaliações</h2>
+          <div class="flex flex-col items-center space-x-4 py-8 px-8 bg-indigo-100 rounded-lg w-full mb-8 lg:flex-row">
+            <img src={dadosAvaliacao.imgSrc} alt="Foto do usuário" class="w-16 h-16 ring-4  ring-indigo-600 rounded-full" />
+            <div class="flex flex-col gap-2 p-4">
+              <p class="text-gray-800 text-sm italic">{dadosAvaliacao.usuario}</p>
+              <p class="text-0.8xl text-indigo-600 font-bold font-inter">Nota: {dadosAvaliacao.nota}</p>
+              <p class="text-md">
+                {dadosAvaliacao.comentario}
+              </p>
+              <div class="flex justify-end">
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+    </section>
     </>
   );
 };
