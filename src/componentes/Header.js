@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import logo from "../assets/img/logoGAMELOG.png";
+import logo from "../assets/img/logoGAMELOG2.svg";
 
 const navLinks = [
   {
@@ -43,7 +43,7 @@ export const Header = () => {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <Link to="/">
-              <img src={logo} alt="logoGamelog" className="w-16"/>
+              <img src={logo} alt="logoGamelog" className="w-10"/>
               
               </Link>
             </div>
