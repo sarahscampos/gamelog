@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import trevor from '../assets/img/icon-trevor.jpg';
 

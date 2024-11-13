@@ -1,33 +1,36 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Header from "../components/Header";
+
 import Avaliacao from "../components/Avaliacao";
 import capa from "../assets/img/marioKart.jpg";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Footer from "../components/Footer"
 
-export const Jogo = () => {
+import backgroundJogo from "../assets/img/backgroundJogo.png";
 
-  const dadosJogo = {
-    nome: "Mario Kart",
-    colocacao: 5,
-    nota: 10,
-    capa: capa,
-    dataLancamento: "17/09/2013",
-    desenvolvedora: "Rockstar North",
-    distribuidora: "Rockstar Games",
-    generos: ["ação", "aventura", "tiro"],
-    sumario: "Mario Kart 8 (マリオカート8 Mario Kāto Aito?) é um jogo de corrida de karts desenvolvido e publicado pela Nintendo para o Wii U. É o décimo primeiro título da franquia Mario Kart, o oitavo da série principal (como o título sugere) e foi lançado em 30 de Maio de 2014. O jogo tem como principal novidade os circuitos antigravitacionais e pistas antigas dos jogos anteriores. Assim como os jogos anteriores, possui modos um jogador e multijogador local e online.",
-  }
+const dadosJogo = {
+  nome: "Mario Kart",
+  colocacao: 5,
+  nota: 10,
+  capa: capa,
+  dataLancamento: "17/09/2013",
+  desenvolvedora: "Rockstar North",
+  distribuidora: "Rockstar Games",
+  generos: ["ação", "aventura", "tiro"],
+  sumario: "Mario Kart 8 (マリオカート8 Mario Kāto Aito?) é um jogo de corrida de karts desenvolvido e publicado pela Nintendo para o Wii U. É o décimo primeiro título da franquia Mario Kart, o oitavo da série principal (como o título sugere) e foi lançado em 30 de Maio de 2014. O jogo tem como principal novidade os circuitos antigravitacionais e pistas antigas dos jogos anteriores. Assim como os jogos anteriores, possui modos um jogador e multijogador local e online.",
+}
+
+const Jogo = () => {
+
+  
 
   
   const navigate = useNavigate();
 
   return (
     <>
-    <Header/>
-    <section class ="w-full bg-zinc-600 mx-auto my-0 px-10 md:px-64 py-20">
+
+    <section style={{backgroundImage: `url(${backgroundJogo})`}} className="w-full mx-auto my-0 px-10 md:px-64 py-20">
 
     <div class="flex justify-between">
       <button onClick={() => navigate(-1)} /*bug de não ter pagina anterior?*/class="items-center gap-1 inline-flex px-4 py-2 rounded-lg border-2 border-cyan-600 text-white hover:bg-cyan-600 font-inter">
@@ -52,9 +55,9 @@ export const Jogo = () => {
   
   <section class="mx-auto my-0 px-10 md:px-64 py-20">
 
-    <div class="flex flex-col gap-3 mt-7">
+    <div className="flex flex-col gap-3 mt-7 font-fira">
       <div class = "flex space-x-4 mb-7">
-        <p class = "text-lg font-medium text-white px-3 py-1 rounded bg-zinc-500 ">Ação</p>
+        <p class = "text-lg font-medium text-white px-3 py-1 rounded bg-zinc-500">Ação</p>
         <p class = "text-lg font-medium text-white bg-zinc-500 px-3 py-1 rounded">Aventura</p>
         <p class = "text-lg font-medium text-white bg-zinc-500 px-3 py-1 rounded">Tiro</p>
       </div>
@@ -80,7 +83,7 @@ export const Jogo = () => {
   <section class="bg-zinc-300 mx-auto my-5 px-10 text-left md:px-64 py-20">
     <h2 class="text-2xl p-4 font-bold font-inter">Sumário</h2>
       <div class="flex space-x-4 p-4 w-full">
-        <p>
+        <p className="font-fira">
           {dadosJogo.sumario}
         </p>
       </div>
@@ -106,7 +109,6 @@ export const Jogo = () => {
     </div>
   </section>
 
-    <Footer/>
     </>
   );
 }

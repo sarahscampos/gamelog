@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { IoLogInOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import logo from "../assets/img/logoGAMELOG2.svg";
 
@@ -21,8 +22,9 @@ const navLinks = [
     link: "/",
   },
   {
-    title: "Perfil",
+    title: "Login",
     link: "/",
+    icon: <IoLogInOutline size={'1.4rem'} />,
   },
   
 ]
@@ -51,7 +53,7 @@ export const Header = () => {
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
                 {navLinks.map((link, index) => 
-                   (<Link key={index} to={link.link} className="text-white transition-all duration-300 hover:bg-indigo-600 px-3 py-2 rounded-md text-md font-medium">{link.title}</Link>)
+                   (<Link key={index} to={link.link} className="inline-flex items-center gap-1 text-white transition-all duration-300 hover:bg-indigo-600 px-3 py-2 rounded-md text-md font-medium ">{link.title} {link.icon && <span>{link.icon}</span>}</Link>)
                   )
                 }
               </div>
