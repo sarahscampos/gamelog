@@ -1,11 +1,11 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Header from "./Header";
-import Avaliacao from "./Avaliacao";
+import Header from "../components/Header";
+import Avaliacao from "../components/Avaliacao";
 import capa from "../assets/img/marioKart.jpg";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Footer from "./Footer"
+import Footer from "../components/Footer"
 
 export const Jogo = () => {
 
