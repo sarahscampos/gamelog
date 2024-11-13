@@ -43,7 +43,7 @@ export const Jogo = () => {
 
       </div>
       <div class="flex justify-center mt-16">
-        <button class="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter" onclick={toast("teste")}>
+        <button class="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter" onClick={() => toast.success(`${dadosJogo.nome} foi adicionado à lista!`)}>
           Adicionar à lista
         </button>
         <ToastContainer />
