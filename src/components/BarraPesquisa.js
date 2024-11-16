@@ -1,12 +1,10 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import { IoSearch } from "react-icons/io5";
+import { useNavigate } from 'react-router-dom';
 
-const sampleData = [
-  { id: 1, title: "Mario Kart", url: "/jogo" },
- 
-];
 
 export const BarraPesquisa = () => {
+  const navigate = useNavigate();
 
   const [dados, setDados] = useState([]);
   async function dadosJson() {
@@ -50,7 +48,7 @@ export const BarraPesquisa = () => {
                 setSearchResults(results);
              }
           }, 300),
-          []
+          [dados]
   );
 
   useEffect(() => {
@@ -90,9 +88,9 @@ export const BarraPesquisa = () => {
                         <ul>
                            {searchResults.map(result => (
                                    <li key={result.id} className="mb-2">
-                                      <a href={result.url} className="text-black hover:underline" rel="noopener noreferrer">
+                                      <p onClick={()=> navigate(`/jogo/${result.id}`)} className="text-black hover:underline">
                                          {result.nome}
-                                      </a>
+                                      </p>
                                    </li>
                            ))}
                         </ul>
@@ -103,3 +101,6 @@ export const BarraPesquisa = () => {
 };
 
 export default BarraPesquisa;
+
+
+

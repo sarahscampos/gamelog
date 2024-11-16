@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 
 import Home from "./pages/Home";
 import Jogo from "./pages/Jogo";
+import Avaliacoes from "./pages/Avaliacoes";
 
 
 const AppRoutes = () => {
@@ -13,7 +14,8 @@ const AppRoutes = () => {
        <Header/>
         <Routes>
            <Route element = { <Home/> }  path="/" exact />
-           <Route element = { <Jogo/> }  path="/jogo" />
+           <Route element = { <Jogo/> }  path="/jogo/:id" />
+           <Route element = { <Avaliacoes/> }  path="/avaliacoes" />
         </Routes>
         <Footer />
        </BrowserRouter>

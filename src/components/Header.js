@@ -7,10 +7,6 @@ import BarraPesquisa from "./BarraPesquisa";
 
 const navLinks = [
   {
-    title: "Jogos",
-    link: "/jogo",
-  },
-  {
     title: "Listas",
     link: "/",
   },

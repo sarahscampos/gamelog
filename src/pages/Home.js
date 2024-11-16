@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BarraPesquisa from '../components/BarraPesquisa';
 import background from "../assets/img/backgroundJogo.png";
 import logo from "../assets/img/logoGAMELOG2.svg";
@@ -34,6 +34,8 @@ const responsive = {
 
 
 export const Home = () => {
+
+  const navigate = useNavigate();
   const [dados, setDados] = useState([]);
   async function dadosJson() {
     try {
@@ -77,8 +79,8 @@ export const Home = () => {
       <h2 className='text-3xl font-inter font-bold text-center text-cyan-800'>Jogos Populares</h2>
     <Carousel responsive={responsive} removeArrowOnDeviceType={["tablet", "mobile"]} className='p-10'>
       {dados.map((item, index) => (
-        <div key={index} className='w-40 drop-shadow-md'>
-          <img src={item.capa} alt="logoGamelog" className='mb-1 ring-solid ring-2 ring-indigo-600 rounded-md'/>
+        <div key={index} className='w-40 drop-shadow-md' onClick={() => navigate(`/jogo/${item.id}`)}>
+          <img src={item.capa} alt="logoGamelog" className='mb-1 ring-solid ring-2 ring-indigo-600 rounded-md' />
           <p className='text-center font-fira text-base'>{item.nome}</p>
           
         </div>
