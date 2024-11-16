@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Modal from 'react-modal';
 
 import Avaliacao from "../components/Avaliacao";
 import capa from "../assets/img/marioKart.jpg";
@@ -7,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import backgroundJogo from "../assets/img/backgroundJogo.png";
+import trevor from '../assets/img/icon-trevor.jpg';
 
 const dadosJogo = {
   nome: "Mario Kart",
@@ -20,12 +22,38 @@ const dadosJogo = {
   sumario: "Mario Kart 8 (マリオカート8 Mario Kāto Aito?) é um jogo de corrida de karts desenvolvido e publicado pela Nintendo para o Wii U. É o décimo primeiro título da franquia Mario Kart, o oitavo da série principal (como o título sugere) e foi lançado em 30 de Maio de 2014. O jogo tem como principal novidade os circuitos antigravitacionais e pistas antigas dos jogos anteriores. Assim como os jogos anteriores, possui modos um jogador e multijogador local e online.",
 }
 
+const dadosAvaliacao = {
+    usuario: "Luigi",
+    nota: 10,
+    comentario: "Adorei o jogo!",
+    imgSrc: trevor,
+}
+
+const listas = ["Favoritos", "Desejados", "Jogados"];
+
 const Jogo = () => {
 
   
 
   
   const navigate = useNavigate();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedList, setSelectedList] = useState("");
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
+
+  const addToList = (list) => {
+    setSelectedList(list);
+    toast.success(`${dadosJogo.nome} foi adicionado à lista ${list}!`)
+    closeModal();
+  }
 
   return (
     <>
@@ -46,12 +74,40 @@ const Jogo = () => {
 
       </div>
       <div class="flex justify-center mt-16">
-        <button class="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter" onClick={() => toast.success(`${dadosJogo.nome} foi adicionado à lista!`)}>
+        <button class="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter" onClick={openModal}>
           Adicionar à lista
         </button>
         <ToastContainer />
       </div>
   </section>
+
+
+ {/* modal para adicionar o jogo em listas, informações a partir da lista de listas do usuario*/}
+  <Modal 
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        contentLabel="Escolha a Lista"
+        className="bg-white p-6 rounded-lg w-96"
+        overlayClassName="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50"
+      >
+        <h2 className="text-xl font-semibold mb-4">Escolha uma lista</h2>
+        <ul className="space-y-4">
+          {listas.map((lista, index) => (<li>
+            <button
+              onClick={() => addToList(lista)}
+              className="w-full px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-400"
+            >
+              {lista}
+            </button>
+          </li>))}
+        </ul>
+        <button
+          onClick={closeModal}
+          className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-400"
+        >
+          Fechar
+        </button>
+      </Modal>
   
   <section class="mx-auto my-0 px-10 md:px-64 py-20">
 
@@ -91,9 +147,14 @@ const Jogo = () => {
   </section>
     
   <section>
-    <Avaliacao/>
+    <section class = "mx-auto my-5 px-10 text-left md:px-64 py-20">
+      <h2 class="text-2xl p-4 font-bold font-inter">Avaliações</h2>
+    </section>
+    <section class = "mx-auto my-5 px-10 text-left md:px-64 py-20">
+      <Avaliacao dadosAvaliacao={dadosAvaliacao}/>
+    </section>
     <div style ={{ textAlign: 'right', paddingRight: '250px'}}>
-            <a href="" class="px-4 py-2 rounded-lg bg-indigo-500 text-white hover:bg-indigo-400 font-inter">Ver mais avaliações</a>
+            <Link to={"/avaliacoes"} class="px-4 py-2 rounded-lg bg-indigo-500 text-white hover:bg-indigo-400 font-inter" >Ver mais avaliacoes</Link>
           </div>
   </section>
 
