@@ -8,6 +8,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import backgroundJogo from "../assets/img/backgroundJogo.png";
 
+
+
 const dadosJogo = {
   nome: "Mario Kart",
   colocacao: 5,
