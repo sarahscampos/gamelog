@@ -22,27 +22,8 @@ const dadosAvaliacao = {
 
 const listas = ["Favoritos", "Desejados", "Jogados"];
 
-const Jogo = () => {
+const Jogo = ({dados}) => {
   const { id } = useParams();
-  const [dados, setDados] = useState([]);
-  async function dadosJson() {
-    try {
-      const response = await fetch('http://localhost:3000/jogos');
-      if (!response.ok) {
-        throw new Error('Erro ao carregar o JSON');
-      }
-      const data = await response.json();
-      setDados(data); 
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    dadosJson();
-  }, []);
-
-
   
   const navigate = useNavigate();
 
@@ -61,10 +42,6 @@ const Jogo = () => {
     setSelectedList(list);
     toast.success(`${dados[id].nome} foi adicionado à lista ${list}!`)
     closeModal();
-  }
-
-  if (dados.length === 0) {
-    return <p>Carregando...</p>;
   }
 
   return (

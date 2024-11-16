@@ -3,28 +3,9 @@ import { IoSearch } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 
 
-export const BarraPesquisa = () => {
+export const BarraPesquisa = ({dados}) => {
   const navigate = useNavigate();
 
-  const [dados, setDados] = useState([]);
-  async function dadosJson() {
-    try {
-      const response = await fetch('http://localhost:3000/jogos');
-      if (!response.ok) {
-        throw new Error('Erro ao carregar o JSON');
-      }
-      const data = await response.json();
-      setDados(data); 
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    dadosJson();
-  }, []);
-
-  
 
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -59,10 +40,6 @@ export const BarraPesquisa = () => {
      setSearchTerm(e.target.value);
   };
 
-  if (dados.length === 0) {
-    return <p>Carregando...</p>;
-  }
-
   return (
           <div className="flex flex-col items-center bg-transparent p-4 font-fira">
              <form onSubmit={(e) => e.preventDefault()} className="w-full max-w-2xl mb-8">
@@ -87,7 +64,7 @@ export const BarraPesquisa = () => {
                         <h2 className="text-xl font-bold mb-4 text-cyan-600">Jogos encontrados:</h2>
                         <ul>
                            {searchResults.map(result => (
-                                   <li key={result.id} className="mb-2">
+                                   <li key={result.id} className="mb-2 cursor-pointer">
                                       <p onClick={()=> navigate(`/jogo/${result.id}`)} className="text-black hover:underline">
                                          {result.nome}
                                       </p>

@@ -33,30 +33,10 @@ const responsive = {
 };
 
 
-export const Home = () => {
+export const Home = ({dados}) => {
 
   const navigate = useNavigate();
-  const [dados, setDados] = useState([]);
-  async function dadosJson() {
-    try {
-      const response = await fetch('http://localhost:3000/jogos');
-      if (!response.ok) {
-        throw new Error('Erro ao carregar o JSON');
-      }
-      const data = await response.json();
-      setDados(data); 
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    dadosJson();
-  }, []);
-
-  if (dados.length === 0) {
-    return <p>Carregando...</p>;
-  }
+  
   return (
     <>
     <section style={{backgroundImage: `url(${background})`}} className=" bg-fixed w-full mx-auto my-0 px-10 md:px-64 py-20 font-fira text-white">
@@ -65,7 +45,7 @@ export const Home = () => {
         <img src={logo} alt="logoGamelog" className="w-16"/>
         <h1 className='text-4xl font-inter font-bold text-center'>GAMELOG</h1>
       </div>
-      <BarraPesquisa/>
+      <BarraPesquisa dados={dados}/>
 
       <div className='flex flex-col items-center gap-4'>
         <p className='text-center'>Conecte-se, organize seus jogos e compartilhe suas experiências com a comunidade gamer.</p>
@@ -79,8 +59,24 @@ export const Home = () => {
       <h2 className='text-3xl font-inter font-bold text-center text-cyan-800'>Jogos Populares</h2>
     <Carousel responsive={responsive} removeArrowOnDeviceType={["tablet", "mobile"]} className='p-10'>
       {dados.map((item, index) => (
-        <div key={index} className='w-40 drop-shadow-md' onClick={() => navigate(`/jogo/${item.id}`)}>
-          <img src={item.capa} alt="logoGamelog" className='mb-1 ring-solid ring-2 ring-indigo-600 rounded-md' />
+        <div key={index} className='w-40 drop-shadow-md cursor-pointer' onClick={() => navigate(`/jogo/${item.id}`)}>
+          <img src={item.capa} alt="logoGamelog" className='mb-1 ring-solid ring-2 ring-indigo-600 rounded-sm' />
+          <p className='text-center font-fira text-base'>{item.nome}</p>
+          
+        </div>
+      ))}
+    </Carousel>
+  
+      
+    </section>
+
+
+    <section className='mt-16'>
+      <h2 className='text-3xl font-inter font-bold text-center text-cyan-800'>Jogos em Alta</h2>
+    <Carousel responsive={responsive} removeArrowOnDeviceType={["tablet", "mobile"]} className='p-10'>
+      {dados.map((item, index) => (
+        <div key={index} className='w-40 drop-shadow-md cursor-pointer' onClick={() => navigate(`/jogo/${item.id}`)}>
+          <img src={item.capa} alt="logoGamelog" className='mb-1 ring-solid ring-2 ring-indigo-600 rounded-sm' />
           <p className='text-center font-fira text-base'>{item.nome}</p>
           
         </div>
