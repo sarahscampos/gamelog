@@ -15,21 +15,26 @@ import "react-multi-carousel/lib/styles.css";
 const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
-    breakpoint: { max: 4000, min: 1500 },
+    breakpoint: { max: 4000, min: 1990 },
     items: 8
   },
   desktop: {
-    breakpoint: { max: 1500, min: 1024 },
+    breakpoint: { max: 1990, min: 1200 },
     items: 5
   },
   tablet: {
-    breakpoint: { max: 1024, min: 535 },
-    items: 3
+    breakpoint: { max: 1200, min: 750 },
+    items: 4
   },
   mobile: {
-    breakpoint: { max: 535, min: 0 },
+    breakpoint: { max: 750, min: 550 },
+    items: 3
+  },
+  mobileS: {
+    breakpoint: { max: 550, min: 0 },
     items: 2
   }
+
 };
 
 
@@ -57,9 +62,9 @@ export const Home = ({dados}) => {
 
     <section className='mt-16'>
       <h2 className='text-3xl font-inter font-bold text-center text-cyan-800'>Jogos Populares</h2>
-    <Carousel responsive={responsive} removeArrowOnDeviceType={["tablet", "mobile"]} className='p-10'>
+    <Carousel responsive={responsive} removeArrowOnDeviceType={["mobile"]} className='p-10'>
       {dados.map((item, index) => (
-        <div key={index} className='w-40 drop-shadow-md cursor-pointer' onClick={() => navigate(`/jogo/${item.id}`)}>
+        <div key={index} className='w-40 drop-shadow-md cursor-pointer hover:scale-105 transition lg:w-56' onClick={() => navigate(`/jogo/${item.id}`)}>
           <img src={item.capa} alt="logoGamelog" className='mb-1 ring-solid ring-2 ring-indigo-600 rounded-sm' />
           <p className='text-center font-fira text-base'>{item.nome}</p>
           
@@ -73,9 +78,9 @@ export const Home = ({dados}) => {
 
     <section className='mt-16'>
       <h2 className='text-3xl font-inter font-bold text-center text-cyan-800'>Jogos em Alta</h2>
-    <Carousel responsive={responsive} removeArrowOnDeviceType={["tablet", "mobile"]} className='p-10'>
+    <Carousel responsive={responsive} removeArrowOnDeviceType={["mobile"]} className='p-10'>
       {dados.map((item, index) => (
-        <div key={index} className='w-40 drop-shadow-md cursor-pointer' onClick={() => navigate(`/jogo/${item.id}`)}>
+        <div key={index} className='w-40 drop-shadow-md cursor-pointer hover:scale-105 transition lg:w-56' onClick={() => navigate(`/jogo/${item.id}`)}>
           <img src={item.capa} alt="logoGamelog" className='mb-1 ring-solid ring-2 ring-indigo-600 rounded-sm' />
           <p className='text-center font-fira text-base'>{item.nome}</p>
           
