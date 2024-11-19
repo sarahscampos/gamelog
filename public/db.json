@@ -5,7 +5,7 @@
     "nome": "Mario Kart",
     "colocacao": 5,
     "nota": 10,
-    "capa": "./capasJogos/mk.png", 
+    "capa": "https://upload.wikimedia.org/wikipedia/pt/0/0d/MarioKart8.jpg", 
     "dataLancamento": "17/09/2013",
     "desenvolvedora": "Nintendo",
     "distribuidora": "Nintendo",
@@ -17,7 +17,7 @@
     "nome": "Ghost of Tsushima",
     "colocacao": 3,
     "nota": 10,
-    "capa": "./capasJogos/got.png", 
+    "capa": "https://upload.wikimedia.org/wikipedia/pt/d/dc/Ghost_of_Tsushima_capa.png?20200515013229", 
     "dataLancamento": "16/07/2020",
     "desenvolvedora": "Sucker Punch",
     "distribuidora": "Sony",
@@ -29,7 +29,7 @@
     "nome": "The Legend of Zelda: Breath of the Wild",
     "colocacao": 1,
     "nota": 9.7,
-    "capa": "./capasJogos/zelda.png", 
+    "capa": "https://upload.wikimedia.org/wikipedia/pt/0/0f/Legend_of_Zelda_Breath_of_the_Wild_capa.png?20170116194041", 
     "dataLancamento": "03/03/2017",
     "desenvolvedora": "Nintendo",
     "distribuidora": "Nintendo",
@@ -41,7 +41,7 @@
     "nome": "Red Dead Redemption 2",
     "colocacao": 2,
     "nota": 9.5,
-    "capa": "./capasJogos/reddead2.png", 
+    "capa": "https://upload.wikimedia.org/wikipedia/en/4/44/Red_Dead_Redemption_II.jpg", 
     "dataLancamento": "26/10/2018",
     "desenvolvedora": "Rockstar Games",
     "distribuidora": "Rockstar Games",
@@ -53,7 +53,7 @@
     "nome": "The Witcher 3: Wild Hunt",
     "colocacao": 4,
     "nota": 9,
-    "capa": "./capasJogos/tw3.png", 
+    "capa": "https://upload.wikimedia.org/wikipedia/en/0/0c/Witcher_3_cover_art.jpg", 
     "dataLancamento": "19/05/2015",
     "desenvolvedora": "CD Projekt Red",
     "distribuidora": "CD Projekt",
@@ -62,10 +62,10 @@
   },
   {
     "id": "5",
-    "nome": "God of War (2018)",
+    "nome": "God of War",
     "colocacao": 6,
     "nota": 10,
-    "capa": "./capasJogos/gow4.png", 
+    "capa": "https://upload.wikimedia.org/wikipedia/en/a/a7/God_of_War_4_cover.jpg", 
     "dataLancamento": "20/04/2018",
     "desenvolvedora": "Santa Monica Studio",
     "distribuidora": "Sony Interactive Entertainment",
@@ -77,7 +77,7 @@
     "nome": "Hollow Knight",
     "colocacao": 7,
     "nota": 9,
-    "capa": "./capasJogos/hn.png", 
+    "capa": "https://i.pinimg.com/236x/3c/da/43/3cda430dcb205ab6de1ab5189e711583.jpg", 
     "dataLancamento": "24/02/2017",
     "desenvolvedora": "Team Cherry",
     "distribuidora": "Team Cherry",
@@ -86,5 +86,148 @@
   }
   
   
-  ]
+  ],
+  "avaliacoes": {
+    "0": [
+      {
+        "usuario": "Luigi",
+        "nota": 10,
+        "comentario": "Adorei o jogo! Sempre jogamos com os amigos.",
+        "imgSrc": "https://m.media-amazon.com/images/I/516GYeRR9WL._AC_UF894,1000_QL80_.jpg"
+      },
+      {
+        "usuario": "Peach",
+        "nota": 9,
+        "comentario": "Ótimo jogo, mas algumas pistas poderiam ser mais desafiadoras.",
+        "imgSrc": "https://p2.trrsf.com.br/image/fget/cf/540/960/smart/images.terra.com/2024/03/20/card-1-peach-ts572v0ihgza.jpg"
+      },
+      {
+        "usuario": "Bowser",
+        "nota": 8,
+        "comentario": "Muito divertido, mas prefiro os clássicos.",
+        "imgSrc": "https://m.media-amazon.com/images/I/71HW-x8cH+L._AC_UF894,1000_QL80_.jpg"
+      }
+    ],
+    "1": [
+      {
+        "usuario": "Jin",
+        "nota": 10,
+        "comentario": "Uma verdadeira obra-prima. A história é cativante.",
+        "imgSrc": "jin.png"
+      },
+      {
+        "usuario": "Yuna",
+        "nota": 9,
+        "comentario": "Gameplay incrível, mas senti falta de algumas melhorias no combate furtivo.",
+        "imgSrc": "yuna.png"
+      },
+      {
+        "usuario": "Khotun",
+        "nota": 7,
+        "comentario": "Jogo bom, mas esperava mais no modo exploração.",
+        "imgSrc": "khotun.png"
+      }
+    ],
+    "2": [
+      {
+        "usuario": "Zelda",
+        "nota": 10,
+        "comentario": "O mundo aberto é fantástico, cheio de detalhes.",
+        "imgSrc": "zelda.png"
+      },
+      {
+        "usuario": "Link",
+        "nota": 10,
+        "comentario": "Incrível! Um dos melhores jogos da minha vida.",
+        "imgSrc": "link.png"
+      },
+      {
+        "usuario": "Ganon",
+        "nota": 8,
+        "comentario": "Ótimo, mas acho que poderia ser mais desafiador em certas partes.",
+        "imgSrc": "ganon.png"
+      }
+    ],
+    "3": [
+      {
+        "usuario": "Arthur",
+        "nota": 10,
+        "comentario": "Narrativa incrível, ambientação impecável.",
+        "imgSrc": "arthur.png"
+      },
+      {
+        "usuario": "Dutch",
+        "nota": 9,
+        "comentario": "Uma experiência épica, mas demorei para me adaptar aos controles.",
+        "imgSrc": "dutch.png"
+      },
+      {
+        "usuario": "Sadie",
+        "nota": 9,
+        "comentario": "Adorei! Mas poderia ter mais missões secundárias interessantes.",
+        "imgSrc": "sadie.png"
+      }
+    ],
+    "4": [
+      {
+        "usuario": "Geralt",
+        "nota": 10,
+        "comentario": "História envolvente, cheio de escolhas que realmente importam.",
+        "imgSrc": "geralt.png"
+      },
+      {
+        "usuario": "Yennefer",
+        "nota": 9,
+        "comentario": "Visual maravilhoso, mas o combate podia ser mais fluido.",
+        "imgSrc": "yennefer.png"
+      },
+      {
+        "usuario": "Ciri",
+        "nota": 8,
+        "comentario": "Gostei bastante, mas achei a curva de aprendizado inicial difícil.",
+        "imgSrc": "ciri.png"
+      }
+    ],
+    "5": [
+      {
+        "usuario": "Kratos",
+        "nota": 10,
+        "comentario": "Simplesmente épico, cheio de emoção e ação.",
+        "imgSrc": "kratos.png"
+      },
+      {
+        "usuario": "Atreus",
+        "nota": 9,
+        "comentario": "Ótima narrativa, mas senti falta de mais opções de personalização.",
+        "imgSrc": "atreus.png"
+      },
+      {
+        "usuario": "Freya",
+        "nota": 8,
+        "comentario": "Muito bom, mas algumas partes são repetitivas.",
+        "imgSrc": "freya.png"
+      }
+    ],
+    "6": [
+      {
+        "usuario": "Hornet",
+        "nota": 10,
+        "comentario": "Desafios incríveis, adoro explorar o mundo.",
+        "imgSrc": "hornet.png"
+      },
+      {
+        "usuario": "Knight",
+        "nota": 9,
+        "comentario": "Ótima jogabilidade, mas algumas áreas são confusas.",
+        "imgSrc": "knight.png"
+      },
+      {
+        "usuario": "Grimm",
+        "nota": 8,
+        "comentario": "Belo design, mas não é muito acessível para iniciantes.",
+        "imgSrc": "grimm.png"
+      }
+    ]
+  }
+
 }

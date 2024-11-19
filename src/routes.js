@@ -23,8 +23,23 @@ const AppRoutes = () => {
     }
   }
 
+  const [dadosAvaliacoes, setDadosAvaliacoes] = useState([]);
+  async function dadosAvaliacoesJson() {
+    try {
+      const response = await fetch('http://localhost:3000/avaliacoes');
+      if (!response.ok) {
+        throw new Error('Erro ao carregar o JSON');
+      }
+      const data = await response.json();
+      setDadosAvaliacoes(data); 
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   useEffect(() => {
     dadosJson();
+    dadosAvaliacoesJson();
   }, []);
 
   if (dados.length === 0) {
@@ -36,8 +51,8 @@ const AppRoutes = () => {
        <Header/>
         <Routes>
            <Route element = { <Home dados={dados}/> }  path="/" exact />
-           <Route element = { <Jogo dados={dados}/> }  path="/jogo/:id" />
-           <Route element = { <Avaliacoes/> }  path="/avaliacoes" />
+           <Route element = { <Jogo dados={dados} avaliacaoInfo={dadosAvaliacoes}/> }  path="/jogo/:id" />
+           <Route element = { <Avaliacoes avaliacoes={dadosAvaliacoes}/> }  path="/avaliacoes/:id" />
         </Routes>
         <Footer />
        </BrowserRouter>
