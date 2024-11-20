@@ -36,6 +36,10 @@ const Jogo = ({dados, avaliacaoInfo}) => {
     closeModal();
   }
 
+  // if (!dados || !avaliacaoInfo) {
+  //   return <p>Carregando...</p>;
+  // }
+
   return (
     <>
 
@@ -100,7 +104,7 @@ const Jogo = ({dados, avaliacaoInfo}) => {
 
     <div className="flex flex-col gap-3 mt-7 font-fira">
       <div className = "flex space-x-4 mb-7">
-        {dados[id].generos.map((genero) => {
+        {dados[id].generos.map((genero, index) => {
           return <p key={dados[id].id} className = "text-lg font-medium text-white px-3 py-1 rounded bg-zinc-500">{genero}</p>
         })}
       </div>
@@ -138,7 +142,13 @@ const Jogo = ({dados, avaliacaoInfo}) => {
       <h2 className="text-2xl p-4 font-bold font-inter">Avaliações</h2>
     </section>
     <section className = "mx-auto my-5 px-10 text-left md:px-64">
-      <Avaliacao dadosAvaliacao={avaliacaoInfo[id][0]}/>
+      { //PERGUNTAR PROFESSOR, GAMBIARRA?
+      avaliacaoInfo[id] ? (
+        <Avaliacao dadosAvaliacao={avaliacaoInfo[id][0]} />
+      ) : (
+        <p>Não possui avaliações</p>
+      )
+    }
     </section>
     <div className="flex justify-center">
             <Link to={`/avaliacoes/${id}`} className="px-4 py-2 rounded-lg bg-indigo-500 text-white hover:bg-indigo-400 font-inter transition" >Ver mais avaliações</Link>

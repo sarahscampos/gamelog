@@ -8,7 +8,7 @@ import BarraPesquisa from "./BarraPesquisa";
 const navLinks = [
   {
     title: "Listas",
-    link: "/",
+    link: "/listas",
   },
   {
     title: "Fórum",

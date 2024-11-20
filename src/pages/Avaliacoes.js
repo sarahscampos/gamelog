@@ -16,10 +16,10 @@ const Avaliacoes = ({avaliacoes}) => {
         </button>
         <section className="mx-auto my-5 px-10 text-left md:px-64 py-10">
           <h2 className="text-2xl p-4 font-bold font-inter">Avaliações</h2>
-         
-          {avaliacoes[id].map((avaliacao, index) => (
+          
+          {avaliacoes[id] ? avaliacoes[id].map((avaliacao, index) => ( //PERGUNTAR PROFESSOR, GAMBIARRA?
             <Avaliacao key={index} dadosAvaliacao={avaliacao} />
-          ))}
+          )) : ''}
       
         </section>
         </>
