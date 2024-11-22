@@ -6,6 +6,7 @@ import Listas from "./pages/Listas";
 import Home from "./pages/Home";
 import Jogo from "./pages/Jogo";
 import Avaliacoes from "./pages/Avaliacoes";
+import Lista from "./pages/Lista";
 
 
 const AppRoutes = () => {
@@ -75,6 +76,7 @@ const AppRoutes = () => {
            <Route element = { <Jogo dados={dados} avaliacaoInfo={dadosAvaliacoes}/> }  path="/jogo/:id" />
            <Route element = { <Avaliacoes avaliacoes={dadosAvaliacoes}/> }  path="/avaliacoes/:id" />
            <Route element = { <Listas listas={dadosListas} /> }  path="/listas" />
+           <Route element = { <Lista listas={dadosListas} /> }  path="/lista/:id" />
         </Routes>
         <Footer />
        </BrowserRouter>
