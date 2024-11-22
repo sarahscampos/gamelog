@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Carrossel from '../components/Carrossel';
+import { FaArrowCircleRight } from "react-icons/fa";
 
 const Listas = ({ listas }) => {
   const [dados, setDados] = useState([]);
@@ -38,15 +39,16 @@ const Listas = ({ listas }) => {
         </button>
       </div>
 
-      <section className="md:px-64 py-20">
+      <section className='ml-5 mr-5'>
         <div className="mt-16">
           {listas[0] && listas[0].length > 0 ? (
             listas[0].map((item, index) => {
               const jogosLista = obtemJogos(index)
               return (
-              <div key={index} className="flex items-center flex-col gap-5 p-4 w-4/5">
-                <a href="./lista.html" className="text-2xl font-bold font-inter">
+              <div key={index} className="flex flex-col">
+                <a href="./lista.html" className="text-2xl font-bold font-inter flex items-center gap-5">
                   {item.nome}
+                  <FaArrowCircleRight />
                 </a>
                 
                 <Carrossel  jogos={jogosLista}/>
