@@ -230,6 +230,25 @@
     ]
   },
 
+  "duvidas": {
+    "0": [
+      {
+        "duvida": "Como recupero minha conta?",
+        "resposta": "Acesse a página de recuperação e siga os passos para redefinir sua senha."
+      },
+      {
+        "duvida": "O que fazer se meu jogo não estiver funcionando?",
+        "resposta": "Certifique-se de que seu dispositivo atende aos requisitos mínimos e tente reinstalar o jogo."
+      },
+      {
+        "duvida": "Como entrar em contato com o suporte?",
+        "resposta": "Use os canais de contato abaixo para falar diretamente com nossa equipe."
+      }
+    ]
+
+
+  },
+
   "listas": {
     "0": [
     {
