@@ -7,7 +7,8 @@ import Home from "./pages/Home";
 import Jogo from "./pages/Jogo";
 import Avaliacoes from "./pages/Avaliacoes";
 import Lista from "./pages/Lista";
-
+import Suporte from "./pages/Suporte";
+import Codigo from "./pages/Codigo";
 
 const AppRoutes = () => {
   const [dados, setDados] = useState([]);
@@ -77,6 +78,8 @@ const AppRoutes = () => {
            <Route element = { <Avaliacoes avaliacoes={dadosAvaliacoes}/> }  path="/avaliacoes/:id" />
            <Route element = { <Listas listas={dadosListas} /> }  path="/listas" />
            <Route element = { <Lista listas={dadosListas} /> }  path="/lista/:id" />
+           <Route element = { <Suporte/>} path = "/Suporte"/>
+           <Route element = { <Codigo/>} path = "/Codigo"/>
         </Routes>
         <Footer />
        </BrowserRouter>
