@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Carrossel from '../components/Carrossel';
 import { FaArrowCircleRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Listas = ({ listas }) => {
   const [dados, setDados] = useState([]);
@@ -46,10 +47,10 @@ const Listas = ({ listas }) => {
               const jogosLista = obtemJogos(index)
               return (
               <div key={index} className="flex flex-col">
-                <a href="./lista.html" className="text-2xl font-bold font-inter flex items-center gap-5">
+                <Link to={`/lista/${index}`} className="text-2xl font-bold font-inter flex items-center gap-5">
                   {item.nome}
-                  <FaArrowCircleRight />
-                </a>
+                  <FaArrowCircleRight className='text-indigo-600'/>
+                </Link>
                 
                 <Carrossel  jogos={jogosLista}/>
               </div>
