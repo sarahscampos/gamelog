@@ -46,7 +46,9 @@ export const Home = ({dados}) => {
       
     </section>
 
-    
+    <section className=" bg-fixed w-full mx-auto my-0 px-0 md:px-64 py-20 font-fira text-white">
+    <Link to = "/Suporte" className = 'flex flex-col items-center bg-indigo-600 p-3 rounded-md font-inter font-bold hover:bg-indigo-700 transition-all duration-300 text-white w-40 ml-auto transform translate-x-28'>Suporte</Link>
+    </section>
     </>
   );
 }

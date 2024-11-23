@@ -6,6 +6,7 @@ import Listas from "./pages/Listas";
 import Home from "./pages/Home";
 import Jogo from "./pages/Jogo";
 import Avaliacoes from "./pages/Avaliacoes";
+import Suporte from "./pages/Suporte";
 
 
 const AppRoutes = () => {
@@ -39,6 +40,20 @@ const AppRoutes = () => {
     }
   }
 
+  const [dadosDuvidas, setDadosDuvidas] = useState([]);
+  async function dadosDuvidasJson() {
+    try {
+      const response = await fetch('http://localhost:3000/duvidas');
+      if (!response.ok) {
+        throw new Error('Erro ao carregar o JSON');
+      }
+      const data = await response.json();
+      setDadosDuvidas(data); 
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const [dadosListas, setDadosListas] = useState([]);
   async function dadosListasJson() {
     try {
@@ -57,6 +72,7 @@ const AppRoutes = () => {
     dadosJson();
     dadosAvaliacoesJson();
     dadosListasJson();
+    dadosDuvidasJson();
   }, []);
 
   if (dados.length === 0) {
@@ -75,6 +91,7 @@ const AppRoutes = () => {
            <Route element = { <Jogo dados={dados} avaliacaoInfo={dadosAvaliacoes}/> }  path="/jogo/:id" />
            <Route element = { <Avaliacoes avaliacoes={dadosAvaliacoes}/> }  path="/avaliacoes/:id" />
            <Route element = { <Listas listas={dadosListas} /> }  path="/listas" />
+           <Route element = { <Suporte/>} path = "/Suporte"/>
         </Routes>
         <Footer />
        </BrowserRouter>
