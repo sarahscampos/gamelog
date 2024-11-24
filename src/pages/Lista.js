@@ -6,27 +6,10 @@ import { Link } from "react-router-dom";
 import { RiArrowGoBackFill } from "react-icons/ri";
 
 
-const Lista = ({listas}) => {
+const Lista = ({listas, dados}) => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [dados, setDados] = useState([]);
 
-  async function dadosJson() {
-    try {
-      const response = await fetch('http://localhost:3000/jogos');
-      if (!response.ok) {
-        throw new Error('Erro ao carregar o JSON');
-      }
-      const data = await response.json();
-      setDados(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    dadosJson();
-  }, []);
 
   function obtemJogos(index) {
     const lista = listas[0] && listas[0][index]["ids"]
