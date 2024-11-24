@@ -16,6 +16,7 @@ const listas = ["Favoritos", "Desejados", "Jogados"];
 
 const Jogo = ({dados, avaliacaoInfo}) => {
   const { id } = useParams();
+  const numericId = parseInt(id, 10);
   
   const navigate = useNavigate();
 
@@ -32,13 +33,13 @@ const Jogo = ({dados, avaliacaoInfo}) => {
 
   const addToList = (list) => {
     setSelectedList(list);
-    toast.success(`${dados[id].nome} foi adicionado à lista ${list}!`)
+    toast.success(`${dados[numericId].nome} foi adicionado à lista ${list}!`)
     closeModal();
   }
 
-  // if (!dados || !avaliacaoInfo) {
-  //   return <p>Carregando...</p>;
-  // }
+  if (!dados || !dados[numericId]) {
+    return <p>Jogo não encontrado...</p>;
+  }
 
   return (
     <>
@@ -52,14 +53,14 @@ const Jogo = ({dados, avaliacaoInfo}) => {
       </button>
       <Link to='/' className="items-center gap-1 inline-flex px-4 py-2 rounded-lg border-2 border-cyan-600 text-white hover:bg-cyan-600 font-inter transition-all duration-300">
       <FaRankingStar/>
-      Ranking {dados[id].colocacao}
+      Ranking {dados[numericId].colocacao}
       </Link>
     </div>
 
     <div className="flex flex-col items-center m-10">
-        <img src={`${dados[id].capa}`} alt={dados[id].nome} className="w-52 h-72 ring-4 ring-indigo-700 rounded-md mb-6 lg:h-96 lg:w-72"/>
-        <h2 className ="text-xl sm:text-2xl lg:text-3xl font-inter font-bold text-white mb-3">{dados[id].nome}</h2>
-        <p className="text-white rounded bg-gradient-to-tl from-indigo-500 to-cyan-600 px-5 py-2 font-fira">Nota média: {dados[id].nota}</p>
+        <img src={`${dados[numericId].capa}`} alt={dados[numericId].nome} className="w-52 h-72 ring-4 ring-indigo-700 rounded-md mb-6 lg:h-96 lg:w-72"/>
+        <h2 className ="text-xl sm:text-2xl lg:text-3xl font-inter font-bold text-white mb-3">{dados[numericId].nome}</h2>
+        <p className="text-white rounded bg-gradient-to-tl from-indigo-500 to-cyan-600 px-5 py-2 font-fira">Nota média: {dados[numericId].nota}</p>
 
       </div>
       <div className="flex justify-center mt-16">
@@ -104,23 +105,23 @@ const Jogo = ({dados, avaliacaoInfo}) => {
 
     <div className="flex flex-col gap-3 mt-7 font-fira">
       <div className = "flex space-x-4 mb-7">
-        {dados[id].generos.map((genero, index) => {
-          return <p key={dados[id].id} className = "text-lg font-medium text-white px-3 py-1 rounded bg-zinc-500">{genero}</p>
+        {dados[numericId].generos.map((genero, index) => {
+          return <p key={dados[numericId].id} className = "text-lg font-medium text-white px-3 py-1 rounded bg-zinc-500">{genero}</p>
         })}
       </div>
 
       {/* <hr class="border-2"> */}
       <div className = "flex justify-between text-sm sm:text-lg font-medium">
       <h2 className = "text-sm sm:text-lg">Data de lançamento</h2>
-      <h2 className = "text-sm sm:text-lg">{dados[id].dataLancamento}</h2>
+      <h2 className = "text-sm sm:text-lg">{dados[numericId].dataLancamento}</h2>
       </div>
       <div className = "flex justify-between text-sm sm:text-lg font-medium">
         <h2 className = "text-sm sm:text-lg">Desenvolvedora</h2>
-        <h2 className = "text-sm sm:text-lg">{dados[id].desenvolvedora}</h2>
+        <h2 className = "text-sm sm:text-lg">{dados[numericId].desenvolvedora}</h2>
       </div>
       <div className = "flex justify-between text-sm sm:text-lg font-medium">
         <h2 className = "text-sm sm:text-lg">Distribuidora</h2>
-        <h2 className = "text-sm sm:text-lg">{dados[id].distribuidora}</h2>
+        <h2 className = "text-sm sm:text-lg">{dados[numericId].distribuidora}</h2>
       </div>
 
       {/* <hr class="border-2"> */}
@@ -131,7 +132,7 @@ const Jogo = ({dados, avaliacaoInfo}) => {
     <h2 className="text-2xl p-4 font-bold font-inter">Sumário</h2>
       <div className="flex space-x-4 p-4 w-full">
         <p className="font-fira">
-          {dados[id].sumario}
+          {dados[numericId].sumario}
         </p>
       </div>
     
@@ -159,7 +160,7 @@ const Jogo = ({dados, avaliacaoInfo}) => {
         <div className="mx-auto my-0 px-10 text-center md:px-64 py-20"> 
       <div className="flex items-center gap-2 flex-col py-4 px-8 bg-gradient-to-tl from-indigo-500 to-cyan-600 rounded-lg w-full mb-8">
         
-        <a href="forum.html" className="text-white text-2xl px-4 py-2 font-inter font-bold underline decoration-solid"> Acesse o fórum de {dados[id].nome}</a>
+        <a href="forum.html" className="text-white text-2xl px-4 py-2 font-inter font-bold underline decoration-solid"> Acesse o fórum de {dados[numericId].nome}</a>
         <p className="text-gray-300 text-md"> Converse • Tire dúvidas • Compartilhe curiosidades</p>
 
       </div>
