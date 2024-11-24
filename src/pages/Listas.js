@@ -3,25 +3,8 @@ import Carrossel from '../components/Carrossel';
 import { FaArrowCircleRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const Listas = ({ listas }) => {
-  const [dados, setDados] = useState([]);
+const Listas = ({ listas, dados }) => {
 
-  async function dadosJson() {
-    try {
-      const response = await fetch('http://localhost:3000/jogos');
-      if (!response.ok) {
-        throw new Error('Erro ao carregar o JSON');
-      }
-      const data = await response.json();
-      setDados(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    dadosJson();
-  }, []);
 
   function obtemJogos(index) {
     const lista = listas[0][index]["ids"]
