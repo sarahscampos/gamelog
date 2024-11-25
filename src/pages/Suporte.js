@@ -1,8 +1,14 @@
 import React from "react";
-
+import {Helmet} from "react-helmet";
 const Suporte = () => {
     return(
         <div className="min-h-screen bg-gray-100 flex flex-col items-center py-10">
+          <Helmet>
+            <meta charSet="utf-8" />
+            <title>Suporte</title>
+            <link rel="canonical" href="http://mysite.com/example" />
+            <meta name="description" content="Página de jogo" />
+          </Helmet>
         {/* Título */}
         <h1 className="text-4xl font-medium text-gray-800 mb-8">Suporte ao Jogador</h1>
   

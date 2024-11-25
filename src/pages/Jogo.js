@@ -9,7 +9,7 @@ import Avaliacao from "../components/Avaliacao";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import {Helmet} from "react-helmet";
 import backgroundJogo from "../assets/img/backgroundJogo.png";
 
 const listas = ["Favoritos", "Desejados", "Jogados"];
@@ -43,7 +43,12 @@ const Jogo = ({dados, avaliacaoInfo}) => {
 
   return (
     <>
-
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>{`${dados[numericId].nome}`}</title>
+      <link rel="canonical" href="http://mysite.com/example" />
+      <meta name="description" content="Página de jogo" />
+    </Helmet>
     <section style={{backgroundImage: `url(${backgroundJogo})`}} className="w-full mx-auto my-0 px-10 md:px-64 py-20 bg-fixed">
 
     <div className="flex justify-between">
