@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { MdPlaylistAdd } from "react-icons/md";
 import { FaRankingStar } from "react-icons/fa6";
+import Loading from "../components/Loading"
 
 import Avaliacao from "../components/Avaliacao";
 
@@ -37,7 +38,7 @@ const Jogo = ({dados, avaliacaoInfo}) => {
   }
 
   // if (!dados || !avaliacaoInfo) {
-  //   return <p>Carregando...</p>;
+  //   return <Loading />;
   // }
 
   return (

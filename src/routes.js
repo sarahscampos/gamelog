@@ -6,6 +6,7 @@ import Listas from "./pages/Listas";
 import Home from "./pages/Home";
 import Jogo from "./pages/Jogo";
 import Avaliacoes from "./pages/Avaliacoes";
+import Loading from "./components/Loading";
 
 
 const AppRoutes = () => {
@@ -60,11 +61,11 @@ const AppRoutes = () => {
   }, []);
 
   if (dados.length === 0) {
-   return <p>Carregando...</p>;
+   return <Loading />;
  }
 
  if (!dados) {
-  return <p>Carregando...</p>;
+  return <Loading />;
 }
 
    return(
