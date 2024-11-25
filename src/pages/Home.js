@@ -54,23 +54,6 @@ export const Home = ({dados}) => {
       
     </section>
 
-    <section className="flex w-full mx-auto my-0 px-0 md:px-64 py-20 font-fira text-white">
-  <Link
-    to="/Suporte"
-    className="flex items-center justify-center bg-indigo-600 p-3 rounded-md font-inter font-bold hover:bg-indigo-700 transition-all duration-300 text-white w-40"
-  >
-    Suporte
-  </Link>
-  <Link
-    to="/Codigo"
-    className="flex items-center justify-center bg-indigo-600 p-3 rounded-md font-inter font-bold hover:bg-indigo-700 transition-all duration-300 text-white w-40 ml-4"
-  >
-    Inserir Código
-  </Link>
-</section>
-
-
-
     </>
   );
 }
