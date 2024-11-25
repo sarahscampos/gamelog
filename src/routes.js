@@ -9,6 +9,7 @@ import Avaliacoes from "./pages/Avaliacoes";
 import Lista from "./pages/Lista";
 import Suporte from "./pages/Suporte";
 import Codigo from "./pages/Codigo";
+import ScrollToTop from "./components/ScrollToTop";
 
 import { useSelector, useDispatch } from "react-redux";
 import { fetchJogos } from "./slices/jogosSlice";
@@ -39,6 +40,7 @@ const AppRoutes = () => {
 
    return(
        <BrowserRouter>
+       <ScrollToTop />
        <Header/>
         <Routes>
            <Route element = { <Home dados={jogos}/> }  path="/" exact />
