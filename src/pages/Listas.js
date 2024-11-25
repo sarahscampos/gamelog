@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Carrossel from '../components/Carrossel';
 import { FaArrowCircleRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
+import {Helmet} from "react-helmet";
 const Listas = ({ listas, dados }) => {
 
 
@@ -16,6 +16,12 @@ const Listas = ({ listas, dados }) => {
 
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Minhas Listas</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+        <meta name="description" content="Página de jogo" />
+      </Helmet>
       <div className="flex justify-between items-center w-full mx-auto my-0 px-10 py-10 bg-zinc-600 text-white font-inter">
         <h1 className="text-2xl font-bold">Minhas listas</h1>
         <button className="flex gap-2 px-5 py-1 items-center justify-center text-md rounded-lg bg-indigo-600 hover:bg-indigo-400 font-fira font-bold">

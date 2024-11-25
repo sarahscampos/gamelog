@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Helmet} from "react-helmet";
 
 const CupomPromocao = () => {
   const [codigo, setCodigo] = useState(''); // Armazena o código digitado pelo usuário
@@ -18,6 +19,12 @@ const CupomPromocao = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-5">
+      <Helmet>
+          <meta charSet="utf-8" />
+          <title>Código</title>
+          <link rel="canonical" href="http://mysite.com/example" />
+          <meta name="description" content="Página de inserir código" />
+        </Helmet>
       <div className="max-w-md w-full bg-white p-6 rounded-lg shadow-md">
         <h1 className="text-3xl font-bold text-indigo-600 mb-4 text-center">Promoção de Jogos</h1>
         <p className="text-sm text-gray-700 mb-6 text-center">
