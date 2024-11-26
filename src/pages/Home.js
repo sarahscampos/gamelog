@@ -5,8 +5,8 @@ import Carrossel from '../components/Carrossel';
 import background from "../assets/img/backgroundJogo.png";
 import logo from "../assets/img/logoGAMELOG2.svg";
 
-import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import {Helmet} from "react-helmet";
 
 
 export const Home = ({dados}) => {
@@ -15,6 +15,14 @@ export const Home = ({dados}) => {
   
   return (
     <>
+    <Helmet>
+        <meta charSet="utf-8" />
+        <title>GameLog</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+        <meta name="description" content="Página principal" />
+    </Helmet>
+
+
     <section style={{backgroundImage: `url(${background})`}} className=" bg-fixed w-full mx-auto my-0 px-10 md:px-64 py-20 font-fira text-white">
 
       <div className='flex flex-col items-center gap-5 mb-10'>
@@ -46,7 +54,6 @@ export const Home = ({dados}) => {
       
     </section>
 
-    
     </>
   );
 }
