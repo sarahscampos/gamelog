@@ -10,6 +10,7 @@ import Lista from "./pages/Lista";
 import Suporte from "./pages/Suporte";
 import Codigo from "./pages/Codigo";
 import ScrollToTop from "./components/ScrollToTop";
+import Loading from "./components/Loading";
 
 import { useSelector, useDispatch } from "react-redux";
 import { fetchJogos } from "./slices/jogosSlice";
@@ -35,7 +36,7 @@ const AppRoutes = () => {
   }, [jogosStatus, avaliacoesStatus, listasStatus, dispatch]);
 
   if (jogosStatus === 'loading' || avaliacoesStatus === 'loading' || listasStatus === 'loading') {
-    return <p>Carregando...</p>;
+    return <Loading />;
   }
 
    return(
