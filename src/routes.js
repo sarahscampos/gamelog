@@ -6,76 +6,50 @@ import Listas from "./pages/Listas";
 import Home from "./pages/Home";
 import Jogo from "./pages/Jogo";
 import Avaliacoes from "./pages/Avaliacoes";
-import Loading from "./components/Loading";
+import Lista from "./pages/Lista";
+import Suporte from "./pages/Suporte";
+import Codigo from "./pages/Codigo";
+import ScrollToTop from "./components/ScrollToTop";
 
+import { useSelector, useDispatch } from "react-redux";
+import { fetchJogos } from "./slices/jogosSlice";
+import { fetchAvaliacoes } from "./slices/avaliacoesSlice";
+import { fetchListas } from "./slices/listasSlice";
 
 const AppRoutes = () => {
-  const [dados, setDados] = useState([]);
-  async function dadosJson() {
-    try {
-      const response = await fetch('http://localhost:3000/jogos');
-      if (!response.ok) {
-        throw new Error('Erro ao carregar o JSON');
+  const dispatch = useDispatch();
 
-      }
-      const data = await response.json();
-      setDados(data); 
-    } catch (error) {
-      console.error(error);
-      console.log("oi");
-    }
-  }
+  const jogos = useSelector((state) => state.jogos.dados);
+  const jogosStatus = useSelector((state) => state.jogos.status);
 
-  const [dadosAvaliacoes, setDadosAvaliacoes] = useState([]);
-  async function dadosAvaliacoesJson() {
-    try {
-      const response = await fetch('http://localhost:3000/avaliacoes');
-      if (!response.ok) {
-        throw new Error('Erro ao carregar o JSON');
-      }
-      const data = await response.json();
-      setDadosAvaliacoes(data); 
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  const avaliacoes = useSelector((state) => state.avaliacoes.dados);
+  const avaliacoesStatus = useSelector((state) => state.avaliacoes.status);
 
-  const [dadosListas, setDadosListas] = useState([]);
-  async function dadosListasJson() {
-    try {
-      const response = await fetch('http://localhost:3000/listas');
-      if (!response.ok) {
-        throw new Error('Erro ao carregar o JSON');
-      }
-      const data = await response.json();
-      setDadosListas(data); 
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  const listas = useSelector((state) => state.listas.dados);
+  const listasStatus = useSelector((state) => state.listas.status);
 
   useEffect(() => {
-    dadosJson();
-    dadosAvaliacoesJson();
-    dadosListasJson();
-  }, []);
+    if (jogosStatus === 'idle') dispatch(fetchJogos());
+    if (avaliacoesStatus === 'idle') dispatch(fetchAvaliacoes());
+    if (listasStatus === 'idle') dispatch(fetchListas());
+  }, [jogosStatus, avaliacoesStatus, listasStatus, dispatch]);
 
-  if (dados.length === 0) {
-   return <Loading />;
- }
-
- if (!dados) {
-  return <Loading />;
-}
+  if (jogosStatus === 'loading' || avaliacoesStatus === 'loading' || listasStatus === 'loading') {
+    return <p>Carregando...</p>;
+  }
 
    return(
        <BrowserRouter>
+       <ScrollToTop />
        <Header/>
         <Routes>
-           <Route element = { <Home dados={dados}/> }  path="/" exact />
-           <Route element = { <Jogo dados={dados} avaliacaoInfo={dadosAvaliacoes}/> }  path="/jogo/:id" />
-           <Route element = { <Avaliacoes avaliacoes={dadosAvaliacoes}/> }  path="/avaliacoes/:id" />
-           <Route element = { <Listas listas={dadosListas} /> }  path="/listas" />
+           <Route element = { <Home dados={jogos}/> }  path="/" exact />
+           <Route element = { <Jogo dados={jogos} avaliacaoInfo={avaliacoes}/> }  path="/jogo/:id" />
+           <Route element = { <Avaliacoes avaliacoes={avaliacoes}/> }  path="/avaliacoes/:id" />
+           <Route element = { <Listas listas={listas} dados={jogos} /> }  path="/listas" />
+           <Route element = { <Lista listas={listas} dados={jogos} /> }  path="/lista/:id" />
+           <Route element = { <Suporte/>} path = "/suporte"/>
+           <Route element = { <Codigo/>} path = "/codigo"/>
         </Routes>
         <Footer />
        </BrowserRouter>
