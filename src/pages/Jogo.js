@@ -166,7 +166,7 @@ const Jogo = ({dados, avaliacaoInfo}) => {
         <div className="mx-auto my-0 px-10 text-center md:px-64 py-20"> 
       <div className="flex items-center gap-2 flex-col py-4 px-8 bg-gradient-to-tl from-indigo-500 to-cyan-600 rounded-lg w-full mb-8">
         
-        <a href="forum.html" className="text-white text-2xl px-4 py-2 font-inter font-bold underline decoration-solid"> Acesse o fórum de {dados[numericId].nome}</a>
+        <Link to={`/forum/${id}`} className="text-white text-2xl px-4 py-2 font-inter font-bold underline decoration-solid"> Acesse o fórum de {dados[numericId].nome}</Link>
         <p className="text-gray-300 text-md"> Converse • Tire dúvidas • Compartilhe curiosidades</p>
 
       </div>
