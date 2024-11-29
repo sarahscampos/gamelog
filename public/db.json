@@ -229,7 +229,14 @@
       }
     ]
   },
-
+  "usuarios":{
+    "0" : [
+      {
+        "nome":"Grimm",
+        "avatar": "https://cdn.awsli.com.br/2657/2657807/produto/270496847/photo_5094015974415379628_x-4ucvc1908c.jpg" 
+      }
+    ]
+  },
   "duvidas": {
     "0": [
       {
