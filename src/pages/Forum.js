@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { addPost } from '../slices/forumSlice';
 import Comentario from '../components/Comentario';
 
-const Forum = ({dados, usuario}) => {
+const Forum = ({dados}) => {
   const { id } = useParams();
   const numericId = parseInt(id, 10);
 
