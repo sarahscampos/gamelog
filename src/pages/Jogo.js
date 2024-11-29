@@ -15,7 +15,7 @@ import backgroundJogo from "../assets/img/backgroundJogo.png";
 
 const listas = ["Favoritos", "Desejados", "Jogados"];
 
-const Jogo = ({dados, avaliacaoInfo, usuario}) => {
+const Jogo = ({dados, avaliacaoInfo}) => {
   const { id } = useParams();
   const numericId = parseInt(id, 10);
   
