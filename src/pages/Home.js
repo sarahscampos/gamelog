@@ -9,7 +9,7 @@ import "react-multi-carousel/lib/styles.css";
 import {Helmet} from "react-helmet";
 
 
-export const Home = ({dados}) => {
+export const Home = ({dados, usuario}) => {
 
   const navigate = useNavigate();
   
