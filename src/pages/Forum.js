@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { addPost } from '../slices/forumSlice';
+import Comentario from '../components/Comentario';
 
 const Forum = ({dados}) => {
   const { id } = useParams();
@@ -39,12 +40,7 @@ const Forum = ({dados}) => {
         </button>
         <div className="mt-6 space-y-4">
           {posts.map((post) => (
-            <div
-              key={post.id}
-              className="p-4 bg-white border border-gray-200 rounded-md shadow"
-            >
-              {post.content}
-            </div>
+            <Comentario key = {post.id} post = {post} usuario = {usuario}/>
           ))}
         </div>
       </div>
