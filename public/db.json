@@ -228,6 +228,79 @@
         "imgSrc": "grimm.png"
       }
     ]
-  }
-
+  },
+  "perfil": [{
+    "id": 1,
+    "nome": "pacooooo",
+    "avatar": "https://via.placeholder.com/100",
+    "descricao": "Oi meu nome é paco e eu sou mt legal! Gosto de jojar jojos",
+    "analises": 15,
+    "media": 8.5,
+    "amigos": 5,
+    "localizacao": "Rio de Janeiro, RJ",
+    "membroDesde": "10/10/24",
+    "jogosFavoritos": [
+      { "id": 0, "nome": "Mario Kart 8", "capa": "https://via.placeholder.com/100x150" },
+      { "id": 2, "nome": "The Legend of Zelda", "capa": "https://via.placeholder.com/100x150" }
+    ],
+    "jogosAdicionados": 27,
+    "completos": 15,
+    "jogando": 4,
+    "desejados": 8
+  },
+    {
+      "id": 2,
+      "nome": "Ana Clara",
+      "avatar": "https://via.placeholder.com/100",
+      "descricao": "Gamer apaixonada por RPGs.",
+      "analises": 25,
+      "media": 4.8,
+      "amigos": 130,
+      "localizacao": "São Paulo, Brasil",
+      "membroDesde": "2022",
+      "jogosFavoritos": [
+        {
+          "id": 4,
+          "nome": "The Witcher 3",
+          "capa": "https://via.placeholder.com/100"
+        },
+        {
+          "id": 5,
+          "nome": "Hollow Knight",
+          "capa": "https://via.placeholder.com/100"
+        }
+      ],
+      "jogosAdicionados": 45,
+      "completos": 30,
+      "jogando": 5,
+      "desejados": 10
+    },
+    {
+      "id": 3,
+      "nome": "Carlos Eduardo",
+      "avatar": "https://via.placeholder.com/100",
+      "descricao": "Streamer e entusiasta de FPS.",
+      "analises": 15,
+      "media": 4.2,
+      "amigos": 80,
+      "localizacao": "Rio de Janeiro, Brasil",
+      "membroDesde": "2023",
+      "jogosFavoritos": [
+        {
+          "id": 7,
+          "nome": "Call of Duty",
+          "capa": "https://via.placeholder.com/100"
+        },
+        {
+          "id": 8,
+          "nome": "Valorant",
+          "capa": "https://via.placeholder.com/100"
+        }
+      ],
+      "jogosAdicionados": 20,
+      "completos": 10,
+      "jogando": 7,
+      "desejados": 3
+    }
+  ]  
 }
