@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Jogo from "./pages/Jogo";
 import Avaliacoes from "./pages/Avaliacoes";
+import Perfil from "./pages/Perfil"
 
 
 const AppRoutes = () => {
@@ -47,16 +48,20 @@ const AppRoutes = () => {
  }
 
    return(
-       <BrowserRouter>
-       <Header/>
+      <BrowserRouter>
+        <Header />
         <Routes>
-           <Route element = { <Home dados={dados}/> }  path="/" exact />
-           <Route element = { <Jogo dados={dados} avaliacaoInfo={dadosAvaliacoes}/> }  path="/jogo/:id" />
-           <Route element = { <Avaliacoes avaliacoes={dadosAvaliacoes}/> }  path="/avaliacoes/:id" />
+          <Route element={<Home dados={dados} />} path="/" exact />
+          <Route element={<Jogo dados={dados} avaliacaoInfo={dadosAvaliacoes} />} path="/jogo/:id" />
+          <Route element={<Avaliacoes avaliacoes={dadosAvaliacoes} />} path="/avaliacoes/:id" />
+          <Route element={<Perfil />} path="/perfil" /> {/* Rota do perfil */}
+          {/*<Route path="/usuarios" element={<Usuarios />} />*/}
+          <Route path="/perfil/:id" element={<Perfil />} />
+          <Route path="/jogo/:id" element={<Jogo />} />
         </Routes>
         <Footer />
-       </BrowserRouter>
-   )
+      </BrowserRouter>
+    );
 }
 
 export default AppRoutes;
