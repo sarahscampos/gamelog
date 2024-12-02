@@ -38,13 +38,13 @@ const Forum = ({dados}) => {
         >
           Enviar
         </button>
-        <div className="mt-6 space-y-4">
+        {/* AAAAA RENATO COMENTEI NAO FUNCIONA <div className="mt-6 space-y-4">
           {posts.map((post) => (
             <Comentario key = {post.id} post = {post} usuario = {usuario}/>
-          ))}
+          )}*/}
         </div>
       </div>
-    </div>
+    //</div>
   );
 };
 
