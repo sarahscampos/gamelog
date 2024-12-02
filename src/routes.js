@@ -6,6 +6,7 @@ import Listas from "./pages/Listas";
 import Home from "./pages/Home";
 import Jogo from "./pages/Jogo";
 import Avaliacoes from "./pages/Avaliacoes";
+import Perfil from "./pages/Perfil"
 import Lista from "./pages/Lista";
 import Suporte from "./pages/Suporte";
 import Codigo from "./pages/Codigo";
@@ -53,10 +54,11 @@ const AppRoutes = () => {
            <Route element = { <Suporte/>} path = "/suporte"/>
            <Route element = { <Codigo/>} path = "/codigo"/>
            <Route element = { <Forum dados = {jogos}/>} path = "/forum/:id"/>
+           <Route element={<Perfil />} path="/perfil/:id"/>
         </Routes>
         <Footer />
-       </BrowserRouter>
-   )
+      </BrowserRouter>
+    );
 }
 
 export default AppRoutes;

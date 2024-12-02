@@ -23,7 +23,11 @@ const navLinks = [
     link: "/",
     icon: <IoLogInOutline size={'1.4rem'} />,
   },
-  
+  {
+    title: "Perfil",
+    link: "/perfil/1",
+  },
+  {/*so por enquanto*/}
 ]
 
 
