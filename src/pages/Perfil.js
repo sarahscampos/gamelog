@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-const Perfil = () => {
+// quero poder escolher quais listas vou mostrar no perfil
+// quero atualizar o perfil "teste" -> id 0 quando adicionar um jogo na lista, favoritos, etc.
+// quero poder editar o perfil ao vivo ( mudar o db de alguma forma igual o joao! )
+
+const Perfil = ({listas, dados}) => {
   const { id } = useParams(); // Captura o ID do usuário na URL
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -85,23 +89,23 @@ const Perfil = () => {
           </div>
         </div>
 
-        {/* Jogos Favoritos */}
+        {/* Jogos Favoritos -> TROCAR PELOS DADOS DO listas[id] */}
         <div className="p-4">
           <h3 className="text-lg font-semibold">Jogos Favoritos ♥</h3>
           <div className="flex flex-wrap gap-2 mt-2">
-            {user.jogosFavoritos && user.jogosFavoritos.length > 0 ? (
-              user.jogosFavoritos.map((jogo) => (
+            {listas[id].nome == "Favoritos" && (listas[id].nome == "Favoritos").length > 0 ? (
+              (listas[id].nome == "Favoritos").map((jogoid) => (
                 <Link
-                  key={jogo.id}
-                  to={`/jogo/${jogo.id}`} // Redireciona para pagina do jogo
+                  key={jogoid}
+                  to={`/jogo/${jogoid}`} // Redireciona para pagina do jogo
                   className="block"
                 >
-                  <img
-                    src={jogo.capa || "https://via.placeholder.com/100x150"}
-                    alt={`Capa de ${jogo.nome}`}
+                  <img // AQUI EU QUERO PODER USAR O CARROSEL QUE JA TEM PRONTO!
+                    src={dados[jogoid].capa || "https://via.placeholder.com/100x150"}
+                    alt={`Capa de ${dados[jogoid].nome}`}
                     className="w-20 h-28 rounded-lg shadow-md hover:shadow-lg transition"
                   />
-                  <p className="text-xs text-center mt-1 text-gray-600">{jogo.nome}</p>
+                  <p className="text-xs text-center mt-1 text-gray-600">{dados[jogoid].nome}</p>
                 </Link>
               ))
             ) : (

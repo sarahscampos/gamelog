@@ -256,7 +256,7 @@
 
   },
 
-  "listas": {
+  "listas": [{
     "0": [
     {
       "nome": "Favoritos",
@@ -268,12 +268,43 @@
     },
     {
       "nome": "Jogados",
+      "ids": ["1","0","1","4", "5"]
+    }
+    
+  ],
+  "1": [
+    {
+      "nome": "Favoritos",
+      "ids": ["1", "2", "4", "5"]
+    },
+    {
+      "nome": "Desejados",
+      "ids": ["3", "6", "0"]
+    },
+    {
+      "nome": "Jogados",
+      "ids": ["5","1","2","4"]
+    }
+    
+  ],
+  "2": [
+    {
+      "nome": "Favoritos",
+      "ids": ["6", "5"]
+    },
+    {
+      "nome": "Desejados",
+      "ids": ["4", "3", "2"]
+    },
+    {
+      "nome": "Jogados",
       "ids": ["4", "5"]
     }
     
   ]
-  },
-  "perfil": [{
+  }],
+  "perfil": [
+    {
     "id": 1,
     "nome": "pacooooo",
     "avatar": "https://via.placeholder.com/100",
@@ -283,15 +314,11 @@
     "amigos": 5,
     "localizacao": "Rio de Janeiro, RJ",
     "membroDesde": "10/10/24",
-    "jogosFavoritos": [
-      { "id": 0, "nome": "Mario Kart 8", "capa": "https://via.placeholder.com/100x150" },
-      { "id": 2, "nome": "The Legend of Zelda", "capa": "https://via.placeholder.com/100x150" }
-    ],
     "jogosAdicionados": 27,
     "completos": 15,
     "jogando": 4,
     "desejados": 8
-  },
+    },
     {
       "id": 2,
       "nome": "Ana Clara",
@@ -302,18 +329,6 @@
       "amigos": 130,
       "localizacao": "São Paulo, Brasil",
       "membroDesde": "2022",
-      "jogosFavoritos": [
-        {
-          "id": 4,
-          "nome": "The Witcher 3",
-          "capa": "https://via.placeholder.com/100"
-        },
-        {
-          "id": 5,
-          "nome": "Hollow Knight",
-          "capa": "https://via.placeholder.com/100"
-        }
-      ],
       "jogosAdicionados": 45,
       "completos": 30,
       "jogando": 5,
@@ -329,18 +344,6 @@
       "amigos": 80,
       "localizacao": "Rio de Janeiro, Brasil",
       "membroDesde": "2023",
-      "jogosFavoritos": [
-        {
-          "id": 7,
-          "nome": "Call of Duty",
-          "capa": "https://via.placeholder.com/100"
-        },
-        {
-          "id": 8,
-          "nome": "Valorant",
-          "capa": "https://via.placeholder.com/100"
-        }
-      ],
       "jogosAdicionados": 20,
       "completos": 10,
       "jogando": 7,
