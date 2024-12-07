@@ -15,10 +15,11 @@ const Listas = ({ listas, dados }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [novaListaNome, setNovaListaNome] = useState("");
 
-  function obtemJogos(index) {
-    const lista = listas[0][index]["ids"]
-      ? dados.filter((jogo) => listas[0][index]["ids"].includes(jogo.id))
+  function obtemJogos(index, novaLista) {
+    const lista = novaLista[index]["ids"]
+      ? dados.filter((jogo) => novaLista[index]["ids"].includes(jogo.id))
       : [];
+    return lista;
     return lista;
   }
 
