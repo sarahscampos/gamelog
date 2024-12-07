@@ -5,6 +5,8 @@ import { RiArrowGoBackFill } from "react-icons/ri";
 import { MdPlaylistAdd } from "react-icons/md";
 import { FaRankingStar } from "react-icons/fa6";
 import Loading from "../components/Loading"
+import { addJogoToList } from "../slices/listasSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 import Avaliacao from "../components/Avaliacao";
 
@@ -13,10 +15,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import {Helmet} from "react-helmet";
 import backgroundJogo from "../assets/img/backgroundJogo.png";
 
-const listas = ["Favoritos", "Desejados", "Jogados"];
 
-const Jogo = ({dados, avaliacaoInfo}) => {
+
+const Jogo = ({dados, avaliacaoInfo, listas}) => {
   const { id } = useParams();
+  const dispatch = useDispatch();
   const numericId = parseInt(id, 10);
   
   const navigate = useNavigate();
@@ -33,9 +36,16 @@ const Jogo = ({dados, avaliacaoInfo}) => {
   }
 
   const addToList = (list) => {
+
     setSelectedList(list);
-    toast.success(`${dados[numericId].nome} foi adicionado à lista ${list}!`)
-    closeModal();
+    dispatch(addJogoToList({ idJogo: id, idLista: list.id }))
+    .then(() => {
+      toast.success(`${dados[numericId].nome} foi adicionado à lista ${list.nome}!`);
+      closeModal();
+    })
+    .catch((error) => {
+      console.error("Erro ao adicionar o jogo à lista:", error);
+    });
   }
 
   if (!dados || !dados[numericId]) {
@@ -95,7 +105,7 @@ const Jogo = ({dados, avaliacaoInfo}) => {
               onClick={() => addToList(lista)}
               className="w-full px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-400"
             >
-              {lista}
+              {lista.nome}
             </button>
           </li>))}
         </ul>
@@ -149,8 +159,8 @@ const Jogo = ({dados, avaliacaoInfo}) => {
       <h2 className="text-2xl p-4 font-bold font-inter">Avaliações</h2>
     </section>
     <section className = "mx-auto my-5 px-10 text-left md:px-64">
-      { //PERGUNTAR PROFESSOR, GAMBIARRA?
-      avaliacaoInfo[id] ? (
+      { 
+      avaliacaoInfo[id].length ? (
         <Avaliacao dadosAvaliacao={avaliacaoInfo[id][0]} />
       ) : (
         <p>Não possui avaliações</p>
