@@ -12,6 +12,8 @@ import Codigo from "./pages/Codigo";
 import ScrollToTop from "./components/ScrollToTop";
 import Loading from "./components/Loading";
 import Forum from "./pages/Forum";
+import Cadastro from "./pages/Cadastro";
+import Login from "./pages/Login";
 
 import { useSelector, useDispatch } from "react-redux";
 import { fetchJogos } from "./slices/jogosSlice";
@@ -53,6 +55,8 @@ const AppRoutes = () => {
            <Route element = { <Suporte/>} path = "/suporte"/>
            <Route element = { <Codigo/>} path = "/codigo"/>
            <Route element = { <Forum dados = {jogos}/>} path = "/forum/:id"/>
+           <Route element = { <Cadastro/>} path = "/cadastro"/>;
+           <Route element = { <Login/> } path = "/login"/>;
         </Routes>
         <Footer />
        </BrowserRouter>

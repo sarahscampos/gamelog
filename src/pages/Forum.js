@@ -40,7 +40,7 @@ const Forum = ({dados}) => {
         </button>
         <div className="mt-6 space-y-4">
           {posts.map((post) => (
-            <Comentario key = {post.id} post = {post} usuario = {usuario}/>
+            <Comentario key = {post.id} post = {post}/>
           ))}
         </div>
       </div>

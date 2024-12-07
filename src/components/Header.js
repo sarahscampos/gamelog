@@ -4,6 +4,7 @@ import { IoLogInOutline} from "react-icons/io5";
 import { Link } from "react-router-dom";
 import logo from "../assets/img/logoGAMELOG2.svg";
 import BarraPesquisa from "./BarraPesquisa";
+import { useSelector } from 'react-redux';
 
 const navLinks = [
   {
@@ -11,16 +12,12 @@ const navLinks = [
     link: "/listas",
   },
   {
-    title: "Fórum",
-    link: "/",
-  },
-  {
     title: "Ranking",
     link: "/",
   },
   {
     title: "Login",
-    link: "/",
+    link: "/login",
     icon: <IoLogInOutline size={'1.4rem'} />,
   },
   
@@ -29,6 +26,8 @@ const navLinks = [
 
 export const Header = () => {
  //indigo-500
+
+ const user = useSelector((state) => state.cadastro.user);
 
  const [open, setOpen] = useState(false);
  const handleMenu = () => {
@@ -49,14 +48,37 @@ export const Header = () => {
             </div>
             
             <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-4">
-                {navLinks.map((link, index) => 
-                   (<Link key={index} to={link.link} className="inline-flex items-center gap-1 text-white transition-all duration-300 hover:bg-indigo-600 px-3 py-2 rounded-md text-md font-medium ">{link.title} {link.icon && <span>{link.icon}</span>}</Link>)
-                  )
-                }
-               
-              </div>
-            </div>
+  <div className="ml-10 flex items-baseline space-x-4">
+    {
+      user ? 
+      (
+        navLinks.slice(0, 2).map((link, index) => (
+          <Link
+            key={index}
+            to={link.link}
+            className="inline-flex items-center gap-1 text-white transition-all duration-300 hover:bg-indigo-600 px-3 py-2 rounded-md text-md font-medium"
+          >
+            {link.title} 
+            {link.icon && <span>{link.icon}</span>}
+          </Link>
+        ))
+      ) :
+      (
+        navLinks.map((link, index) => (
+          <Link
+            key={index}
+            to={link.link}
+            className="inline-flex items-center gap-1 text-white transition-all duration-300 hover:bg-indigo-600 px-3 py-2 rounded-md text-md font-medium"
+          >
+            {link.title} 
+            {link.icon && <span>{link.icon}</span>}
+          </Link>
+        ))
+      )
+    }
+  </div>
+</div>
+
 
             {/*menu hamburguer*/}
             <div className="-mr-2 flex md:hidden">
