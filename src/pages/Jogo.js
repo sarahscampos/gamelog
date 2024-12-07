@@ -5,6 +5,8 @@ import { RiArrowGoBackFill } from "react-icons/ri";
 import { MdPlaylistAdd } from "react-icons/md";
 import { FaRankingStar } from "react-icons/fa6";
 import Loading from "../components/Loading"
+import { addJogoToList } from "../slices/listasSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 import Avaliacao from "../components/Avaliacao";
 
@@ -17,6 +19,7 @@ import backgroundJogo from "../assets/img/backgroundJogo.png";
 
 const Jogo = ({dados, avaliacaoInfo, listas}) => {
   const { id } = useParams();
+  const dispatch = useDispatch();
   const numericId = parseInt(id, 10);
   
   const navigate = useNavigate();
@@ -33,9 +36,18 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
   }
 
   const addToList = (list) => {
+
     setSelectedList(list);
-    toast.success(`${dados[numericId].nome} foi adicionado à lista ${list.nome}!`)
-    closeModal();
+    console.log(list.id);
+    console.log("ENTRANDO NA FUNCAO");
+    dispatch(addJogoToList({ idJogo: id, idLista: list.id }))
+    .then(() => {
+      toast.success(`${dados[numericId].nome} foi adicionado à lista ${list.nome}!`);
+      closeModal();
+    })
+    .catch((error) => {
+      console.error("Erro ao adicionar o jogo à lista:", error);
+    });
   }
 
   if (!dados || !dados[numericId]) {
