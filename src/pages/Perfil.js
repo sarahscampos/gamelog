@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import Carrossel from '../components/Carrossel';
+import logo from "../assets/img/logoGAMELOG2.svg";
+import background from "../assets/img/backgroundJogo.png";
 
 // quero poder escolher quais listas vou mostrar no perfil
 // quero atualizar o perfil "teste" -> id 0 quando adicionar um jogo na lista, favoritos, etc.
@@ -10,10 +13,19 @@ const Perfil = ({listas, dados}) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  function obtemJogos(index){
+    const lista = listas && listas[index]["ids"]
+    ? dados.filter((jogo) => listas[index]["ids"].includes(jogo.id)) : [];
+    return lista;
+  }
+  const favIndex = listas.findIndex((lista) => lista.nome === "Favoritos");
+  const jogosFav = obtemJogos(favIndex);
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/perfil/${id}`);
+        //const response = await fetch(`http://localhost:3000/perfil/${id}`);
+        const response = await fetch(`http://localhost:3000/perfil/0`);
         if (!response.ok) {
           throw new Error("Erro ao carregar o perfil do usuário");
         }
@@ -88,33 +100,21 @@ const Perfil = ({listas, dados}) => {
             </div>
           </div>
         </div>
-
-        {/* Jogos Favoritos -> TROCAR PELOS DADOS DO listas[id] */}
+        </div>
+        
+        {/* AREA PRA LISTAS */}
+        {/* JOGOS FAVORITOS */}
         <div className="p-4">
           <h3 className="text-lg font-semibold">Jogos Favoritos ♥</h3>
-          <div className="flex flex-wrap gap-2 mt-2">
-            {listas[id].nome == "Favoritos" && (listas[id].nome == "Favoritos").length > 0 ? (
-              (listas[id].nome == "Favoritos").map((jogoid) => (
-                <Link
-                  key={jogoid}
-                  to={`/jogo/${jogoid}`} // Redireciona para pagina do jogo
-                  className="block"
-                >
-                  <img // AQUI EU QUERO PODER USAR O CARROSEL QUE JA TEM PRONTO!
-                    src={dados[jogoid].capa || "https://via.placeholder.com/100x150"}
-                    alt={`Capa de ${dados[jogoid].nome}`}
-                    className="w-20 h-28 rounded-lg shadow-md hover:shadow-lg transition"
-                  />
-                  <p className="text-xs text-center mt-1 text-gray-600">{dados[jogoid].nome}</p>
-                </Link>
-              ))
-            ) : (
-              <p className="text-gray-500">Nenhum jogo favorito.</p>
-            )}
-          </div>
+            <Carrossel jogos={jogosFav} />
         </div>
-      </div>
-    </div>
+        <h3 className="text-lg font-semibold">Minhas Listas Fixadas: </h3>
+        {/* LISTAS QUE O USUARIO DESEJAR MOSTRAR: */}
+        <div className="p-4">
+          <h3 className="text-lg font-semibold">{listas[1].nome}</h3>
+            <Carrossel jogos={obtemJogos(1)} />
+        </div>
+      </div>    
   );
 };
 
