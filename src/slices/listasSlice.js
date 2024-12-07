@@ -14,27 +14,25 @@ export const addLista = createAsyncThunk('listas/addLista', async (novaLista) =>
     throw new Error(`Erro ao obter listas: ${response.statusText}`);
   }
 
-  // const listas = await response.json();
-  const listas = useSelector((state) => state.listas.dados);
+  const data = await response.json();
 
 
-
-  const listasAtualizadas = [...listas, novaLista];
-
+  //const listasAtualizadas = [...listas, novaLista];
+  data.listas.push(novaLista);
  
   const patchResponse = await fetch('http://localhost:3000/listas/0', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(listasAtualizadas), 
+    body: JSON.stringify(data), 
   });
 
   if (!patchResponse.ok) {
     throw new Error(`Erro ao atualizar as listas: ${patchResponse.statusText}`);
   }
 
-  return listasAtualizadas;
+  return data.listas;
 });
 
 
