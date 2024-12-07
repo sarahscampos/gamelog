@@ -13,9 +13,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import {Helmet} from "react-helmet";
 import backgroundJogo from "../assets/img/backgroundJogo.png";
 
-const listas = ["Favoritos", "Desejados", "Jogados"];
 
-const Jogo = ({dados, avaliacaoInfo}) => {
+
+const Jogo = ({dados, avaliacaoInfo, listas}) => {
   const { id } = useParams();
   const numericId = parseInt(id, 10);
   
@@ -34,7 +34,7 @@ const Jogo = ({dados, avaliacaoInfo}) => {
 
   const addToList = (list) => {
     setSelectedList(list);
-    toast.success(`${dados[numericId].nome} foi adicionado à lista ${list}!`)
+    toast.success(`${dados[numericId].nome} foi adicionado à lista ${list.nome}!`)
     closeModal();
   }
 
@@ -90,12 +90,12 @@ const Jogo = ({dados, avaliacaoInfo}) => {
       >
         <h2 className="text-xl font-semibold mb-4">Escolha uma lista</h2>
         <ul className="space-y-4">
-          {listas.map((lista, index) => (<li key={index}>
+          {listas[0].map((lista, index) => (<li key={index}>
             <button
               onClick={() => addToList(lista)}
               className="w-full px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-400"
             >
-              {lista}
+              {lista.nome}
             </button>
           </li>))}
         </ul>
@@ -149,8 +149,8 @@ const Jogo = ({dados, avaliacaoInfo}) => {
       <h2 className="text-2xl p-4 font-bold font-inter">Avaliações</h2>
     </section>
     <section className = "mx-auto my-5 px-10 text-left md:px-64">
-      { //PERGUNTAR PROFESSOR, GAMBIARRA?
-      avaliacaoInfo[id] ? (
+      { 
+      avaliacaoInfo[id].length ? (
         <Avaliacao dadosAvaliacao={avaliacaoInfo[id][0]} />
       ) : (
         <p>Não possui avaliações</p>

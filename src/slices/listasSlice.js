@@ -1,10 +1,39 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const fetchListas = createAsyncThunk('listas/fetchListas', async () => {
-  const response = await fetch('http://localhost:3000/listas');
+  const response = await fetch('http://localhost:3000/listas/0');
   if (!response.ok) throw new Error('Erro ao carregar as listas');
   return response.json();
 });
+
+export const addLista = createAsyncThunk('listas/addLista', async (novaLista) => {
+
+  const response = await fetch('http://localhost:3000/listas/0');
+  if (!response.ok) {
+    throw new Error(`Erro ao obter listas: ${response.statusText}`);
+  }
+
+  const listas = await response.json();
+
+
+  const listasAtualizadas = [...listas[0], novaLista];
+
+ 
+  const patchResponse = await fetch('http://localhost:3000/listas', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ "0": listasAtualizadas }), 
+  });
+
+  if (!patchResponse.ok) {
+    throw new Error(`Erro ao atualizar as listas: ${patchResponse.statusText}`);
+  }
+
+  return listasAtualizadas;
+});
+
 
 const listasSlice = createSlice({
   name: 'listas',
@@ -26,6 +55,9 @@ const listasSlice = createSlice({
       .addCase(fetchListas.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
+      })
+      .addCase(addLista.fulfilled, (state, action) => {
+        state.dados = action.payload; // Atualiza apenas o array "0"
       });
   },
 });
