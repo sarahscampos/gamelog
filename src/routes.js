@@ -54,7 +54,7 @@ const AppRoutes = () => {
            <Route element = { <Suporte/>} path = "/suporte"/>
            <Route element = { <Codigo/>} path = "/codigo"/>
            <Route element = { <Forum dados = {jogos}/>} path = "/forum/:id"/>
-           <Route element={<Perfil />} path="/perfil/:id"/>
+           <Route element = { <Perfil dados={jogos} listas={listas.listas} />} path = "/perfil/:id"/>
         </Routes>
         <Footer />
       </BrowserRouter>

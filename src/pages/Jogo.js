@@ -38,8 +38,6 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
   const addToList = (list) => {
 
     setSelectedList(list);
-    console.log(list.id);
-    console.log("ENTRANDO NA FUNCAO");
     dispatch(addJogoToList({ idJogo: id, idLista: list.id }))
     .then(() => {
       toast.success(`${dados[numericId].nome} foi adicionado à lista ${list.nome}!`);
