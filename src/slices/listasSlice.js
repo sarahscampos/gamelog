@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { useDispatch, useSelector } from "react-redux";
 
 export const fetchListas = createAsyncThunk('listas/fetchListas', async () => {
   const response = await fetch('http://localhost:3000/listas/0');
@@ -13,18 +14,20 @@ export const addLista = createAsyncThunk('listas/addLista', async (novaLista) =>
     throw new Error(`Erro ao obter listas: ${response.statusText}`);
   }
 
-  const listas = await response.json();
+  // const listas = await response.json();
+  const listas = useSelector((state) => state.listas.dados);
 
 
-  const listasAtualizadas = [...listas[0], novaLista];
+
+  const listasAtualizadas = [...listas, novaLista];
 
  
-  const patchResponse = await fetch('http://localhost:3000/listas', {
-    method: 'PATCH',
+  const patchResponse = await fetch('http://localhost:3000/listas/0', {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ "0": listasAtualizadas }), 
+    body: JSON.stringify(listasAtualizadas), 
   });
 
   if (!patchResponse.ok) {
