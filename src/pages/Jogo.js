@@ -90,7 +90,7 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
       >
         <h2 className="text-xl font-semibold mb-4">Escolha uma lista</h2>
         <ul className="space-y-4">
-          {listas[0].map((lista, index) => (<li key={index}>
+          {listas.map((lista, index) => (<li key={index}>
             <button
               onClick={() => addToList(lista)}
               className="w-full px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-400"
