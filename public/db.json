@@ -284,10 +284,7 @@
           "ids": [
             "0",
             "1",
-            "0",
-            "0",
-            "0",
-            "0"
+            "2"
           ]
         },
         {
@@ -295,8 +292,7 @@
           "nome": "Desejados",
           "ids": [
             "2",
-            "3",
-            "0"
+            "3"
           ]
         },
         {
@@ -310,7 +306,6 @@
           "id": 3,
           "nome": "top20",
           "ids": [
-            "0",
             "0"
           ]
         },
@@ -320,18 +315,6 @@
           "ids": [
             "0"
           ]
-        },
-        {
-          "id": 5,
-          "nome": "teste2",
-          "ids": [
-            "0",
-            "0"
-          ]
-        },
-        {
-          "nome": "jgkpaco",
-          "ids": []
         }
       ]
     },
@@ -363,7 +346,8 @@
       "jogosAdicionados": 0,
       "completos": 0,
       "jogando": 0,
-      "desejados": 0
+      "desejados": 0,
+      "listasFixadas": [3]
     },
     {
       "id": "1",
@@ -378,7 +362,8 @@
       "jogosAdicionados": 27,
       "completos": 15,
       "jogando": 4,
-      "desejados": 8
+      "desejados": 8,
+      "listasFixadas": [1]
     },
     {
       "id": "2",
@@ -393,7 +378,8 @@
       "jogosAdicionados": 45,
       "completos": 30,
       "jogando": 5,
-      "desejados": 10
+      "desejados": 10,
+      "listasFixadas": [0,2]
     },
     {
       "id": "3",
@@ -408,7 +394,8 @@
       "jogosAdicionados": 20,
       "completos": 10,
       "jogando": 7,
-      "desejados": 3
+      "desejados": 3,
+      "listasFixadas": [1,3]
     }
   ]
 }

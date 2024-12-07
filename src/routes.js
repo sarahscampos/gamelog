@@ -47,7 +47,7 @@ const AppRoutes = () => {
        <Header/>
         <Routes>
            <Route element = { <Home dados={jogos}/> }  path="/" exact />
-           <Route element = { <Jogo dados={jogos} avaliacaoInfo={avaliacoes}/> }  path="/jogo/:id" />
+           <Route element = { <Jogo dados={jogos} avaliacaoInfo={avaliacoes} listas={listas.listas}/> }  path="/jogo/:id" />
            <Route element = { <Avaliacoes avaliacoes={avaliacoes}/> }  path="/avaliacoes/:id" />
            <Route element = { <Listas listas={listas.listas} dados={jogos} /> }  path="/listas" />
            <Route element = { <Lista listas={listas.listas} dados={jogos} /> }  path="/lista/:id" />
