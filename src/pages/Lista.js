@@ -12,8 +12,8 @@ const Lista = ({listas, dados}) => {
 
 
   function obtemJogos(index) {
-    const lista = listas[0] && listas[0][index]["ids"]
-      ? dados.filter((jogo) => listas[0][index]["ids"].includes(jogo.id))
+    const lista = listas && listas[index]["ids"]
+      ? dados.filter((jogo) => listas[index]["ids"].includes(jogo.id))
       : [];
       return lista; 
   }
@@ -28,16 +28,16 @@ const Lista = ({listas, dados}) => {
           Voltar
         </button>
     {
-      listas[0] ? ( //tem algum jeito melhor de fazer essas verificações?
+      listas ? ( //tem algum jeito melhor de fazer essas verificações?
 
         <div className="mt-16">
            
               <div key={id} className="flex flex-col">
                 <h2  className="text-2xl font-bold font-inter flex items-center gap-5">
-                  {listas[0] ? listas[0][id]['nome'] : ''}
+                  {listas ? listas[id]['nome'] : ''}
                   <Helmet>
                     <meta charSet="utf-8" />
-                    <title>{`Lista | ${listas[0][id]['nome']}`}</title>
+                    <title>{`Lista | ${listas[id]['nome']}`}</title>
                     <link rel="canonical" href="http://mysite.com/example" />
                     <meta name="description" content="Página de jogo" />
                   </Helmet>
