@@ -49,8 +49,8 @@ const AppRoutes = () => {
            <Route element = { <Home dados={jogos}/> }  path="/" exact />
            <Route element = { <Jogo dados={jogos} avaliacaoInfo={avaliacoes} listas={listas}/> }  path="/jogo/:id" />
            <Route element = { <Avaliacoes avaliacoes={avaliacoes}/> }  path="/avaliacoes/:id" />
-           <Route element = { <Listas listas={listas} dados={jogos} /> }  path="/listas" />
-           <Route element = { <Lista listas={listas} dados={jogos} /> }  path="/lista/:id" />
+           <Route element = { <Listas listas={listas.listas} dados={jogos} /> }  path="/listas" />
+           <Route element = { <Lista listas={listas.listas} dados={jogos} /> }  path="/lista/:id" />
            <Route element = { <Suporte/>} path = "/suporte"/>
            <Route element = { <Codigo/>} path = "/codigo"/>
            <Route element = { <Forum dados = {jogos}/>} path = "/forum/:id"/>

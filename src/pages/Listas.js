@@ -16,10 +16,9 @@ const Listas = ({ listas, dados }) => {
   const [novaListaNome, setNovaListaNome] = useState("");
 
   function obtemJogos(index, novaLista) {
-    const lista = novaLista[index]["ids"]
-      ? dados.filter((jogo) => novaLista[index]["ids"].includes(jogo.id))
+    const lista = listas[index]["ids"]
+      ? dados.filter((jogo) => listas[index]["ids"].includes(jogo.id))
       : [];
-    return lista;
     return lista;
   }
 
@@ -39,6 +38,7 @@ const Listas = ({ listas, dados }) => {
     if (novaListaNome.trim()) {
       
       const novaLista = {
+        id: listas.length,
         nome: novaListaNome, 
         ids: [], 
       };
@@ -115,8 +115,8 @@ const Listas = ({ listas, dados }) => {
 
       <section className="ml-5 mr-5">
         <div className="mt-16">
-          {listas[0] && listas[0].length > 0 ? (
-            listas[0].map((item, index) => {
+          {listas && listas.length > 0 ? (
+            listas.map((item, index) => {
               const jogosLista = obtemJogos(index);
               return (
                 <div key={index} className="flex flex-col">
