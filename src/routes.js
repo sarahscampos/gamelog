@@ -13,6 +13,7 @@ import Codigo from "./pages/Codigo";
 import ScrollToTop from "./components/ScrollToTop";
 import Loading from "./components/Loading";
 import Forum from "./pages/Forum";
+import Ranking from "./pages/Ranking";
 
 import { useSelector, useDispatch } from "react-redux";
 import { fetchJogos } from "./slices/jogosSlice";
@@ -55,6 +56,7 @@ const AppRoutes = () => {
            <Route element = { <Codigo/>} path = "/codigo"/>
            <Route element = { <Forum dados = {jogos}/>} path = "/forum/:id"/>
            <Route element = { <Perfil dados={jogos} listas={listas.listas} />} path = "/perfil/:id"/>
+           <Route element = { <Ranking/>} path="/Ranking/"/>
         </Routes>
         <Footer />
       </BrowserRouter>
