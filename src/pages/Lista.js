@@ -1,8 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import Carrossel from '../components/Carrossel';
-import { FaArrowCircleRight } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import {Helmet} from "react-helmet";
 
@@ -11,11 +9,11 @@ const Lista = ({listas, dados}) => {
   const navigate = useNavigate();
 
 
-  function obtemJogos(index) {
-    const lista = listas && listas[index]["ids"]
-      ? dados.filter((jogo) => listas[index]["ids"].includes(jogo.id))
+  function obtemJogos(index){
+    const lista = listas && listas[index] && listas[index].ids
+      ? dados.filter((jogo) => listas[index].ids.includes(jogo.id))
       : [];
-      return lista; 
+    return lista;
   }
   const jogosLista = obtemJogos(id); 
 

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import Carrossel from "../components/Carrossel";
 import { FaArrowCircleRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addLista } from "../slices/listasSlice";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Modal from "react-modal";
 import { MdAddCircleOutline } from "react-icons/md";
@@ -15,9 +15,9 @@ const Listas = ({ listas, dados }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [novaListaNome, setNovaListaNome] = useState("");
 
-  function obtemJogos(index) {
-    const lista = listas[index]["ids"]
-      ? dados.filter((jogo) => listas[index]["ids"].includes(jogo.id))
+  function obtemJogos(index){
+    const lista = listas && listas[index] && listas[index].ids
+      ? dados.filter((jogo) => listas[index].ids.includes(jogo.id))
       : [];
     return lista;
   }
