@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { useDispatch, useSelector } from "react-redux";
 
 export const fetchListas = createAsyncThunk('listas/fetchListas', async () => {
   const response = await fetch('http://localhost:3000/listas/0');
@@ -52,7 +51,6 @@ export const addJogoToList = createAsyncThunk('listas/addJogo', async ({ idJogo,
   }
 
   if(data.listas.ids.findIndex((jogo) => jogo.id === idJogo)){
-    // ja ta na lista
     throw new Error(`Jogo com id ${idJogo} já está na lista: ${data.listas[idLista].nome}`);
   }
   data.listas[index].ids.push(idJogo);

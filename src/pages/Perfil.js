@@ -9,17 +9,13 @@ import { useDispatch } from "react-redux";
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { MdPlaylistAdd } from "react-icons/md";
 
-// quero poder escolher quais listas vou mostrar no perfil
-// quero atualizar o perfil "teste" -> id 0 quando adicionar um jogo na lista, favoritos, etc.
-// quero poder editar o perfil ao vivo ( mudar o db de alguma forma igual o joao! )
-
 const Perfil = ({listas, dados}) => {
   const { id } = useParams(); // Captura o ID do usuário na URL
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedList, setSelectedList] = useState("");
+
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -30,8 +26,9 @@ const Perfil = ({listas, dados}) => {
   }
 
   function obtemJogos(index){
-    const lista = listas && listas[index]["ids"]
-    ? dados.filter((jogo) => listas[index]["ids"].includes(jogo.id)) : [];
+    const lista = listas && listas[index] && listas[index].ids
+      ? dados.filter((jogo) => listas[index].ids.includes(jogo.id))
+      : [];
     return lista;
   }
   const favIndex = listas.findIndex((lista) => lista.nome === "Favoritos");
@@ -57,41 +54,41 @@ const Perfil = ({listas, dados}) => {
     fetchUser();
   }, [id]);
   
-  // id do perfil tbm
-  const addListaPerfil = createAsyncThunk('perfil/fixaLista', async ({ idLista }) => {  
-
-    const index = user.listasFixadas.findIndex((lista) => lista.id === idLista);
-    
-    // user.listasFixadas
-    if(user.listasFixadas.findIndex((listaFixada) => listaFixada === idLista)){
-      // ja ta na lista
-      throw new Error(`Lista ${listas[idLista].nome} já está fixada no Perfil!`);
-    }
-    user.listasFixadas[idLista].push(idLista);
-   
-    const patchResponse = await fetch('http://localhost:3000/perfil/0/listasFixadas', {
+  const addListaPerfil = createAsyncThunk('perfil/fixaLista', async ({ updatedUserData }) => {
+    const response = await fetch('http://localhost:3000/perfil/0', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(idLista), 
-    })
-    if (!patchResponse.ok) {
-      throw new Error(`Erro ao atualizar as listas: ${patchResponse.statusText}`);
+      body: JSON.stringify(updatedUserData), // Envia o perfil completo com a lista fixada
+    });
+  
+    if (!response.ok) {
+      throw new Error(`Erro ao atualizar as listas: ${response.statusText}`);
     }
   
-    return user.listaFixada;
+    const updatedUser = await response.json();  // Pega o usuário atualizado
+    return updatedUser;  // Retorna o perfil atualizado
   });
 
   const fixaLista = (lista) =>{
-    setSelectedList(lista);
-    dispatch(addListaPerfil(lista.id))
+    // Criação de uma cópia do array listasFixadasIds e adicionando o ID da nova lista
+    const updatedListasFixadasIds = [...user.listasFixadasIds, lista.id];
+
+    // Mantendo os outros dados do usuário intactos e atualizando apenas o campo 'listasFixadasIds'
+    const updatedUserData = {
+      ...user, // Mantém todas as outras informações do usuário
+      listasFixadasIds: updatedListasFixadasIds, // Atualiza apenas as listas fixadas
+    };
+
+    dispatch(addListaPerfil({ updatedUserData }))
     .then(() => {
-      toast.success(`${lista.nome} foi fixada no perfil!`);
+      toast.success(`A lista ${lista.nome} foi fixada no perfil!`);
       closeModal();
     })
     .catch((error) => {
       console.error("Erro ao adicionar o jogo à lista:", error);
+      toast.error("Erro ao fixar a lista no perfil.");
     });
   }
 
@@ -110,33 +107,7 @@ const Perfil = ({listas, dados}) => {
       </div>
     );
   }
-  {/* modal para fixar a lista no perfil do usuario*/}
-      <Modal
-      ariaHideApp={false} 
-      isOpen={isModalOpen}
-      onRequestClose={closeModal}
-      contentLabel="Escolha a Lista"
-      className="bg-white p-6 rounded-lg w-96"
-      overlayClassName="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50"
-      >
-      <h2 className="text-xl font-semibold mb-4">Escolha uma lista</h2>
-      <ul className="space-y-4">
-        {listas.map((lista, index) => (<li key={index}>
-          <button
-            onClick={() => addListaPerfil(lista)}
-            className="w-full px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-400"
-          >
-            {lista.nome}
-          </button>
-        </li>))}
-      </ul>
-      <button
-        onClick={closeModal}
-        className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-400"
-      >
-        Fechar
-      </button>
-      </Modal>
+  
   return (
     
     <div style={{backgroundImage: `url(${background})`}} className="p-10">
@@ -183,9 +154,7 @@ const Perfil = ({listas, dados}) => {
         </div>
         </div>
           
-        
-        {/* AREA PRA LISTAS */}
-        {/* JOGOS FAVORITOS */}
+        {/* AREA PRA LISTAS! - JOGOS FAVORITOS */}
         <div className="text-center p-4">
         <div className="flex justify-between items-center p-4 bg-blue-500 text-white">
           <h3 className="text-lg font-semibold">Jogos Favoritos ♥</h3>
@@ -207,13 +176,56 @@ const Perfil = ({listas, dados}) => {
         <div className="flex justify-between items-center p-4 bg-blue-500 text-white">
           <h3 className="text-lg font-semibold">Minhas Listas Fixadas: </h3>
         </div>
-        <div className="flex justify-between items-center p-4 bg-blue-500 text-white">
-          <h3 className="text-lg font-semibold">• {listas[1].nome}</h3>
-        </div>
 
-        <div className="bg-white shadow-xl rounded-lg overflow-hidden">
-          <Carrossel jogos={obtemJogos(1)} />
-        </div>
+        {/* modal para fixar a lista no perfil do usuario*/}
+        <Modal
+          ariaHideApp={false} 
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          contentLabel="Escolha a Lista"
+          className="bg-white p-6 rounded-lg w-96"
+          overlayClassName="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50"
+          >
+            <h2 className="text-xl font-semibold mb-4">Escolha uma lista para fixar no Perfil</h2>
+            <ul className="space-y-4">
+            {listas && listas.length > 0 && listas.map((lista, index) => (
+              <li key={index}>
+                <button
+                  onClick={() => fixaLista(lista, index)}
+                  className="w-full px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-400"
+                >
+                  {lista.nome}
+                </button>
+              </li>
+            ))}
+            </ul>
+          <button
+            onClick={closeModal}
+            className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-400"
+          >
+            Fechar
+          </button>
+        </Modal>
+
+        {/*printando as listas*/}
+        {/* No listas fixadas tenho IDs MAS preciso de INDEX na LISTAS.*/}
+        {user.listasFixadasIds && user.listasFixadasIds.length > 0 && user.listasFixadasIds.map((idLista) => {
+          const index = listas.findIndex((lista) => lista.id === idLista);
+          return (
+            <div key={idLista} className="mb-4">
+              {/* Cabeçalho da lista */}
+              <div className="flex justify-between items-center p-4 bg-blue-500 text-white">
+                <h3 className="text-lg font-semibold">• {listas[index]?.nome || "Nome da Lista Indisponível"}</h3>
+              </div>
+
+              {/* Carrossel com os jogos */}
+              <div className="bg-white shadow-xl rounded-lg overflow-hidden">
+                <Carrossel jogos={obtemJogos(index)} />
+              </div>
+            </div>
+          );
+        })}
+
         </div>
       </div>
   );
