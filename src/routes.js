@@ -15,6 +15,7 @@ import Loading from "./components/Loading";
 import Forum from "./pages/Forum";
 import Cadastro from "./pages/Cadastro";
 import Login from "./pages/Login";
+import Ranking from "./pages/Ranking";
 
 import { useSelector, useDispatch } from "react-redux";
 import { fetchJogos } from "./slices/jogosSlice";
@@ -49,19 +50,18 @@ const AppRoutes = () => {
        <Header/>
         <Routes>
            <Route element = { <Home dados={jogos}/> }  path="/" exact />
-           <Route element = { <Jogo dados={jogos} avaliacaoInfo={avaliacoes}/> }  path="/jogo/:id" />
+           <Route element = { <Jogo dados={jogos} avaliacaoInfo={avaliacoes} listas={listas.listas}/> }  path="/jogo/:id" />
            <Route element = { <Avaliacoes avaliacoes={avaliacoes}/> }  path="/avaliacoes/:id" />
-           <Route element = { <Listas listas={listas} dados={jogos} /> }  path="/listas" />
-           <Route element = { <Lista listas={listas} dados={jogos} /> }  path="/lista/:id" />
+           <Route element = { <Listas listas={listas.listas} dados={jogos} /> }  path="/listas" />
+           <Route element = { <Lista listas={listas.listas} dados={jogos} /> }  path="/lista/:id" />
            <Route element = { <Suporte/>} path = "/suporte"/>
            <Route element = { <Codigo/>} path = "/codigo"/>
            <Route element = { <Forum dados = {jogos}/>} path = "/forum/:id"/>
-<<<<<<< HEAD
            <Route element = { <Cadastro/>} path = "/cadastro"/>;
            <Route element = { <Login/> } path = "/login"/>;
-=======
            <Route element={<Perfil />} path="/perfil/:id"/>
->>>>>>> c523eaf414d51b4c6620a3eda660f82efe730ea3
+           <Route element = { <Perfil dados={jogos} listas={listas.listas} />} path = "/perfil/:id"/>
+           <Route element = { <Ranking/>} path="/Ranking/"/>
         </Routes>
         <Footer />
       </BrowserRouter>
