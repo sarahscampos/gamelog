@@ -16,7 +16,7 @@ const navLinks = [
   },
   {
     title: "Ranking",
-    link: "/",
+    link: "/Ranking",
   },
   {
     title: "Login",
