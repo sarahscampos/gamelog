@@ -59,7 +59,6 @@ const AppRoutes = () => {
            <Route element = { <Forum dados = {jogos}/>} path = "/forum/:id"/>
            <Route element = { <Cadastro/>} path = "/cadastro"/>;
            <Route element = { <Login/> } path = "/login"/>;
-           <Route element={<Perfil />} path="/perfil/:id"/>
            <Route element = { <Perfil dados={jogos} listas={listas.listas} />} path = "/perfil/:id"/>
            <Route element = { <Ranking/>} path="/Ranking/"/>
         </Routes>
