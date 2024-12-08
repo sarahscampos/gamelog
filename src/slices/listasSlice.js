@@ -50,8 +50,8 @@ export const addJogoToList = createAsyncThunk('listas/addJogo', async ({ idJogo,
     throw new Error(`lista com id: ${idLista} não existe`);
   }
 
-  if(data.listas.ids.findIndex((jogo) => jogo.id === idJogo)){
-    throw new Error(`Jogo com id ${idJogo} já está na lista: ${data.listas[idLista].nome}`);
+  if(data.listas[index].ids.findIndex((jogo) => jogo.id === idJogo) != -1){
+    throw new Error(`Jogo com id ${idJogo} já está na lista: ${data.listas[index].nome}`);
   }
   data.listas[index].ids.push(idJogo);
  

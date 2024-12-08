@@ -315,6 +315,22 @@
           "ids": [
             "0"
           ]
+        },
+        {
+          "id": 5,
+          "nome": "novaLista",
+          "ids": [
+            "0",
+            "1"
+          ]
+        },
+        {
+          "id": 6,
+          "nome": "novalista2",
+          "ids": [
+            "1",
+            "0"
+          ]
         }
       ]
     },
@@ -349,7 +365,9 @@
       "desejados": 0,
       "listasFixadasIds": [
         3,
-        2
+        2,
+        4,
+        0
       ]
     },
     {

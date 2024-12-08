@@ -3,6 +3,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { IoLogInOutline} from "react-icons/io5";
 import { Link } from "react-router-dom";
 import logo from "../assets/img/logoGAMELOG2.svg";
+import { useSelector } from "react-redux";
 
 const navLinks = [
   {
