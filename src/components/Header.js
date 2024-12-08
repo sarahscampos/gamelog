@@ -3,27 +3,26 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { IoLogInOutline} from "react-icons/io5";
 import { Link } from "react-router-dom";
 import logo from "../assets/img/logoGAMELOG2.svg";
-import BarraPesquisa from "./BarraPesquisa";
-import { useSelector } from 'react-redux';
 
 const navLinks = [
+  {
+    title: "Perfil",
+    link: "/perfil/0",
+  },
   {
     title: "Listas",
     link: "/listas",
   },
   {
     title: "Ranking",
-    link: "/",
+    link: "/Ranking",
   },
   {
     title: "Login",
     link: "/login",
     icon: <IoLogInOutline size={'1.4rem'} />,
   },
-  {
-    title: "Perfil",
-    link: "/perfil/1",
-  },
+
   {/*so por enquanto*/}
 ]
 
