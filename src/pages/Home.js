@@ -7,12 +7,33 @@ import logo from "../assets/img/logoGAMELOG2.svg";
 
 import "react-multi-carousel/lib/styles.css";
 import {Helmet} from "react-helmet";
+import { useSelector } from 'react-redux';
 
+const UserInfo = ({ user }) => {
+  return (
+    <div className="p-4">
+      {user ? (
+        <p>Bem-vindo, {user.nome}!</p>
+      ) : (
+        <div className="flex flex-col items-center gap-4">
+          <p className="text-center underline decoration-solid font-bold">Novo por aqui?</p>
+          <Link to="/cadastro" className="bg-indigo-600 p-3 rounded-md font-inter font-bold hover:bg-indigo-700 transition-all duration-300">
+            Cadastre-se
+          </Link>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export const Home = ({dados}) => {
 
+  const user = useSelector((state) => state.cadastro.user);
+
+
+
   const navigate = useNavigate();
-  
+
   return (
     <>
     <Helmet>
@@ -33,8 +54,7 @@ export const Home = ({dados}) => {
 
       <div className='flex flex-col items-center gap-4'>
         <p className='text-center'>Conecte-se, organize seus jogos e compartilhe suas experiências com a comunidade gamer.</p>
-        <p className='text-center underline decoration-solid font-bold'>Novo por aqui?</p>
-        <Link to="/cadastro" className='bg-indigo-600 p-3 rounded-md font-inter font-bold hover:bg-indigo-700 transition-all duration-300'>Cadastre-se</Link>
+        <UserInfo user={user} />
       </div>
 
     </section>
