@@ -16,7 +16,7 @@ const Avaliacoes = ({avaliacoes}) => {
           <link rel="canonical" href="http://mysite.com/example" />
           <meta name="description" content="Avaliações do jogo" />
         </Helmet>
-        <button onClick={() => navigate(-1)} /*bug de não ter pagina anterior?*/className="items-center gap-1 inline-flex px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white hover:bg-cyan-600 font-inter mt-5 ml-5 transition-all duration-300">
+        <button onClick={() => navigate(-1)} className="items-center gap-1 inline-flex px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white hover:bg-cyan-600 font-inter mt-5 ml-5 transition-all duration-300">
           <RiArrowGoBackFill />
           Voltar
         </button>
@@ -24,7 +24,8 @@ const Avaliacoes = ({avaliacoes}) => {
           <h2 className="text-2xl p-4 font-bold font-inter">Avaliações</h2>
           
           {avaliacoes[id] ? avaliacoes[id].map((avaliacao, index) => ( //PERGUNTAR PROFESSOR, GAMBIARRA?
-            <Avaliacao key={index} dadosAvaliacao={avaliacao} />
+            /*TROCAR USERID DPS PELO REAL*/
+            <Avaliacao key={index} dadosAvaliacao={avaliacao}/>
           )) : ''}
       
         </section>

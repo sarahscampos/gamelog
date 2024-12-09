@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Carrossel from '../components/Carrossel';
 import background from "../assets/img/backgroundJogo.png";
 import Modal from "react-modal"

@@ -167,12 +167,6 @@
         "nota": 8,
         "comentario": "Ótimo, mas acho que poderia ser mais desafiador em certas partes.",
         "imgSrc": "https://images.squarespace-cdn.com/content/v1/58d66569b3db2b57ce7db1e2/1694545656330-WG7I8ILCYMHJ436XZGA9/ganon+zoom+1.jpg"
-      },
-      {
-        "usuario": "Usuario",
-        "nota": 9,
-        "comentario": "bao dmaize",
-        "imgSrc": ""
       }
     ],
     "3": [
@@ -193,12 +187,6 @@
         "nota": 9,
         "comentario": "Adorei! Mas poderia ter mais missões secundárias interessantes.",
         "imgSrc": "https://oyster.ignimgs.com/mediawiki/apis.ign.com/red-dead-redemption-2/7/7c/ThHAP39JQI.jpg"
-      },
-      {
-        "usuario": "Usuario",
-        "nota": 8,
-        "comentario": "jogo bao",
-        "imgSrc": ""
       }
     ],
     "4": [
@@ -259,14 +247,6 @@
         "nota": 8,
         "comentario": "Belo design, mas não é muito acessível para iniciantes.",
         "imgSrc": "https://cdn.awsli.com.br/2657/2657807/produto/270496847/photo_5094015974415379628_x-4ucvc1908c.jpg"
-      }
-    ]
-  },
-  "usuarios": {
-    "0": [
-      {
-        "nome": "Grimm",
-        "avatar": "https://cdn.awsli.com.br/2657/2657807/produto/270496847/photo_5094015974415379628_x-4ucvc1908c.jpg"
       }
     ]
   },

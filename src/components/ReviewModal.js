@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { closeModal, setRating, setComment } from "../slices/reviewSlice";
+import { useDispatch} from "react-redux";
 import { addAvaliacoes } from "../slices/avaliacoesSlice";
-import Avaliacao from "./Avaliacao";
 
 const GameReviewModal = ({id,close}) => {
   const dispatch = useDispatch();
@@ -16,8 +14,8 @@ const GameReviewModal = ({id,close}) => {
       alert("Por favor, insira uma nota valida antes de enviar.");
       return;
     }
-
-    dispatch(addAvaliacoes({avaliacaoId:id, avaliacaoReview: newAvaliacao, avaliacaoNum : newAvaliacaoNota}))
+    {/*trocar userid 0 pelo real*/}
+    dispatch(addAvaliacoes({userId: 0, avaliacaoId:id, avaliacaoReview: newAvaliacao, avaliacaoNum : newAvaliacaoNota}))
     .then(() => {
       close();
     });
