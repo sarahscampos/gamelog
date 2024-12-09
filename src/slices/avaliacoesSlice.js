@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import React, { useState, useEffect } from 'react';
 
 export const fetchAvaliacoes = createAsyncThunk('avaliacoes/fetchAvaliacoes', async () => {
   const response = await fetch('http://localhost:3000/avaliacoes');
@@ -8,29 +7,6 @@ export const fetchAvaliacoes = createAsyncThunk('avaliacoes/fetchAvaliacoes', as
 });
 
 export const addAvaliacoes = createAsyncThunk('Avaliacoes/addAvaliacoes', async ({userId, avaliacaoId, avaliacaoNum, avaliacaoReview}) => {
-  const [user, setUser] = useState(null);
-  
-  {/* pegando o usuario */}
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await fetch(`http://localhost:3000/perfil/${userId}`);
-        if (!response.ok) {
-          throw new Error("Erro ao carregar o perfil do usuário");
-        }
-        const dataUser = await response.json();
-        setUser(dataUser);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchUser();
-  }, [userId]); // reexecutar o fetch se mudar
-
-  if (!user) {
-    return <div>Carregando...</div>;
-  }
 
   const response = await fetch('http://localhost:3000/avaliacoes');
   if (!response.ok) {
@@ -39,7 +15,7 @@ export const addAvaliacoes = createAsyncThunk('Avaliacoes/addAvaliacoes', async 
 
   const data = await response.json();
 
-  const avaliacao = {"usuario": userId, "nota": avaliacaoNum, "comentario": avaliacaoReview, "imgSrc": ""};
+  const avaliacao = {"usuario": userId, "nota": avaliacaoNum, "comentario": avaliacaoReview};
 
   const avaliacoesDoJogo = data[avaliacaoId] || [];
   const indexExistente = avaliacoesDoJogo.findIndex(avaliacao => avaliacao.usuario === userId);
