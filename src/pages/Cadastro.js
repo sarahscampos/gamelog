@@ -1,66 +1,46 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { saveUser } from '../slices/cadastroSlice';
 import { useNavigate } from 'react-router-dom';
 
-const Cadastro = () => {
-  const [formData, setFormData] = useState({
-    nome: '',
-    email: '',
-    senha: '',
-  });
+// Esquema de validação com Yup
+const schema = yup.object().shape({
+  nome: yup.string().required('O nome é obrigatório.'),
+  email: yup
+    .string()
+    .email('Insira um email válido.')
+    .required('O email é obrigatório.'),
+  senha: yup
+    .string()
+    .min(6, 'A senha deve ter pelo menos 6 caracteres.')
+    .required('A senha é obrigatória.'),
+});
 
-  const [errors, setErrors] = useState({});
+const Cadastro = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema), // Conecta o Yup ao React Hook Form
+  });
 
-  const validateForm = () => {
-    const newErrors = {};
-
-    // Validação do nome
-    if (!formData.nome.trim()) {
-      newErrors.nome = 'O nome é obrigatório.';
-    }
-
-    // Validação do email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.email.trim()) {
-      newErrors.email = 'O email é obrigatório.';
-    } else if (!emailRegex.test(formData.email)) {
-      newErrors.email = 'Insira um email válido.';
-    }
-
-    // Validação da senha
-    if (!formData.senha.trim()) {
-      newErrors.senha = 'A senha é obrigatória.';
-    } else if (formData.senha.length < 6) {
-      newErrors.senha = 'A senha deve ter pelo menos 6 caracteres.';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Retorna true se não houver erros
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (validateForm()) {
-      dispatch(saveUser(formData));
-      alert('Cadastro realizado com sucesso!');
-      navigate('/');
-      setErrors({}); // Limpa os erros
-    }
+  const onSubmit = (data) => {
+    dispatch(saveUser(data)); // Salva os dados do usuário no Redux
+    alert('Cadastro realizado com sucesso!');
+    navigate('/');
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         className="bg-white p-8 rounded shadow-md w-96"
       >
         <h2 className="text-2xl font-bold mb-6 text-center">Cadastro</h2>
@@ -76,15 +56,13 @@ const Cadastro = () => {
           <input
             type="text"
             id="nome"
-            name="nome"
-            value={formData.nome}
-            onChange={handleChange}
+            {...register('nome')}
             className={`mt-1 block w-full px-4 py-2 border ${
               errors.nome ? 'border-red-500' : 'border-gray-300'
             } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
           />
           {errors.nome && (
-            <p className="text-red-500 text-sm mt-1">{errors.nome}</p>
+            <p className="text-red-500 text-sm mt-1">{errors.nome.message}</p>
           )}
         </div>
 
@@ -99,15 +77,13 @@ const Cadastro = () => {
           <input
             type="email"
             id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
+            {...register('email')}
             className={`mt-1 block w-full px-4 py-2 border ${
               errors.email ? 'border-red-500' : 'border-gray-300'
             } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
           />
           {errors.email && (
-            <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
           )}
         </div>
 
@@ -122,15 +98,13 @@ const Cadastro = () => {
           <input
             type="password"
             id="senha"
-            name="senha"
-            value={formData.senha}
-            onChange={handleChange}
+            {...register('senha')}
             className={`mt-1 block w-full px-4 py-2 border ${
               errors.senha ? 'border-red-500' : 'border-gray-300'
             } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
           />
           {errors.senha && (
-            <p className="text-red-500 text-sm mt-1">{errors.senha}</p>
+            <p className="text-red-500 text-sm mt-1">{errors.senha.message}</p>
           )}
         </div>
 

@@ -17,8 +17,6 @@ const GameReviewModal = ({id,close}) => {
       return;
     }
 
-    console.log("AAAAA");
-
     dispatch(addAvaliacoes({avaliacaoId:id, avaliacaoReview: newAvaliacao, avaliacaoNum : newAvaliacaoNota}))
     .then(() => {
       close();
