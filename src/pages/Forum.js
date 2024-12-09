@@ -15,7 +15,7 @@ const Forum = ({dados}) => {
 
   const handleAddPost = (event) => {
     event.preventDefault();
-    if (newPost.trim() !== '') {
+    if (newPost.trim() !== '' && newPost.length < 512) {
       // Adicionando a data de criação ao post
       dispatch(addPost({
         jogoId: id,
@@ -26,6 +26,9 @@ const Forum = ({dados}) => {
         },
       }));
       setNewPost('');
+    }
+    else{
+      return alert("O comentário não pode estar vazio ou ultrapassar 512 caracteres")
     }
   };
 

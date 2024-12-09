@@ -7,25 +7,34 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from "react-redux";
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { MdPlaylistAdd } from "react-icons/md";
+import { MdPlaylistAdd, MdEdit } from "react-icons/md";
 import { RiArrowGoBackFill } from "react-icons/ri";
+import Loading from "../components/Loading";
 
 const Perfil = ({listas, dados}) => {
   const { id } = useParams(); // Captura o ID do usuário na URL
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFixaListaModalOpen, setIsFixaListaModalOpen] = useState(false);
+  const [isEditaPerfilModalOpen, setIsEditaPerfilModalOpen] = useState(false);
 
   const navigate = useNavigate();
 
 
-  const openModal = () => {
-    setIsModalOpen(true);
+  const openFixaListaModal = () => {
+    setIsFixaListaModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false)
+  const closeFixaListaModal = () => {
+    setIsFixaListaModalOpen(false)
+  }
+  const openEditaPerfilModal = () => {
+    setIsFixaListaModalOpen(true);
+  };
+
+  const closeEditaPerfilModal = () => {
+    setIsFixaListaModalOpen(false)
   }
 
   function obtemJogos(index){
@@ -57,37 +66,59 @@ const Perfil = ({listas, dados}) => {
     fetchUser();
   }, [id]);
   
-  const addListaPerfil = createAsyncThunk('perfil/fixaLista', async ({ updatedUserData }) => {
+  const atualizaPerfil = createAsyncThunk('perfil/atualizaPerfil', async ({ updatedUserData }) => {
     const response = await fetch('http://localhost:3000/perfil/0', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(updatedUserData), // Envia o perfil completo com a lista fixada
+      body: JSON.stringify(updatedUserData),
     });
   
     if (!response.ok) {
-      throw new Error(`Erro ao atualizar as listas: ${response.statusText}`);
+      throw new Error(`Erro ao atualizar perfil: ${response.statusText}`);
     }
   
-    const updatedUser = await response.json();  // Pega o usuário atualizado
+    const updatedUser = await response.json();
     return updatedUser;  // Retorna o perfil atualizado
   });
 
-  const fixaLista = (lista) =>{
-    // Criação de uma cópia do array listasFixadasIds e adicionando o ID da nova lista
-    const updatedListasFixadasIds = [...user.listasFixadasIds, lista.id];
-
-    // Mantendo os outros dados do usuário intactos e atualizando apenas o campo 'listasFixadasIds'
+  const toggleFixaLista = (lista) => {
+    // Verifica se a lista já está fixada
+    const isListaFixada = user.listasFixadasIds.includes(lista.id);
+  
+    // Atualiza o array de IDs com base no estado atual
+    const updatedListasFixadasIds = isListaFixada
+      ? user.listasFixadasIds.filter((id) => id !== lista.id) // Remove a lista se já estiver fixada
+      : [...user.listasFixadasIds, lista.id]; // Adiciona a lista se não estiver fixada
+  
     const updatedUserData = {
       ...user, // Mantém todas as outras informações do usuário
       listasFixadasIds: updatedListasFixadasIds, // Atualiza apenas as listas fixadas
     };
+  
+    // Dispara a ação para atualizar o perfil
+    dispatch(atualizaPerfil({ updatedUserData }))
+      .then(() => {
+        const action = isListaFixada ? "desfixada" : "fixada";
+        toast.success(`A lista "${lista.nome}" foi ${action} no perfil!`);
+      })
+      .catch((error) => {
+        console.error("Erro ao atualizar as listas fixadas:", error);
+        toast.error("Erro ao atualizar a lista no perfil.");
+      });
+  };
+  
+  const editaPerfil = () =>{
+    const updatedListasFixadasIds = [...user.listasFixadasIds];
+    const updatedUserData = {
+      ...user, // Mantém todas as outras informações do usuário
+    };
 
-    dispatch(addListaPerfil({ updatedUserData }))
+    dispatch(atualizaPerfil({ updatedUserData }))
     .then(() => {
-      toast.success(`A lista ${lista.nome} foi fixada no perfil!`);
-      closeModal();
+      toast.success();
+      closeEditaPerfilModal();
     })
     .catch((error) => {
       console.error("Erro ao adicionar o jogo à lista:", error);
@@ -97,9 +128,7 @@ const Perfil = ({listas, dados}) => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-blue-500"></div>
-      </div>
+      <Loading />
     );
   }
 
@@ -124,6 +153,11 @@ const Perfil = ({listas, dados}) => {
         {/* Cabeçalho */}
         <div className="flex justify-between items-center p-4 bg-blue-500 text-white">
           <span className="text-sm font-semibold">{user.nome}</span>
+          <button className="text-sm font-semibold" onClick={openEditaPerfilModal}>
+            <MdEdit size={25}/>
+            Editar Perfil
+          </button>
+          <ToastContainer />
         </div>
 
         {/* Corpo do Perfil */}
@@ -172,7 +206,7 @@ const Perfil = ({listas, dados}) => {
 
         {/* LISTAS QUE O USUARIO DESEJAR MOSTRAR: */}
         <div className="flex justify-center mt-16">
-          <button className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter transition" onClick={openModal}>
+          <button className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter transition" onClick={openFixaListaModal}>
             <MdPlaylistAdd size={25}/>
             Fixar Lista
           </button>
@@ -183,38 +217,38 @@ const Perfil = ({listas, dados}) => {
           <h3 className="text-lg font-semibold">Minhas Listas Fixadas: </h3>
         </div>
 
-        {/* modal para fixar a lista no perfil do usuario*/}
+        {/* Modal para fixar/desfixar listas no perfil do usuário */}
         <Modal
-          ariaHideApp={false} 
-          isOpen={isModalOpen}
-          onRequestClose={closeModal}
-          contentLabel="Escolha a Lista"
+          ariaHideApp={false}
+          isOpen={isFixaListaModalOpen}
+          onRequestClose={closeFixaListaModal}
+          contentLabel="Escolha as Listas"
           className="bg-white p-6 rounded-lg w-96"
           overlayClassName="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50"
-          >
-            <h2 className="text-xl font-semibold mb-4">Escolha uma lista para fixar no Perfil</h2>
-            <ul className="space-y-4">
+        >
+          <h2 className="text-xl font-semibold mb-4">Escolha as listas para fixar no Perfil</h2>
+          <ul className="space-y-4">
             {listas && listas.length > 0 && listas.map((lista, index) => (
-              <li key={index}>
-                <button
-                  onClick={() => fixaLista(lista, index)}
-                  className="w-full px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-400"
-                >
-                  {lista.nome}
-                </button>
+              <li key={index} className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={user.listasFixadasIds?.includes(lista.id) || false}
+                  onChange={() => toggleFixaLista(lista.id)}
+                  className="mr-3"
+                />
+                <span>{lista.nome}</span>
               </li>
             ))}
-            </ul>
+          </ul>
           <button
-            onClick={closeModal}
+            onClick={closeFixaListaModal}
             className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-400"
           >
             Fechar
           </button>
         </Modal>
 
-        {/*printando as listas*/}
-        {/* No listas fixadas tenho IDs MAS preciso de INDEX na LISTAS.*/}
+        {/* Exibindo as listas fixadas */}
         {user.listasFixadasIds && user.listasFixadasIds.length > 0 && user.listasFixadasIds.map((idLista) => {
           const index = listas.findIndex((lista) => lista.id === idLista);
           return (

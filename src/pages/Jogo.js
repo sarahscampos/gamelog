@@ -7,7 +7,7 @@ import { FaRankingStar } from "react-icons/fa6";
 import Loading from "../components/Loading"
 import { addJogoToList } from "../slices/listasSlice";
 import { useDispatch, useSelector } from "react-redux";
-
+import { MdOutlineRateReview } from "react-icons/md";
 import Avaliacao from "../components/Avaliacao";
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -110,7 +110,7 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
         className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-green-500 text-white hover:bg-green-400 font-inter transition"
         onClick={openModalAvaliacao}
       >
-        <MdPlaylistAdd size={25} />
+        <MdOutlineRateReview size={25} />
         Editar avaliação
       </button>
     </div>
@@ -119,7 +119,7 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
               className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter transition"
               onClick={openModalAvaliacao}
             >
-              <MdPlaylistAdd size={25} />
+              <MdOutlineRateReview size={25} />
               Avaliar jogo
             </button>
           )}
