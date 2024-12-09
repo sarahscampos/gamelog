@@ -71,7 +71,6 @@ export const addJogoToList = createAsyncThunk('listas/addJogo', async ({ idJogo,
 });
 
 export const removeJogoToList = createAsyncThunk('listas/removeJogo', async ({ idJogo, idLista }) => {
-
   const response = await fetch('http://localhost:3000/listas/0');
   if (!response.ok) {
     throw new Error(`Erro ao obter listas: ${response.statusText}`);
@@ -79,28 +78,28 @@ export const removeJogoToList = createAsyncThunk('listas/removeJogo', async ({ i
 
   const data = await response.json();
 
-  //const listasAtualizadas = [...listas, novaLista];
+  // Encontra a lista pelo ID
   const index = data.listas.findIndex((lista) => lista.id === idLista);
-  console.log(index)
-  console.log("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC")
-  console.log(`teste: ${idLista}`);
   if (index === -1) {
-    throw new Error(`lista com id: ${idLista} não existe`);
+    throw new Error(`Lista com id: ${idLista} não existe`);
   }
-  console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-  console.log(data.listas[index].ids.findIndex((jogo) => jogo.id === idJogo))
-  if(data.listas[index].ids.findIndex((jogo) => jogo.id === idJogo) === -1){
+
+  // Verifica se o jogo existe na lista
+  const jogoIndex = data.listas[index].ids.indexOf(idJogo);
+  if (jogoIndex === -1) {
     throw new Error(`Jogo com id ${idJogo} não está na lista: ${data.listas[index].nome}`);
   }
-  console.log("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD")
-  data.listas[index].ids = data.listas[index].ids.filter(id => id !== idJogo);
- 
+
+  // Remove o jogo da lista
+  data.listas[index].ids.splice(jogoIndex, 1);
+
+  // Atualiza os dados no backend
   const patchResponse = await fetch('http://localhost:3000/listas/0', {
-    method: 'DELETE',
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data), 
+    body: JSON.stringify(data),
   });
 
   if (!patchResponse.ok) {
@@ -109,6 +108,7 @@ export const removeJogoToList = createAsyncThunk('listas/removeJogo', async ({ i
 
   return data.listas;
 });
+
 
 
 const listasSlice = createSlice({

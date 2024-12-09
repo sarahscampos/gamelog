@@ -39,12 +39,12 @@ const Ranking = () => {
         
             </div>
             
-            <div class="flex justify-between items-center text-lg lg:text-xl font-inter text-white font-bold mb-4 px-5 bg-indigo-600 py-5">
+            {/* <div class="flex justify-between items-center text-lg lg:text-xl font-inter text-white font-bold mb-4 px-5 bg-indigo-600 py-5 pl-5 pr-5">
                 <div class="w-1/4 text-right font-fira">Título</div>
                 <div class="hidden md:block w-1/4 text-right font-fira ">Score</div>
-            </div>
+            </div> */}
 
-            <div>
+            <div className="ml-12 mr-12">
                 {topJogos.map((jogo) => (<RankItem key={jogo.id} jogo={jogo} />))}
             </div>
 
