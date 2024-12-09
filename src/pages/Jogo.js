@@ -67,7 +67,7 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
       <RiArrowGoBackFill />
         Voltar
       </button>
-      <Link to='/' className="items-center gap-1 inline-flex px-4 py-2 rounded-lg border-2 border-cyan-600 text-white hover:bg-cyan-600 font-inter transition-all duration-300">
+      <Link to='/Ranking' className="items-center gap-1 inline-flex px-4 py-2 rounded-lg border-2 border-cyan-600 text-white hover:bg-cyan-600 font-inter transition-all duration-300">
       <FaRankingStar/>
       Ranking {dados[numericId].colocacao}
       </Link>
