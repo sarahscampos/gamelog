@@ -156,75 +156,75 @@
         "comentario": "Incrível! Um dos melhores jogos da minha vida."
       },
       {
-        "usuario": "6",
+        "usuarioId": "6",
         "nota": 8,
         "comentario": "Ótimo, mas acho que poderia ser mais desafiador em certas partes."
       }
     ],
     "3": [
       {
-        "usuario": "7",
+        "usuarioId": "7",
         "nota": 10,
         "comentario": "Narrativa incrível, ambientação impecável."
       },
       {
-        "usuario": "8",
+        "usuarioId": "8",
         "nota": 9,
         "comentario": "Uma experiência épica, mas demorei para me adaptar aos controles."
       },
       {
-        "usuario": "9",
+        "usuarioId": "9",
         "nota": 9,
         "comentario": "Adorei! Mas poderia ter mais missões secundárias interessantes."
       }
     ],
     "4": [
       {
-        "usuario": "13",
+        "usuarioId": "13",
         "nota": 10,
         "comentario": "História envolvente, cheio de escolhas que realmente importam."
       },
       {
-        "usuario": "14",
+        "usuarioId": "14",
         "nota": 9,
         "comentario": "Visual maravilhoso, mas o combate podia ser mais fluido."
       },
       {
-        "usuario": "15",
+        "usuarioId": "15",
         "nota": 8,
         "comentario": "Gostei bastante, mas achei a curva de aprendizado inicial difícil."
       }
     ],
     "5": [
       {
-        "usuario": "10",
+        "usuarioId": "10",
         "nota": 10,
         "comentario": "Simplesmente épico, cheio de emoção e ação."
       },
       {
-        "usuario": "11",
+        "usuarioId": "11",
         "nota": 9,
         "comentario": "Ótima narrativa, mas senti falta de mais opções de personalização."
       },
       {
-        "usuario": "12",
+        "usuarioId": "12",
         "nota": 8,
         "comentario": "Muito bom, mas algumas partes são repetitivas."
       }
     ],
     "6": [
       {
-        "usuario": "16",
+        "usuarioId": "16",
         "nota": 10,
         "comentario": "Desafios incríveis, adoro explorar o mundo."
       },
       {
-        "usuario": "17",
+        "usuarioId": "17",
         "nota": 9,
         "comentario": "Ótima jogabilidade, mas algumas áreas são confusas."
       },
       {
-        "usuario": "18",
+        "usuarioId": "18",
         "nota": 8,
         "comentario": "Belo design, mas não é muito acessível para iniciantes."
       }
