@@ -21,7 +21,6 @@ const Perfil = ({listas, dados}) => {
 
   const navigate = useNavigate();
 
-
   const openFixaListaModal = () => {
     setIsFixaListaModalOpen(true);
   };
@@ -143,11 +142,11 @@ const Perfil = ({listas, dados}) => {
     )
   }
 
-  const editaPerfil = () =>{
-    const updatedListasFixadasIds = [...user.listasFixadasIds];
-    const updatedUserData = {
-      ...user, // Mantém todas as outras informações do usuário
-    };
+  const editaPerfil = (updateData) =>{
+      const updatedUserData = {
+        ...user, // Mantém as informações existentes
+        ...updateData, // Sobrescreve com as novas informações
+      };
 
     dispatch(atualizaPerfil({ updatedUserData }))
     .then(() => {
@@ -155,10 +154,94 @@ const Perfil = ({listas, dados}) => {
       closeEditaPerfilModal();
     })
     .catch((error) => {
-      console.error("Erro ao adicionar o perfil:", error);
+      console.error("Erro ao editar o perfil:", error);
       toast.error("Erro ao editar o perfil.");
     });
   }
+
+  const EditaPerfilModal = () => {
+    const [formData, setFormData] = useState(user);
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    };
+  
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      editaPerfil(formData); // Chama a função com os dados atualizados
+    };
+    
+    return (
+    <Modal
+      ariaHideApp={false}
+      isOpen={isEditaPerfilModalOpen}
+      onRequestClose={closeEditaPerfilModal}
+      contentLabel="Editar Perfil"
+      className="bg-white p-6 rounded-lg w-96"
+      overlayClassName="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50"
+    >
+      <h2 className="text-xl font-semibold mb-4">Editar Perfil</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label className="block font-medium mb-2" htmlFor="nome">Nome:</label>
+          <input
+            type="text"
+            id="nome"
+            name="nome"
+            value={formData.nome}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <div>
+          <label className="block font-medium mb-2" htmlFor="avatar">Avatar URL:</label>
+          <input
+            type="text"
+            id="avatar"
+            name="avatar"
+            value={formData.avatar}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <div>
+          <label className="block font-medium mb-2" htmlFor="descricao">Descrição:</label>
+          <textarea
+            id="descricao"
+            name="descricao"
+            value={formData.descricao}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <div>
+          <label className="block font-medium mb-2" htmlFor="localizacao">Localização:</label>
+          <input
+            type="text"
+            id="localizacao"
+            name="localizacao"
+            value={formData.localizacao}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <div className="flex justify-between mt-4">
+          <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-400">
+            Salvar
+          </button>
+          <button
+            type="button"
+            onClick={closeEditaPerfilModal}
+            className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-400"
+          >
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </Modal>
+
+    )
+  };
 
   if (loading) {
     return (
@@ -191,7 +274,9 @@ const Perfil = ({listas, dados}) => {
             Editar Perfil
           </button>
         </div>
+        <EditaPerfilModal />
         <ToastContainer />
+        
 
         {/* Corpo do Perfil */}
         <div className="text-center p-4">

@@ -363,20 +363,20 @@
   "perfil": [
     {
       "id": "0",
-      "nome": "Usuário",
+      "nome": "Diogo Mendonça",
       "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lSrjxAHpuNs-cwfeiwjPQtN0fzybQBRAAUkNsLOXJ3hy0=s160-c-k-c0x00ffffff-no-rj",
-      "descricao": "Oi eu sou um usuário do gamelog!",
+      "descricao": "Sou fã de jogos difíceis",
       "analises": 0,
       "media": 0,
       "amigos": 0,
-      "localizacao": "Minha Localização",
+      "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
       "jogosAdicionados": 0,
       "completos": 0,
       "jogando": 0,
       "desejados": 0,
       "listasFixadasIds": [
-        3
+        1
       ]
     },
     {
