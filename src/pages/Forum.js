@@ -1,3 +1,4 @@
+// src/pages/Forum.js
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -13,18 +14,27 @@ const Forum = ({dados}) => {
   const dispatch = useDispatch();
 
   const handleAddPost = () => {
-    if(newPost.trim() !== '') {
-        dispatch(addPost({ jogoId: id, post: {id: Date.now(), content: newPost}}));
-        setNewPost('');
+    if (newPost.trim() !== '') {
+      // Adicionando a data de criação ao post
+      dispatch(addPost({
+        jogoId: id,
+        post: {
+          id: Date.now(),
+          content: newPost,
+          createdAt: new Date(), // Armazenando a data de criação
+        },
+      }));
+      setNewPost('');
     }
-  }
+  };
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
-        <div className = "flex flex-col items-center m-10">
-            <h1 className="text-3xl font-bold text-center text-blue-600 mb-6">Fórum de {dados[numericId].nome}</h1>
-            <img src={`${dados[numericId].capa}`} alt={dados[numericId].nome} className="w-52 h-72 ring-4 ring-indigo-700 rounded-md mb-6 lg:h-96 lg:w-72"/>
-        </div>
+      <div className="flex flex-col items-center m-10">
+        <h1 className="text-3xl font-bold text-center text-blue-600 mb-6">Fórum de {dados[numericId].nome}</h1>
+        <img src={`${dados[numericId].capa}`} alt={dados[numericId].nome} className="w-52 h-72 ring-4 ring-indigo-700 rounded-md mb-6 lg:h-96 lg:w-72" />
+      </div>
+
       <div className="max-w-2xl mx-auto">
         <textarea
           className="w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -38,9 +48,10 @@ const Forum = ({dados}) => {
         >
           Enviar
         </button>
-          <div className="mt-6 space-y-4">
+
+        <div className="mt-6 space-y-4">
           {posts.map((post) => (
-            <Comentario key = {post.id} post = {post}/>
+            <Comentario key={post.id} post={post} />
           ))}
         </div>
       </div>
