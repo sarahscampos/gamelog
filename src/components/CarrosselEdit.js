@@ -54,8 +54,12 @@ const responsive = {
             <img src={item.capa} alt="logoGamelog" className='w-40 h-52 mb-1 ring-solid ring-2 ring-indigo-600 rounded-sm lg:w-52 lg:h-72' />
             <p className='text-center font-fira text-base'>{item.nome}</p>
             <button
-            className="mt-5 text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter transition"
-            onClick={() => remove(`${item.id}`, id)}>
+              className="mt-5 text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter transition"
+              onClick={(e) => {
+                e.stopPropagation(); // Evita a navegação ao clicar no botão
+                remove(item.id, id);
+              }}
+            >
               Remover
             </button>
             </div>

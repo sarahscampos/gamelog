@@ -37,11 +37,11 @@ const Forum = ({dados}) => {
     <div className="p-6 bg-gray-100 min-h-screen">
     {dados[numericId] ?
       <div className="flex flex-col items-center m-10">
-        <h1 className="text-3xl font-bold text-center text-blue-600 mb-6">Fórum de {dados[numericId].nome}</h1>
+        <h1 className="text-3xl font-bold text-center text-blue-600 mb-6 font-inter">Fórum de {dados[numericId].nome}</h1>
         <img src={`${dados[numericId].capa}`} alt={dados[numericId].nome} className="w-52 h-72 ring-4 ring-indigo-700 rounded-md mb-6 lg:h-96 lg:w-72" />
       </div> : (<div></div>) }
 
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto text-right">
         <textarea
           className="w-full p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
           placeholder="Digite sua mensagem..."

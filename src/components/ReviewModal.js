@@ -47,7 +47,7 @@ const GameReviewModal = ({id,close}) => {
           <textarea
             value={newAvaliacao}
             onChange={(e) => setNewAvaliacao(e.target.value)}
-            className="w-full border border-gray-300 rounded-lg p-2"
+            className="w-full border border-gray-300 rounded-lg p-2 resize-none"
             rows="4"
           />
         </div>
