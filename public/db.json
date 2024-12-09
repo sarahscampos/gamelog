@@ -193,6 +193,12 @@
         "nota": 9,
         "comentario": "Adorei! Mas poderia ter mais missões secundárias interessantes.",
         "imgSrc": "https://oyster.ignimgs.com/mediawiki/apis.ign.com/red-dead-redemption-2/7/7c/ThHAP39JQI.jpg"
+      },
+      {
+        "usuario": "Usuario",
+        "nota": 8,
+        "comentario": "jogo bao",
+        "imgSrc": ""
       }
     ],
     "4": [
@@ -370,7 +376,7 @@
     {
       "id": "0",
       "nome": "Usuário",
-      "avatar": "https://via.placeholder.com/100",
+      "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lSrjxAHpuNs-cwfeiwjPQtN0fzybQBRAAUkNsLOXJ3hy0=s160-c-k-c0x00ffffff-no-rj",
       "descricao": "Oi eu sou um usuário do gamelog!",
       "analises": 0,
       "media": 0,
@@ -382,15 +388,7 @@
       "jogando": 0,
       "desejados": 0,
       "listasFixadasIds": [
-        3,
-        2,
-        4,
-        0,
-        2,
-        5,
-        null,
-      
-        null
+        3
       ]
     },
     {
