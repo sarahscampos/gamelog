@@ -34,7 +34,7 @@ const Perfil = ({listas, dados}) => {
       : [];
     return lista;
   }
-  const favIndex = listas.findIndex((lista) => lista.nome === "Favoritos");
+  const favIndex = listas && listas.findIndex((lista) => lista.nome === "Favoritos");
   const jogosFav = obtemJogos(favIndex);
 
   useEffect(() => {
