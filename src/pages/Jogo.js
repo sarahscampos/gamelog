@@ -203,15 +203,18 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
       </div>
     
   </section>
-    
+  
+  {/* PRINTANDO AS AVALIACOES! */}
   <section>
     <section className = "mx-auto my-5 px-10 text-left md:px-64 py-20">
       <h2 className="text-2xl p-4 font-bold font-inter">Avaliações</h2>
     </section>
+    
+    {/*substituir pelo userID real*/}
     <section className = "mx-auto my-5 px-10 text-left md:px-64">
       { 
       avaliacaoInfo[id].length ? (
-        <Avaliacao dadosAvaliacao={avaliacaoInfo[id][0]} />
+        <Avaliacao dadosAvaliacao={avaliacaoInfo[id][0]} userId={0} />
       ) : (
         <p>Não possui avaliações</p>
       )
