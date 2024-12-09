@@ -15,7 +15,7 @@ const Ranking = () => {
         }
     }, [status, dispatch]);
 
-    const topJogos = [...jogos].sort((a, b) => b.nota - a.nota);
+    const topJogos = [...jogos].sort((a, b) => a.colocacao - b.colocacao);
 
 
     return(
