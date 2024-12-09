@@ -288,43 +288,30 @@
           "id": 0,
           "nome": "Favoritos",
           "ids": [
-            "0",
-            "1",
-            "2",
-            "2",
-            "2"
+            "1"
           ]
         },
         {
           "id": 1,
           "nome": "Desejados",
           "ids": [
-            "2",
-            "3"
+            "1"
           ]
         },
         {
           "id": 2,
           "nome": "SoulsLikes Favoritos",
-          "ids": [
-            "0",
-            "2"
-          ]
+          "ids": []
         },
         {
           "id": 3,
           "nome": "RPGs infancia",
-          "ids": [
-            "0"
-          ]
+          "ids": []
         },
         {
           "id": 4,
           "nome": "FINAL FANTASY's",
-          "ids": [
-            "0",
-            "2"
-          ]
+          "ids": []
         },
         {
           "id": 5,
@@ -338,17 +325,18 @@
           "id": 6,
           "nome": "novalista2",
           "ids": [
-            "1",
-            "0",
             "2"
           ]
         },
         {
           "id": 7,
           "nome": "novalista5",
-          "ids": [
-            "2"
-          ]
+          "ids": []
+        },
+        {
+          "id": 8,
+          "nome": "teste",
+          "ids": []
         }
       ]
     },
@@ -389,7 +377,6 @@
         2,
         5,
         null,
-      
         null
       ]
     },
