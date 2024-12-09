@@ -1,0 +1,731 @@
+{
+  "jogos": [
+    {
+      "id": "0",
+      "nome": "Mario Kart",
+      "colocacao": 1,
+      "nota": 10,
+      "capa": "https://upload.wikimedia.org/wikipedia/pt/0/0d/MarioKart8.jpg",
+      "dataLancamento": "17/09/2013",
+      "desenvolvedora": "Nintendo",
+      "distribuidora": "Nintendo",
+      "generos": [
+        "corrida"
+      ],
+      "sumario": "Mario Kart 8 (マリオカート8 Mario Kāto Aito?) é um jogo de corrida de karts desenvolvido e publicado pela Nintendo para o Wii U. É o décimo primeiro título da franquia Mario Kart, o oitavo da série principal (como o título sugere) e foi lançado em 30 de Maio de 2014. O jogo tem como principal novidade os circuitos antigravitacionais e pistas antigas dos jogos anteriores. Assim como os jogos anteriores, possui modos um jogador e multijogador local e online."
+    },
+    {
+      "id": "1",
+      "nome": "Ghost of Tsushima",
+      "colocacao": 2,
+      "nota": 10,
+      "capa": "https://upload.wikimedia.org/wikipedia/pt/d/dc/Ghost_of_Tsushima_capa.png?20200515013229",
+      "dataLancamento": "16/07/2020",
+      "desenvolvedora": "Sucker Punch",
+      "distribuidora": "Sony",
+      "generos": [
+        "ação",
+        "aventura"
+      ],
+      "sumario": "Ghost of Tsushima é um jogo eletrônico de ação-aventura desenvolvido pela Sucker Punch Productions e publicado pela Sony Interactive Entertainment. A história acompanha Jin Sakai, um samurai que precisa proteger a Ilha de Tsushima durante a primeira invasão mongol do Japão. Ele se vê dividido entre escolher seguir o código do guerreiro para lutar honradamente ou usar métodos práticos e desonrosos para subjugar os mongóis. A jogabilidade apresenta um grande mundo aberto que pode ser explorado a pé ou a cavalo. Ao enfrentar inimigos o jogador pode escolher enfrentá-los diretamente com a katana de Jin ou usar táticas furtivas e assassinar oponentes tornando-se assim o lendário guerreiro conhecido como 'o Fantasma'."
+    },
+    {
+      "id": "2",
+      "nome": "The Legend of Zelda: Breath of the Wild",
+      "colocacao": 3,
+      "nota": 9.7,
+      "capa": "https://upload.wikimedia.org/wikipedia/pt/0/0f/Legend_of_Zelda_Breath_of_the_Wild_capa.png?20170116194041",
+      "dataLancamento": "03/03/2017",
+      "desenvolvedora": "Nintendo",
+      "distribuidora": "Nintendo",
+      "generos": [
+        "ação",
+        "aventura"
+      ],
+      "sumario": "The Legend of Zelda: Breath of the Wild é um jogo eletrônico de ação-aventura desenvolvido e publicado pela Nintendo. O título segue Link em uma missão para derrotar Ganon e restaurar o reino de Hyrule. O jogo apresenta um vasto mundo aberto que oferece liberdade para explorar, resolver quebra-cabeças e derrotar inimigos usando diversas armas e estratégias."
+    },
+    {
+      "id": "3",
+      "nome": "Red Dead Redemption 2",
+      "colocacao": 4,
+      "nota": 9.5,
+      "capa": "https://upload.wikimedia.org/wikipedia/en/4/44/Red_Dead_Redemption_II.jpg",
+      "dataLancamento": "26/10/2018",
+      "desenvolvedora": "Rockstar Games",
+      "distribuidora": "Rockstar Games",
+      "generos": [
+        "ação",
+        "aventura",
+        "mundo aberto"
+      ],
+      "sumario": "Red Dead Redemption 2 é um jogo eletrônico de ação-aventura desenvolvido e publicado pela Rockstar Games. Ambientado em um vasto mundo aberto durante o final do século XIX, o jogador assume o papel de Arthur Morgan, um fora-da-lei e membro da gangue Van der Linde, enquanto tenta sobreviver em um mundo em mudança."
+    },
+    {
+      "id": "4",
+      "nome": "The Witcher 3: Wild Hunt",
+      "colocacao": 5,
+      "nota": 9,
+      "capa": "https://upload.wikimedia.org/wikipedia/en/0/0c/Witcher_3_cover_art.jpg",
+      "dataLancamento": "19/05/2015",
+      "desenvolvedora": "CD Projekt Red",
+      "distribuidora": "CD Projekt",
+      "generos": [
+        "ação",
+        "RPG",
+        "aventura"
+      ],
+      "sumario": "The Witcher 3: Wild Hunt é um RPG de mundo aberto desenvolvido pela CD Projekt Red. O jogo segue o caçador de monstros Geralt de Rívia em uma jornada épica para encontrar sua filha adotiva enquanto enfrenta monstros e inimigos em um vasto mundo cheio de escolhas e consequências."
+    },
+    {
+      "id": "5",
+      "nome": "God of War",
+      "colocacao": 7,
+      "nota": 9,
+      "capa": "https://upload.wikimedia.org/wikipedia/en/a/a7/God_of_War_4_cover.jpg",
+      "dataLancamento": "20/04/2018",
+      "desenvolvedora": "Santa Monica Studio",
+      "distribuidora": "Sony Interactive Entertainment",
+      "generos": [
+        "ação",
+        "aventura"
+      ],
+      "sumario": "God of War é um jogo eletrônico de ação-aventura desenvolvido pela Santa Monica Studio e publicado pela Sony Interactive Entertainment. A história acompanha Kratos e seu filho Atreus em uma jornada épica pelos reinos da mitologia nórdica, enfrentando deuses e monstros enquanto exploram o vínculo entre pai e filho."
+    },
+    {
+      "id": "6",
+      "nome": "Hollow Knight",
+      "colocacao": 6,
+      "nota": 9,
+      "capa": "https://i.pinimg.com/236x/3c/da/43/3cda430dcb205ab6de1ab5189e711583.jpg",
+      "dataLancamento": "24/02/2017",
+      "desenvolvedora": "Team Cherry",
+      "distribuidora": "Team Cherry",
+      "generos": [
+        "ação",
+        "aventura",
+        "metroidvania"
+      ],
+      "sumario": "Hollow Knight é um jogo de ação-aventura e metroidvania desenvolvido pela Team Cherry. Ambientado no reino subterrâneo de Hallownest, o jogador controla um cavaleiro em uma jornada para explorar o mundo e enfrentar desafiadores inimigos enquanto descobre segredos ocultos."
+    }
+  ],
+  "avaliacoes": {
+    "0": [
+      {
+        "usuarioId": "1",
+        "nota": 10,
+        "comentario": "Adorei o jogo! Sempre jogamos com os amigos."
+      },
+      {
+        "usuarioId": "2",
+        "nota": 9,
+        "comentario": "Ótimo jogo, mas algumas pistas poderiam ser mais desafiadoras."
+      },
+      {
+        "usuarioId": "3",
+        "nota": 8,
+        "comentario": "Muito divertido, mas prefiro os clássicos.",
+        "imgSrc": "https://m.media-amazon.com/images/I/71HW-x8cH+L._AC_UF894,1000_QL80_.jpg"
+      },
+      {
+        "usuario": "0",
+        "nota": 10,
+        "comentario": "melhor que dirigir de verdade"
+      }
+    ],
+    "1": [
+      {
+        "usuarioId": "19",
+        "nota": 10,
+        "comentario": "Uma verdadeira obra-prima. A história é cativante."
+      },
+      {
+        "usuarioId": "20",
+        "nota": 9,
+        "comentario": "Gameplay incrível, mas senti falta de algumas melhorias no combate furtivo."
+      },
+      {
+        "usuarioId": "21",
+        "nota": 7,
+        "comentario": "Jogo bom, mas esperava mais no modo exploração."
+      }
+    ],
+    "2": [
+      {
+        "usuarioId": "4",
+        "nota": 10,
+        "comentario": "O mundo aberto é fantástico, cheio de detalhes."
+      },
+      {
+        "usuarioId": "5",
+        "nota": 10,
+        "comentario": "Incrível! Um dos melhores jogos da minha vida."
+      },
+      {
+        "usuarioId": "6",
+        "nota": 8,
+        "comentario": "Ótimo, mas acho que poderia ser mais desafiador em certas partes."
+      }
+    ],
+    "3": [
+      {
+        "usuarioId": "7",
+        "nota": 10,
+        "comentario": "Narrativa incrível, ambientação impecável."
+      },
+      {
+        "usuarioId": "8",
+        "nota": 9,
+        "comentario": "Uma experiência épica, mas demorei para me adaptar aos controles."
+      },
+      {
+        "usuarioId": "9",
+        "nota": 9,
+        "comentario": "Adorei! Mas poderia ter mais missões secundárias interessantes."
+      }
+    ],
+    "4": [
+      {
+        "usuarioId": "13",
+        "nota": 10,
+        "comentario": "História envolvente, cheio de escolhas que realmente importam."
+      },
+      {
+        "usuarioId": "14",
+        "nota": 9,
+        "comentario": "Visual maravilhoso, mas o combate podia ser mais fluido."
+      },
+      {
+        "usuarioId": "15",
+        "nota": 8,
+        "comentario": "Gostei bastante, mas achei a curva de aprendizado inicial difícil."
+      }
+    ],
+    "5": [
+      {
+        "usuarioId": "10",
+        "nota": 10,
+        "comentario": "Simplesmente épico, cheio de emoção e ação."
+      },
+      {
+        "usuarioId": "11",
+        "nota": 9,
+        "comentario": "Ótima narrativa, mas senti falta de mais opções de personalização."
+      },
+      {
+        "usuarioId": "12",
+        "nota": 8,
+        "comentario": "Muito bom, mas algumas partes são repetitivas."
+      }
+    ],
+    "6": [
+      {
+        "usuarioId": "16",
+        "nota": 10,
+        "comentario": "Desafios incríveis, adoro explorar o mundo."
+      },
+      {
+        "usuarioId": "17",
+        "nota": 9,
+        "comentario": "Ótima jogabilidade, mas algumas áreas são confusas."
+      },
+      {
+        "usuarioId": "18",
+        "nota": 8,
+        "comentario": "Belo design, mas não é muito acessível para iniciantes."
+      }
+    ]
+  },
+  "duvidas": {
+    "0": [
+      {
+        "duvida": "Como recupero minha conta?",
+        "resposta": "Acesse a página de recuperação e siga os passos para redefinir sua senha."
+      },
+      {
+        "duvida": "O que fazer se meu jogo não estiver funcionando?",
+        "resposta": "Certifique-se de que seu dispositivo atende aos requisitos mínimos e tente reinstalar o jogo."
+      },
+      {
+        "duvida": "Como entrar em contato com o suporte?",
+        "resposta": "Use os canais de contato abaixo para falar diretamente com nossa equipe."
+      }
+    ]
+  },
+  "listas": [
+    {
+      "id": "0",
+      "listas": [
+        {
+          "id": 0,
+          "nome": "Favoritos",
+          "ids": [
+            "1"
+          ]
+        },
+        {
+          "id": 1,
+          "nome": "Desejados",
+          "ids": [
+            "1"
+          ]
+        },
+        {
+          "id": 2,
+          "nome": "SoulsLikes Favoritos",
+          "ids": [
+            "0"
+          ]
+        },
+        {
+          "id": 3,
+          "nome": "RPGs infancia",
+          "ids": []
+        },
+        {
+          "id": 4,
+          "nome": "FINAL FANTASY's",
+          "ids": []
+        },
+        {
+          "id": 5,
+          "nome": "novaLista",
+          "ids": [
+            "0",
+            "1"
+          ]
+        },
+        {
+          "id": 6,
+          "nome": "novalista2",
+          "ids": [
+            "2"
+          ]
+        },
+        {
+          "id": 7,
+          "nome": "novalista5",
+          "ids": []
+        },
+        {
+          "id": 8,
+          "nome": "teste",
+          "ids": []
+        }
+      ]
+    },
+    {
+      "id": "1",
+      "listas": [
+        {
+          "id": 0,
+          "nome": "Favoritos",
+          "ids": [
+            "6",
+            "7"
+          ]
+        }
+      ]
+    }
+  ],
+  "perfil": [
+    {
+      "id": "0",
+      "nome": "Diogo Mendonça",
+      "avatar": "https://github.com/diogosmendonca.png",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        3,
+        1
+      ]
+    },
+    {
+      "id": "1",
+      "nome": "Luigi",
+      "avatar": "https://m.media-amazon.com/images/I/516GYeRR9WL._AC_UF894,1000_QL80_.jpg",
+      "descricao": "Oi meu nome é paco e eu sou mt legal! Gosto de jojar jojos",
+      "analises": 15,
+      "media": 8.5,
+      "amigos": 5,
+      "localizacao": "Rio de Janeiro, RJ",
+      "membroDesde": "10/10/24",
+      "jogosAdicionados": 27,
+      "completos": 15,
+      "jogando": 4,
+      "desejados": 8,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "2",
+      "nome": "Peach",
+      "avatar": "https://p2.trrsf.com.br/image/fget/cf/540/960/smart/images.terra.com/2024/03/20/card-1-peach-ts572v0ihgza.jpg",
+      "descricao": "Gamer apaixonada por RPGs.",
+      "analises": 25,
+      "media": 4.8,
+      "amigos": 130,
+      "localizacao": "São Paulo, Brasil",
+      "membroDesde": "2022",
+      "jogosAdicionados": 45,
+      "completos": 30,
+      "jogando": 5,
+      "desejados": 10,
+      "listasFixadasIds": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": "3",
+      "nome": "Bowser",
+      "avatar": "https://m.media-amazon.com/images/I/71HW-x8cH+L._AC_UF894,1000_QL80_.jpg",
+      "descricao": "Streamer e entusiasta de FPS.",
+      "analises": 15,
+      "media": 4.2,
+      "amigos": 80,
+      "localizacao": "Rio de Janeiro, Brasil",
+      "membroDesde": "2023",
+      "jogosAdicionados": 20,
+      "completos": 10,
+      "jogando": 7,
+      "desejados": 3,
+      "listasFixadasIds": [
+        1,
+        3
+      ]
+    },
+    {
+      "id": "4",
+      "nome": "Zelda",
+      "avatar": "https://play.nintendo.com/images/Gallery_Lozbotw_15.aaaec624.2d958659.jpg",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "5",
+      "nome": "Link",
+      "avatar": "https://www.zeldadungeon.net/wiki/images/thumb/c/ce/Link_-_TotK_art_02_alt.png/400px-Link_-_TotK_art_02_alt.png",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "6",
+      "nome": "Ganon",
+      "avatar": "https://images.squarespace-cdn.com/content/v1/58d66569b3db2b57ce7db1e2/1694545656330-WG7I8ILCYMHJ436XZGA9/ganon+zoom+1.jpg",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "7",
+      "nome": "Arthur",
+      "avatar": "https://http2.mlstatic.com/D_NQ_NP_810647-MLB42808104113_072020-O.webp",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "8",
+      "nome": "Dutch",
+      "avatar": "https://oyster.ignimgs.com/mediawiki/apis.ign.com/red-dead-redemption-2/7/7c/ThHAP39JQI.jpg",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "9",
+      "nome": "Sadie",
+      "avatar": "https://oyster.ignimgs.com/mediawiki/apis.ign.com/red-dead-redemption-2/7/7c/ThHAP39JQI.jpg",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "10",
+      "nome": "Kratos",
+      "avatar": "https://selectgame.gamehall.com.br/wp-content/uploads/2021/09/cropped-Freya-em-God-of-War-Ragnarok-Capa.jpg",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "11",
+      "nome": "Atreus",
+      "avatar": "https://oyster.ignimgs.com/mediawiki/apis.ign.com/god-of-war-ragnarok/1/1b/Ater.jpg",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "12",
+      "nome": "Freya",
+      "avatar": "https://oyster.ignimgs.com/mediawiki/apis.ign.com/god-of-war-ragnarok/9/93/Freya.jpg",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "13",
+      "nome": "Geralt",
+      "avatar": "https://tm.ibxk.com.br/2022/12/23/23110710926049.jpg",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "14",
+      "nome": "Yeneffer",
+      "avatar": "https://image.api.playstation.com/cdn/UP4497/CUSA00527_00/65vdrfyv7RwISVz8ATFr2DKSmUeaIuz2.png",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "15",
+      "nome": "Ciri",
+      "avatar": "https://s2-techtudo.glbimg.com/jKDQdpF0Cv4VwkUg0Dw8StfShhQ=/0x0:695x390/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2021/I/U/zsD8U5TeWZiqJDPRcc3A/2014-12-16-witcher-3-ciri-rpg.jpg",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "16",
+      "nome": "Hornet",
+      "avatar": "https://pm1.aminoapps.com/6783/9b1433c160fafdad459bab201f51b78e6a07a9dav2_00.jpg",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "17",
+      "nome": "Knight",
+      "avatar": "https://cdn.awsli.com.br/2657/2657807/produto/270496847/photo_5094015974415379628_x-4ucvc1908c.jpg",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "18",
+      "nome": "Grimm",
+      "avatar": "https://cdn.awsli.com.br/2657/2657807/produto/270496847/photo_5094015974415379628_x-4ucvc1908c.jpg",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "19",
+      "nome": "Jin",
+      "avatar": "https://cdn.awsli.com.br/600x700/222/222813/produto/110661252/5a9e3133b9.jpg",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "20",
+      "nome": "Yuna",
+      "avatar": "https://cdn.awsli.com.br/600x700/222/222813/produto/110661252/5a9e3133b9.jpg",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "21",
+      "nome": "Khotun",
+      "avatar": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/YuanEmperorAlbumGenghisPortrait.jpg/330px-YuanEmperorAlbumGenghisPortrait.jpg",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    }
+  ]
+}
