@@ -111,17 +111,17 @@
   "avaliacoes": {
     "0": [
       {
-        "usuarioId": "Luigi",
+        "usuarioId": "1",
         "nota": 10,
         "comentario": "Adorei o jogo! Sempre jogamos com os amigos."
         },
       {
-        "usuario": "Peach",
+        "usuario": "2",
         "nota": 9,
         "comentario": "Ótimo jogo, mas algumas pistas poderiam ser mais desafiadoras."
       },
       {
-        "usuarioId": "Bowser",
+        "usuarioId": "3",
         "nota": 8,
         "comentario": "Muito divertido, mas prefiro os clássicos.",
         "imgSrc": "https://m.media-amazon.com/images/I/71HW-x8cH+L._AC_UF894,1000_QL80_.jpg"
@@ -129,102 +129,102 @@
     ],
     "1": [
       {
-        "usuarioId": "Jin",
+        "usuarioId": "19",
         "nota": 10,
         "comentario": "Uma verdadeira obra-prima. A história é cativante."
       }
       {
-        "usuarioId": "Yuna",
+        "usuarioId": "20",
         "nota": 9,
         "comentario": "Gameplay incrível, mas senti falta de algumas melhorias no combate furtivo."
       },
       {
-        "usuarioId": "Khotun",
+        "usuarioId": "21",
         "nota": 7,
         "comentario": "Jogo bom, mas esperava mais no modo exploração."
       }
     ],
     "2": [
       {
-        "usuarioId": "Zelda",
+        "usuarioId": "4",
         "nota": 10,
         "comentario": "O mundo aberto é fantástico, cheio de detalhes."
       },
       {
-        "usuarioId": "Link",
+        "usuarioId": "5",
         "nota": 10,
         "comentario": "Incrível! Um dos melhores jogos da minha vida."
       },
       {
-        "usuario": "Ganon",
+        "usuario": "6",
         "nota": 8,
         "comentario": "Ótimo, mas acho que poderia ser mais desafiador em certas partes."
       }
     ],
     "3": [
       {
-        "usuario": "Arthur",
+        "usuario": "7",
         "nota": 10,
         "comentario": "Narrativa incrível, ambientação impecável."
       },
       {
-        "usuario": "Dutch",
+        "usuario": "8",
         "nota": 9,
         "comentario": "Uma experiência épica, mas demorei para me adaptar aos controles."
       },
       {
-        "usuario": "Sadie",
+        "usuario": "9",
         "nota": 9,
         "comentario": "Adorei! Mas poderia ter mais missões secundárias interessantes."
       }
     ],
     "4": [
       {
-        "usuario": "Geralt",
+        "usuario": "13",
         "nota": 10,
         "comentario": "História envolvente, cheio de escolhas que realmente importam."
       },
       {
-        "usuario": "Yennefer",
+        "usuario": "14",
         "nota": 9,
         "comentario": "Visual maravilhoso, mas o combate podia ser mais fluido."
       },
       {
-        "usuario": "Ciri",
+        "usuario": "15",
         "nota": 8,
         "comentario": "Gostei bastante, mas achei a curva de aprendizado inicial difícil."
       }
     ],
     "5": [
       {
-        "usuario": "Kratos",
+        "usuario": "10",
         "nota": 10,
         "comentario": "Simplesmente épico, cheio de emoção e ação."
       },
       {
-        "usuario": "Atreus",
+        "usuario": "11",
         "nota": 9,
         "comentario": "Ótima narrativa, mas senti falta de mais opções de personalização."
       },
       {
-        "usuario": "Freya",
+        "usuario": "12",
         "nota": 8,
         "comentario": "Muito bom, mas algumas partes são repetitivas."
       }
     ],
     "6": [
       {
-        "usuario": "Hornet",
+        "usuario": "16",
         "nota": 10,
         "comentario": "Desafios incríveis, adoro explorar o mundo."
       },
       {
-        "usuario": "Knight",
+        "usuario": "17",
         "nota": 9,
         "comentario": "Ótima jogabilidade, mas algumas áreas são confusas."
       },
       {
-        "usuario": "Grimm",
+        "usuario": "18",
         "nota": 8,
         "comentario": "Belo design, mas não é muito acessível para iniciantes."
       }
@@ -488,7 +488,7 @@
     {
       "id": "9",
       "nome": "Sadie",
-      "avatar": https://oyster.ignimgs.com/mediawiki/apis.ign.com/red-dead-redemption-2/7/7c/ThHAP39JQI.jpg",
+      "avatar": "https://oyster.ignimgs.com/mediawiki/apis.ign.com/red-dead-redemption-2/7/7c/ThHAP39JQI.jpg",
       "descricao": "Sou fã de jogos difíceis",
       "analises": 0,
       "media": 0,
