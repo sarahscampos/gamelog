@@ -4,6 +4,7 @@ import avaliacoesReducer from './slices/avaliacoesSlice';
 import listasReducer from './slices/listasSlice';
 import forumReducer from './slices/forumSlice';
 import cadastroReducer from './slices/cadastroSlice';
+import reviewReducer from './slices/reviewSlice';
 
 const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ const store = configureStore({
     avaliacoes: avaliacoesReducer,
     listas: listasReducer,
     forum: forumReducer,
-    cadastro: cadastroReducer
+    cadastro: cadastroReducer,
+    review: reviewReducer,
   },
 });
 

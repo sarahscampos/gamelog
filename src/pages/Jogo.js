@@ -14,6 +14,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {Helmet} from "react-helmet";
 import backgroundJogo from "../assets/img/backgroundJogo.png";
+import ReviewModal from "../components/ReviewModal";
 
 
 
@@ -24,8 +25,17 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
   
   const navigate = useNavigate();
 
+  const [isModalAvaliacaoOpen, setIsModalAvaliacaoOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedList, setSelectedList] = useState("");
+
+  const openModalAvaliacao = () => {
+    setIsModalAvaliacaoOpen(true);
+  };
+
+  const closeModalAvaliacao = () => {
+    setIsModalAvaliacaoOpen(false);
+  };
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -79,10 +89,14 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
         <p className="text-white rounded bg-gradient-to-tl from-indigo-500 to-cyan-600 px-5 py-2 font-fira">Nota média: {dados[numericId].nota}</p>
 
       </div>
-      <div className="flex justify-center mt-16">
+      <div className="flex flex-row gap-6 justify-center mt-16">
         <button className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter transition" onClick={openModal}>
           <MdPlaylistAdd size={25}/>
           Adicionar à lista
+        </button>
+        <button className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter transition" onClick={openModalAvaliacao}>
+          <MdPlaylistAdd size={25}/>
+          Avaliar jogo
         </button>
         <ToastContainer />
       </div>
@@ -115,6 +129,17 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
         >
           Fechar
         </button>
+      </Modal>
+
+      <Modal
+        ariaHideApp={false} 
+        isOpen={isModalAvaliacaoOpen}
+        onRequestClose={closeModalAvaliacao}
+        contentLabel="Avalie o jogo"
+        className="bg-white p-6 rounded-lg w-96"
+        overlayClassName="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50"
+      >
+        <ReviewModal id = {id} close = {closeModalAvaliacao}/>
       </Modal>
   
   <section className="mx-auto my-0 px-10 md:px-64 py-20">
