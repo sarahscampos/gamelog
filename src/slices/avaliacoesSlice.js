@@ -17,7 +17,16 @@ export const addAvaliacoes = createAsyncThunk('Avaliacoes/addAvaliacoes', async 
 
   const avaliacao = {"usuario": "Usuario", "nota": avaliacaoNum, "comentario": avaliacaoReview, "imgSrc": ""};
 
-  data [avaliacaoId].push(avaliacao);
+  const avaliacoesDoJogo = data[avaliacaoId] || [];
+  const indexExistente = avaliacoesDoJogo.findIndex(avaliacao => avaliacao.usuario === "Usuario");
+
+  if (indexExistente !== -1) {
+    // Atualizar avaliação existente
+    avaliacoesDoJogo[indexExistente] = avaliacao;
+  } else {
+    // Adicionar nova avaliação
+    avaliacoesDoJogo.push(avaliacao);
+  }
  
   const patchResponse = await fetch('http://localhost:3000/avaliacoes', {
     method: 'PUT',
