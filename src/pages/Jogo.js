@@ -4,23 +4,38 @@ import Modal from 'react-modal';
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { MdPlaylistAdd } from "react-icons/md";
 import { FaRankingStar } from "react-icons/fa6";
+import Loading from "../components/Loading"
+import { addJogoToList } from "../slices/listasSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 import Avaliacao from "../components/Avaliacao";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import {Helmet} from "react-helmet";
 import backgroundJogo from "../assets/img/backgroundJogo.png";
+import ReviewModal from "../components/ReviewModal";
 
-const listas = ["Favoritos", "Desejados", "Jogados"];
 
-const Jogo = ({dados, avaliacaoInfo}) => {
+
+const Jogo = ({dados, avaliacaoInfo, listas}) => {
   const { id } = useParams();
+  const dispatch = useDispatch();
+  const numericId = parseInt(id, 10);
   
   const navigate = useNavigate();
 
+  const [isModalAvaliacaoOpen, setIsModalAvaliacaoOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedList, setSelectedList] = useState("");
+
+  const openModalAvaliacao = () => {
+    setIsModalAvaliacaoOpen(true);
+  };
+
+  const closeModalAvaliacao = () => {
+    setIsModalAvaliacaoOpen(false);
+  };
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -31,14 +46,30 @@ const Jogo = ({dados, avaliacaoInfo}) => {
   }
 
   const addToList = (list) => {
+
     setSelectedList(list);
-    toast.success(`${dados[id].nome} foi adicionado à lista ${list}!`)
-    closeModal();
+    dispatch(addJogoToList({ idJogo: id, idLista: list.id }))
+    .then(() => {
+      toast.success(`${dados[numericId].nome} foi adicionado à lista ${list.nome}!`);
+      closeModal();
+    })
+    .catch((error) => {
+      console.error("Erro ao adicionar o jogo à lista:", error);
+    });
+  }
+
+  if (!dados || !dados[numericId]) {
+    return <Loading />;
   }
 
   return (
     <>
-
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>{`${dados[numericId].nome}`}</title>
+      <link rel="canonical" href="http://mysite.com/example" />
+      <meta name="description" content="Página de jogo" />
+    </Helmet>
     <section style={{backgroundImage: `url(${backgroundJogo})`}} className="w-full mx-auto my-0 px-10 md:px-64 py-20 bg-fixed">
 
     <div className="flex justify-between">
@@ -46,22 +77,26 @@ const Jogo = ({dados, avaliacaoInfo}) => {
       <RiArrowGoBackFill />
         Voltar
       </button>
-      <Link to='/' className="items-center gap-1 inline-flex px-4 py-2 rounded-lg border-2 border-cyan-600 text-white hover:bg-cyan-600 font-inter transition-all duration-300">
+      <Link to='/Ranking' className="items-center gap-1 inline-flex px-4 py-2 rounded-lg border-2 border-cyan-600 text-white hover:bg-cyan-600 font-inter transition-all duration-300">
       <FaRankingStar/>
-      Ranking {dados[id].colocacao}
+      Ranking {dados[numericId].colocacao}
       </Link>
     </div>
 
     <div className="flex flex-col items-center m-10">
-        <img src={`${dados[id].capa}`} alt={dados[id].nome} className="w-52 h-72 ring-4 ring-indigo-700 rounded-md mb-6 lg:h-96 lg:w-72"/>
-        <h2 className ="text-xl sm:text-2xl lg:text-3xl font-inter font-bold text-white mb-3">{dados[id].nome}</h2>
-        <p className="text-white rounded bg-gradient-to-tl from-indigo-500 to-cyan-600 px-5 py-2 font-fira">Nota média: {dados[id].nota}</p>
+        <img src={`${dados[numericId].capa}`} alt={dados[numericId].nome} className="w-52 h-72 ring-4 ring-indigo-700 rounded-md mb-6 lg:h-96 lg:w-72"/>
+        <h2 className ="text-xl sm:text-2xl lg:text-3xl font-inter font-bold text-white mb-3">{dados[numericId].nome}</h2>
+        <p className="text-white rounded bg-gradient-to-tl from-indigo-500 to-cyan-600 px-5 py-2 font-fira">Nota média: {dados[numericId].nota}</p>
 
       </div>
-      <div className="flex justify-center mt-16">
+      <div className="flex flex-row gap-6 justify-center mt-16">
         <button className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter transition" onClick={openModal}>
           <MdPlaylistAdd size={25}/>
           Adicionar à lista
+        </button>
+        <button className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter transition" onClick={openModalAvaliacao}>
+          <MdPlaylistAdd size={25}/>
+          Avaliar jogo
         </button>
         <ToastContainer />
       </div>
@@ -84,7 +119,7 @@ const Jogo = ({dados, avaliacaoInfo}) => {
               onClick={() => addToList(lista)}
               className="w-full px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-400"
             >
-              {lista}
+              {lista.nome}
             </button>
           </li>))}
         </ul>
@@ -95,28 +130,39 @@ const Jogo = ({dados, avaliacaoInfo}) => {
           Fechar
         </button>
       </Modal>
+
+      <Modal
+        ariaHideApp={false} 
+        isOpen={isModalAvaliacaoOpen}
+        onRequestClose={closeModalAvaliacao}
+        contentLabel="Avalie o jogo"
+        className="bg-white p-6 rounded-lg w-96"
+        overlayClassName="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50"
+      >
+        <ReviewModal id = {id} close = {closeModalAvaliacao}/>
+      </Modal>
   
   <section className="mx-auto my-0 px-10 md:px-64 py-20">
 
     <div className="flex flex-col gap-3 mt-7 font-fira">
       <div className = "flex space-x-4 mb-7">
-        {dados[id].generos.map((genero) => {
-          return <p key={dados[id].id} className = "text-lg font-medium text-white px-3 py-1 rounded bg-zinc-500">{genero}</p>
+        {dados[numericId].generos.map((genero, index) => {
+          return <p key={dados[numericId].id} className = "text-lg font-medium text-white px-3 py-1 rounded bg-zinc-500">{genero}</p>
         })}
       </div>
 
       {/* <hr class="border-2"> */}
       <div className = "flex justify-between text-sm sm:text-lg font-medium">
       <h2 className = "text-sm sm:text-lg">Data de lançamento</h2>
-      <h2 className = "text-sm sm:text-lg">{dados[id].dataLancamento}</h2>
+      <h2 className = "text-sm sm:text-lg">{dados[numericId].dataLancamento}</h2>
       </div>
       <div className = "flex justify-between text-sm sm:text-lg font-medium">
         <h2 className = "text-sm sm:text-lg">Desenvolvedora</h2>
-        <h2 className = "text-sm sm:text-lg">{dados[id].desenvolvedora}</h2>
+        <h2 className = "text-sm sm:text-lg">{dados[numericId].desenvolvedora}</h2>
       </div>
       <div className = "flex justify-between text-sm sm:text-lg font-medium">
         <h2 className = "text-sm sm:text-lg">Distribuidora</h2>
-        <h2 className = "text-sm sm:text-lg">{dados[id].distribuidora}</h2>
+        <h2 className = "text-sm sm:text-lg">{dados[numericId].distribuidora}</h2>
       </div>
 
       {/* <hr class="border-2"> */}
@@ -127,7 +173,7 @@ const Jogo = ({dados, avaliacaoInfo}) => {
     <h2 className="text-2xl p-4 font-bold font-inter">Sumário</h2>
       <div className="flex space-x-4 p-4 w-full">
         <p className="font-fira">
-          {dados[id].sumario}
+          {dados[numericId].sumario}
         </p>
       </div>
     
@@ -138,7 +184,13 @@ const Jogo = ({dados, avaliacaoInfo}) => {
       <h2 className="text-2xl p-4 font-bold font-inter">Avaliações</h2>
     </section>
     <section className = "mx-auto my-5 px-10 text-left md:px-64">
-      <Avaliacao dadosAvaliacao={avaliacaoInfo[id][0]}/>
+      { 
+      avaliacaoInfo[id].length ? (
+        <Avaliacao dadosAvaliacao={avaliacaoInfo[id][0]} />
+      ) : (
+        <p>Não possui avaliações</p>
+      )
+    }
     </section>
     <div className="flex justify-center">
             <Link to={`/avaliacoes/${id}`} className="px-4 py-2 rounded-lg bg-indigo-500 text-white hover:bg-indigo-400 font-inter transition" >Ver mais avaliações</Link>
@@ -149,7 +201,7 @@ const Jogo = ({dados, avaliacaoInfo}) => {
         <div className="mx-auto my-0 px-10 text-center md:px-64 py-20"> 
       <div className="flex items-center gap-2 flex-col py-4 px-8 bg-gradient-to-tl from-indigo-500 to-cyan-600 rounded-lg w-full mb-8">
         
-        <a href="forum.html" className="text-white text-2xl px-4 py-2 font-inter font-bold underline decoration-solid"> Acesse o fórum de {dados[id].nome}</a>
+        <Link to={`/forum/${id}`} className="text-white text-2xl px-4 py-2 font-inter font-bold underline decoration-solid"> Acesse o fórum de {dados[numericId].nome}</Link>
         <p className="text-gray-300 text-md"> Converse • Tire dúvidas • Compartilhe curiosidades</p>
 
       </div>
