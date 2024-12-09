@@ -361,7 +361,7 @@
     },
     {
       "id": "1",
-      "nome": "pacooooo",
+      "nome": "Luigi",
       "avatar": "https://via.placeholder.com/100",
       "descricao": "Oi meu nome é paco e eu sou mt legal! Gosto de jojar jojos",
       "analises": 15,
@@ -379,7 +379,7 @@
     },
     {
       "id": "2",
-      "nome": "Ana Clara",
+      "nome": "Peach",
       "avatar": "https://via.placeholder.com/100",
       "descricao": "Gamer apaixonada por RPGs.",
       "analises": 25,
@@ -398,7 +398,7 @@
     },
     {
       "id": "3",
-      "nome": "Carlos Eduardo",
+      "nome": "Bowser",
       "avatar": "https://via.placeholder.com/100",
       "descricao": "Streamer e entusiasta de FPS.",
       "analises": 15,
@@ -413,6 +413,330 @@
       "listasFixadasIds": [
         1,
         3
+      ]
+    },
+    {
+      "id": "4",
+      "nome": "Zelda",
+      "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lSrjxAHpuNs-cwfeiwjPQtN0fzybQBRAAUkNsLOXJ3hy0=s160-c-k-c0x00ffffff-no-rj",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "5",
+      "nome": "Link",
+      "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lSrjxAHpuNs-cwfeiwjPQtN0fzybQBRAAUkNsLOXJ3hy0=s160-c-k-c0x00ffffff-no-rj",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "6",
+      "nome": "Ganon",
+      "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lSrjxAHpuNs-cwfeiwjPQtN0fzybQBRAAUkNsLOXJ3hy0=s160-c-k-c0x00ffffff-no-rj",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "7",
+      "nome": "Arthur",
+      "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lSrjxAHpuNs-cwfeiwjPQtN0fzybQBRAAUkNsLOXJ3hy0=s160-c-k-c0x00ffffff-no-rj",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "8",
+      "nome": "Dutch",
+      "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lSrjxAHpuNs-cwfeiwjPQtN0fzybQBRAAUkNsLOXJ3hy0=s160-c-k-c0x00ffffff-no-rj",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "9",
+      "nome": "Sadie",
+      "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lSrjxAHpuNs-cwfeiwjPQtN0fzybQBRAAUkNsLOXJ3hy0=s160-c-k-c0x00ffffff-no-rj",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "10",
+      "nome": "Kratos",
+      "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lSrjxAHpuNs-cwfeiwjPQtN0fzybQBRAAUkNsLOXJ3hy0=s160-c-k-c0x00ffffff-no-rj",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "11",
+      "nome": "Atreus",
+      "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lSrjxAHpuNs-cwfeiwjPQtN0fzybQBRAAUkNsLOXJ3hy0=s160-c-k-c0x00ffffff-no-rj",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "12",
+      "nome": "Freya",
+      "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lSrjxAHpuNs-cwfeiwjPQtN0fzybQBRAAUkNsLOXJ3hy0=s160-c-k-c0x00ffffff-no-rj",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "13",
+      "nome": "Geralt",
+      "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lSrjxAHpuNs-cwfeiwjPQtN0fzybQBRAAUkNsLOXJ3hy0=s160-c-k-c0x00ffffff-no-rj",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "14",
+      "nome": "Yeneffer",
+      "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lSrjxAHpuNs-cwfeiwjPQtN0fzybQBRAAUkNsLOXJ3hy0=s160-c-k-c0x00ffffff-no-rj",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "15",
+      "nome": "Ciri",
+      "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lSrjxAHpuNs-cwfeiwjPQtN0fzybQBRAAUkNsLOXJ3hy0=s160-c-k-c0x00ffffff-no-rj",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "16",
+      "nome": "Hornet",
+      "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lSrjxAHpuNs-cwfeiwjPQtN0fzybQBRAAUkNsLOXJ3hy0=s160-c-k-c0x00ffffff-no-rj",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "17",
+      "nome": "Knight",
+      "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lSrjxAHpuNs-cwfeiwjPQtN0fzybQBRAAUkNsLOXJ3hy0=s160-c-k-c0x00ffffff-no-rj",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "18",
+      "nome": "Grimm",
+      "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lSrjxAHpuNs-cwfeiwjPQtN0fzybQBRAAUkNsLOXJ3hy0=s160-c-k-c0x00ffffff-no-rj",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "19",
+      "nome": "Jin",
+      "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lSrjxAHpuNs-cwfeiwjPQtN0fzybQBRAAUkNsLOXJ3hy0=s160-c-k-c0x00ffffff-no-rj",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "20",
+      "nome": "Yuna",
+      "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lSrjxAHpuNs-cwfeiwjPQtN0fzybQBRAAUkNsLOXJ3hy0=s160-c-k-c0x00ffffff-no-rj",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
+      ]
+    },
+    {
+      "id": "21",
+      "nome": "Khotun",
+      "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lSrjxAHpuNs-cwfeiwjPQtN0fzybQBRAAUkNsLOXJ3hy0=s160-c-k-c0x00ffffff-no-rj",
+      "descricao": "Sou fã de jogos difíceis",
+      "analises": 0,
+      "media": 0,
+      "amigos": 0,
+      "localizacao": "Rio de Janeiro",
+      "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
+      "completos": 0,
+      "jogando": 0,
+      "desejados": 0,
+      "listasFixadasIds": [
+        1
       ]
     }
   ]
