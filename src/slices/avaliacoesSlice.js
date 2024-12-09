@@ -15,10 +15,10 @@ export const addAvaliacoes = createAsyncThunk('Avaliacoes/addAvaliacoes', async 
 
   const data = await response.json();
 
-  const avaliacao = {"usuario": userId, "nota": avaliacaoNum, "comentario": avaliacaoReview};
+  const avaliacao = {"usuarioId": userId, "nota": avaliacaoNum, "comentario": avaliacaoReview};
 
   const avaliacoesDoJogo = data[avaliacaoId] || [];
-  const indexExistente = avaliacoesDoJogo.findIndex(avaliacao => avaliacao.usuario === userId);
+  const indexExistente = avaliacoesDoJogo.findIndex(avaliacao => avaliacao.usuarioId === userId);
 
   if (indexExistente !== -1) {
     // Atualizar avaliação existente
