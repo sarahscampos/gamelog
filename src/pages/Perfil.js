@@ -30,11 +30,11 @@ const Perfil = ({listas, dados}) => {
     setIsFixaListaModalOpen(false)
   }
   const openEditaPerfilModal = () => {
-    setIsFixaListaModalOpen(true);
+    setIsEditaPerfilModalOpen(true);
   };
 
   const closeEditaPerfilModal = () => {
-    setIsFixaListaModalOpen(false)
+    setIsEditaPerfilModalOpen(false)
   }
 
   function obtemJogos(index){
@@ -108,7 +108,41 @@ const Perfil = ({listas, dados}) => {
         toast.error("Erro ao atualizar a lista no perfil.");
       });
   };
-  
+
+  const FixaListaModal = () =>{
+    return(
+    <Modal
+          ariaHideApp={false}
+          isOpen={isFixaListaModalOpen}
+          onRequestClose={closeFixaListaModal}
+          contentLabel="Escolha as Listas"
+          className="bg-white p-6 rounded-lg w-96"
+          overlayClassName="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50"
+        >
+          <h2 className="text-xl font-semibold mb-4">Escolha as listas para fixar/desfixar no perfil</h2>
+          <ul className="space-y-4">
+            {listas && listas.length > 0 && listas.map((lista, index) => (
+              <li key={index} className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={user.listasFixadasIds?.includes(lista.id) || false}
+                  onChange={() => toggleFixaLista(lista)}
+                  className="mr-3"
+                />
+                <span>{lista.nome}</span>
+              </li>
+            ))}
+          </ul>
+          <button
+            onClick={closeFixaListaModal}
+            className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-400"
+          >
+            Fechar
+          </button>
+        </Modal>
+    )
+  }
+
   const editaPerfil = () =>{
     const updatedListasFixadasIds = [...user.listasFixadasIds];
     const updatedUserData = {
@@ -121,8 +155,8 @@ const Perfil = ({listas, dados}) => {
       closeEditaPerfilModal();
     })
     .catch((error) => {
-      console.error("Erro ao adicionar o jogo à lista:", error);
-      toast.error("Erro ao fixar a lista no perfil.");
+      console.error("Erro ao adicionar o perfil:", error);
+      toast.error("Erro ao editar o perfil.");
     });
   }
 
@@ -141,7 +175,6 @@ const Perfil = ({listas, dados}) => {
   }
   
   return (
-    
     <div style={{backgroundImage: `url(${background})`}} className="p-10">
       <div className="flex justify-between w-full mx-auto my-0 px-10 md:px-64 bg-fixed">
       <button onClick={() => navigate(-1)} /*bug de não ter pagina anterior?*/className="items-center gap-1 inline-flex px-4 py-2 rounded-lg border-2 border-cyan-600 text-white hover:bg-cyan-600 font-inter transition-all duration-300">
@@ -151,14 +184,14 @@ const Perfil = ({listas, dados}) => {
       </div>
       <div className="max-w-md mx-auto bg-white shadow-xl rounded-lg overflow-hidden">
         {/* Cabeçalho */}
-        <div className="flex justify-between items-center p-4 bg-blue-500 text-white">
+        <div className="flex justify-between p-4 bg-blue-500 text-white">
           <span className="text-sm font-semibold">{user.nome}</span>
-          <button className="text-sm font-semibold" onClick={openEditaPerfilModal}>
+          <button className="flex items-center text-sm font-semibold" onClick={openEditaPerfilModal}>
             <MdEdit size={25}/>
             Editar Perfil
           </button>
-          <ToastContainer />
         </div>
+        <ToastContainer />
 
         {/* Corpo do Perfil */}
         <div className="text-center p-4">
@@ -217,54 +250,25 @@ const Perfil = ({listas, dados}) => {
           <h3 className="text-lg font-semibold">Minhas Listas Fixadas: </h3>
         </div>
 
-        {/* Modal para fixar/desfixar listas no perfil do usuário */}
-        <Modal
-          ariaHideApp={false}
-          isOpen={isFixaListaModalOpen}
-          onRequestClose={closeFixaListaModal}
-          contentLabel="Escolha as Listas"
-          className="bg-white p-6 rounded-lg w-96"
-          overlayClassName="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50"
-        >
-          <h2 className="text-xl font-semibold mb-4">Escolha as listas para fixar no Perfil</h2>
-          <ul className="space-y-4">
-            {listas && listas.length > 0 && listas.map((lista, index) => (
-              <li key={index} className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={user.listasFixadasIds?.includes(lista.id) || false}
-                  onChange={() => toggleFixaLista(lista.id)}
-                  className="mr-3"
-                />
-                <span>{lista.nome}</span>
-              </li>
-            ))}
-          </ul>
-          <button
-            onClick={closeFixaListaModal}
-            className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-400"
-          >
-            Fechar
-          </button>
-        </Modal>
+        <FixaListaModal/>
 
-        {/* Exibindo as listas fixadas */}
+        {/*PRINTANDO LISTAS*/}
         {user.listasFixadasIds && user.listasFixadasIds.length > 0 && user.listasFixadasIds.map((idLista) => {
-          const index = listas.findIndex((lista) => lista.id === idLista);
-          return (
-            <div key={idLista} className="mb-4">
-              {/* Cabeçalho da lista */}
-              <div className="flex justify-between items-center p-4 bg-blue-500 text-white">
-                <h3 className="text-lg font-semibold">• {listas[index]?.nome || "Nome da Lista Indisponível"}</h3>
-              </div>
+        const lista = listas.find((l) => l.id === idLista);
+        return lista ? (
+          <div key={idLista} className="mb-4">
+            {/* Cabeçalho da lista */}
+            <div className="flex justify-between items-center p-4 bg-blue-500 text-white">
+              <h3 className="text-lg font-semibold">• {lista.nome}</h3>
+            </div>
 
-              {/* Carrossel com os jogos */}
+            {/* Carrossel com os jogos */}
               <div className="bg-white shadow-xl rounded-lg overflow-hidden">
-                <Carrossel jogos={obtemJogos(index)} />
+                <Carrossel jogos={obtemJogos(lista.id)} />
               </div>
             </div>
-          );
-        })}
+            ) : null;
+          })}
 
         </div>
       </div>
