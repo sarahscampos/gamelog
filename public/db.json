@@ -127,6 +127,18 @@
         "nota": 8,
         "comentario": "Muito divertido, mas prefiro os clássicos.",
         "imgSrc": "https://m.media-amazon.com/images/I/71HW-x8cH+L._AC_UF894,1000_QL80_.jpg"
+      },
+      {
+        "usuario": "Usuario",
+        "nota": 4,
+        "comentario": "bleh",
+        "imgSrc": ""
+      },
+      {
+        "usuario": "Usuario",
+        "nota": 9,
+        "comentario": "ADGADGHHH",
+        "imgSrc": ""
       }
     ],
     "1": [
@@ -299,7 +311,8 @@
           "id": 2,
           "nome": "SoulsLikes Favoritos",
           "ids": [
-            "0"
+            "0",
+            "2"
           ]
         },
         {
@@ -367,7 +380,9 @@
         3,
         2,
         4,
-        0
+        0,
+        2,
+        5
       ]
     },
     {
