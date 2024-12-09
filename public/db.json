@@ -139,6 +139,12 @@
         "nota": 9,
         "comentario": "ADGADGHHH",
         "imgSrc": ""
+      },
+      {
+        "usuario": "Usuario",
+        "nota": 5,
+        "comentario": "gbtgb",
+        "imgSrc": ""
       }
     ],
     "1": [
@@ -159,6 +165,12 @@
         "nota": 7,
         "comentario": "Jogo bom, mas esperava mais no modo exploração.",
         "imgSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/YuanEmperorAlbumGenghisPortrait.jpg/330px-YuanEmperorAlbumGenghisPortrait.jpg"
+      },
+      {
+        "usuario": "Usuario",
+        "nota": 4,
+        "comentario": "esperava mais",
+        "imgSrc": ""
       }
     ],
     "2": [
@@ -179,6 +191,18 @@
         "nota": 8,
         "comentario": "Ótimo, mas acho que poderia ser mais desafiador em certas partes.",
         "imgSrc": "https://images.squarespace-cdn.com/content/v1/58d66569b3db2b57ce7db1e2/1694545656330-WG7I8ILCYMHJ436XZGA9/ganon+zoom+1.jpg"
+      },
+      {
+        "usuario": "Usuario",
+        "nota": 3,
+        "comentario": "vcdrv",
+        "imgSrc": ""
+      },
+      {
+        "usuario": "Usuario",
+        "nota": 4,
+        "comentario": "htrt",
+        "imgSrc": ""
       }
     ],
     "3": [
@@ -219,6 +243,12 @@
         "nota": 8,
         "comentario": "Gostei bastante, mas achei a curva de aprendizado inicial difícil.",
         "imgSrc": "https://s2-techtudo.glbimg.com/jKDQdpF0Cv4VwkUg0Dw8StfShhQ=/0x0:695x390/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2021/I/U/zsD8U5TeWZiqJDPRcc3A/2014-12-16-witcher-3-ciri-rpg.jpg"
+      },
+      {
+        "usuario": "Usuario",
+        "nota": 10,
+        "comentario": "masterpiece",
+        "imgSrc": ""
       }
     ],
     "5": [

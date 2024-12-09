@@ -58,6 +58,8 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
     });
   }
 
+  const avaliacaoUsuario = avaliacaoInfo[id]?.find(avaliacao => avaliacao.usuario === 'Usuario');
+
   if (!dados || !dados[numericId]) {
     return <Loading />;
   }
@@ -89,18 +91,41 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
         <p className="text-white rounded bg-gradient-to-tl from-indigo-500 to-cyan-600 px-5 py-2 font-fira">Nota média: {dados[numericId].nota}</p>
 
       </div>
+      
       <div className="flex flex-row gap-6 justify-center mt-16">
-        <button className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter transition" onClick={openModal}>
-          <MdPlaylistAdd size={25}/>
-          Adicionar à lista
-        </button>
-        <button className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter transition" onClick={openModalAvaliacao}>
-          <MdPlaylistAdd size={25}/>
-          Avaliar jogo
-        </button>
-        <ToastContainer />
-      </div>
-  </section>
+          <button
+            className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter transition"
+            onClick={openModal}
+          >
+            <MdPlaylistAdd size={25} />
+            Adicionar à lista
+          </button>
+
+          {avaliacaoUsuario ? (
+    <div className="flex flex-col items-center">
+      <p className="text-white text-sm mb-2">
+        Sua nota: <span className="font-bold">{avaliacaoUsuario.nota}</span>
+      </p>
+      <button
+        className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-green-500 text-white hover:bg-green-400 font-inter transition"
+        onClick={openModalAvaliacao}
+      >
+        <MdPlaylistAdd size={25} />
+        Editar avaliação
+      </button>
+    </div>
+  ) : (
+            <button
+              className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter transition"
+              onClick={openModalAvaliacao}
+            >
+              <MdPlaylistAdd size={25} />
+              Avaliar jogo
+            </button>
+          )}
+          <ToastContainer />
+        </div>
+      </section>
 
 
  {/* modal para adicionar o jogo em listas, informações a partir da lista de listas do usuario*/}
