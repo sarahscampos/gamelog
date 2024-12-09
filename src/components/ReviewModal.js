@@ -12,8 +12,8 @@ const GameReviewModal = ({id,close}) => {
 
 
   const handleSubmit = () => {
-    if (newAvaliacaoNota === null) {
-      alert("Por favor, insira uma nota antes de enviar.");
+    if ((newAvaliacaoNota === null) || (newAvaliacaoNota > 10) || (newAvaliacaoNota < 0)) {
+      alert("Por favor, insira uma nota valida antes de enviar.");
       return;
     }
 

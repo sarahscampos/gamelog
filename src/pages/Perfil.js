@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Carrossel from '../components/Carrossel';
 import background from "../assets/img/backgroundJogo.png";
 import Modal from "react-modal"
@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from "react-redux";
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { MdPlaylistAdd } from "react-icons/md";
+import { RiArrowGoBackFill } from "react-icons/ri";
 
 const Perfil = ({listas, dados}) => {
   const { id } = useParams(); // Captura o ID do usuário na URL
@@ -15,6 +16,8 @@ const Perfil = ({listas, dados}) => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const navigate = useNavigate();
 
 
   const openModal = () => {
@@ -111,12 +114,15 @@ const Perfil = ({listas, dados}) => {
   return (
     
     <div style={{backgroundImage: `url(${background})`}} className="p-10">
+      <div className="flex justify-between w-full mx-auto my-0 px-10 md:px-64 bg-fixed">
+      <button onClick={() => navigate(-1)} /*bug de não ter pagina anterior?*/className="items-center gap-1 inline-flex px-4 py-2 rounded-lg border-2 border-cyan-600 text-white hover:bg-cyan-600 font-inter transition-all duration-300">
+      <RiArrowGoBackFill />
+        Voltar
+      </button>
+      </div>
       <div className="max-w-md mx-auto bg-white shadow-xl rounded-lg overflow-hidden">
         {/* Cabeçalho */}
         <div className="flex justify-between items-center p-4 bg-blue-500 text-white">
-          <Link to="/" className="text-xl font-bold hover:underline">
-            &larr; Voltar
-          </Link>
           <span className="text-sm font-semibold">{user.nome}</span>
         </div>
 
