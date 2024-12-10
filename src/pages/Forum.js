@@ -55,12 +55,13 @@ const Forum = ({dados}) => {
           Enviar
         </button>
 
+        {/*TROCAR PELO ID DO USUARIO DE VDD userId = 0 default*/}
         <div className="mt-6 space-y-4">
           {posts
             .slice()
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Ordenando os posts pela data mais recente
             .map((post) => (
-              <Comentario key={post.id} post={post} />
+              <Comentario key={post.id} post={post} userId={0} />
             ))}
         </div>
       </div>

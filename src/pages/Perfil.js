@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState} from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Carrossel from '../components/Carrossel';
 import background from "../assets/img/backgroundJogo.png";
 import Modal from "react-modal"
@@ -11,9 +11,14 @@ import { MdPlaylistAdd, MdEdit } from "react-icons/md";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import Loading from "../components/Loading";
 
-const Perfil = ({listas, dados}) => {
+// QUERO IMPLEMENTAR: - tela de todas as avaliacoes do usuario
+// - nota do usuario pros jogos aparecendo junto aos jogos
+
+const Perfil = ({listas, dados, usuarioLogado}) => {
+  // para usuarios que nao sao o usuarioLogado:
   const { id } = useParams(); // Captura o ID do usuário na URL
-  const [user, setUser] = useState(null);
+  const [anyUser, setAnyUser] = useState(null);
+  
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const [isFixaListaModalOpen, setIsFixaListaModalOpen] = useState(false);
@@ -44,29 +49,31 @@ const Perfil = ({listas, dados}) => {
   }
   const favIndex = listas && listas.findIndex((lista) => lista.nome === "Favoritos");
   const jogosFav = obtemJogos(favIndex);
-
+  
+  //agora to tentando usar o slice. mas eu ainda preciso dar fetch caso nao seja o usuario LOGADO
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        //const response = await fetch(`http://localhost:3000/perfil/${id}`);
-        const response = await fetch(`http://localhost:3000/perfil/0`);
-        if (!response.ok) {
-          throw new Error("Erro ao carregar o perfil do usuário");
-        }
-        const data = await response.json();
-        setUser(data);
+        const response = await fetch(`http://localhost:3000/perfil/${id}`);
+        if (!response.ok) throw new Error("Erro ao carregar o perfil do usuário");
+        const userData = await response.json();
+        console.log(userData); // Log the response to check the data structure
+        setAnyUser(userData);
       } catch (error) {
-        console.error(error);
+        console.error("Erro:", error.message);  // Log detailed error message
+        setAnyUser(null);  // Set to null in case of error
       } finally {
         setLoading(false);
       }
     };
-
-    fetchUser();
-  }, [id]);
   
+    if (id) {
+      fetchUser();
+    }
+  }, [id]);
+
   const atualizaPerfil = createAsyncThunk('perfil/atualizaPerfil', async ({ updatedUserData }) => {
-    const response = await fetch('http://localhost:3000/perfil/0', {
+    const response = await fetch(`http://localhost:3000/perfil/${usuarioLogado.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -84,15 +91,15 @@ const Perfil = ({listas, dados}) => {
 
   const toggleFixaLista = (lista) => {
     // Verifica se a lista já está fixada
-    const isListaFixada = user.listasFixadasIds.includes(lista.id);
+    const isListaFixada = usuarioLogado.listasFixadasIds.includes(lista.id);
   
     // Atualiza o array de IDs com base no estado atual
     const updatedListasFixadasIds = isListaFixada
-      ? user.listasFixadasIds.filter((id) => id !== lista.id) // Remove a lista se já estiver fixada
-      : [...user.listasFixadasIds, lista.id]; // Adiciona a lista se não estiver fixada
+      ? usuarioLogado.listasFixadasIds.filter((id) => id !== lista.id) // Remove a lista se já estiver fixada
+      : [...usuarioLogado.listasFixadasIds, lista.id]; // Adiciona a lista se não estiver fixada
   
     const updatedUserData = {
-      ...user, // Mantém todas as outras informações do usuário
+      ...usuarioLogado, // Mantém todas as outras informações do usuário
       listasFixadasIds: updatedListasFixadasIds, // Atualiza apenas as listas fixadas
     };
   
@@ -124,7 +131,7 @@ const Perfil = ({listas, dados}) => {
               <li key={index} className="flex items-center">
                 <input
                   type="checkbox"
-                  checked={user.listasFixadasIds?.includes(lista.id) || false}
+                  checked={usuarioLogado.listasFixadasIds?.includes(lista.id) || false}
                   onChange={() => toggleFixaLista(lista)}
                   className="mr-3"
                 />
@@ -144,7 +151,7 @@ const Perfil = ({listas, dados}) => {
 
   const editaPerfil = (updateData) =>{
       const updatedUserData = {
-        ...user, // Mantém as informações existentes
+        ...usuarioLogado, // Mantém as informações existentes
         ...updateData, // Sobrescreve com as novas informações
       };
 
@@ -160,7 +167,7 @@ const Perfil = ({listas, dados}) => {
   }
 
   const EditaPerfilModal = () => {
-    const [formData, setFormData] = useState(user);
+    const [formData, setFormData] = useState(usuarioLogado);
     const handleChange = (e) => {
       const { name, value } = e.target;
       setFormData((prev) => ({ ...prev, [name]: value }));
@@ -249,7 +256,7 @@ const Perfil = ({listas, dados}) => {
     );
   }
 
-  if (!user) {
+  if (!usuarioLogado) {
     return (
       <div className="text-center mt-20 text-lg font-inter text-red-600">
         Não foi possível carregar o perfil.
@@ -260,7 +267,7 @@ const Perfil = ({listas, dados}) => {
   return (
     <div style={{backgroundImage: `url(${background})`}} className="p-10">
       <div className="flex justify-between w-full mx-auto my-0 px-10 md:px-64 bg-fixed">
-      <button onClick={() => navigate(-1)} /*bug de não ter pagina anterior?*/className="items-center gap-1 inline-flex px-4 py-2 rounded-lg border-2 border-cyan-600 text-white hover:bg-cyan-600 font-inter transition-all duration-300">
+      <button onClick={() => navigate(-1)} className="items-center gap-1 inline-flex px-4 py-2 rounded-lg border-2 border-cyan-600 text-white hover:bg-cyan-600 font-inter transition-all duration-300">
       <RiArrowGoBackFill />
         Voltar
       </button>
@@ -268,11 +275,15 @@ const Perfil = ({listas, dados}) => {
       <div className="max-w-md mx-auto bg-white shadow-xl rounded-lg overflow-hidden">
         {/* Cabeçalho */}
         <div className="flex justify-between p-4 bg-blue-500 text-white">
-          <span className="text-sm font-semibold">{user.nome}</span>
-          <button className="flex items-center text-sm font-semibold" onClick={openEditaPerfilModal}>
-            <MdEdit size={25}/>
-            Editar Perfil
-          </button>
+          <span className="text-sm font-semibold">{anyUser.nome}</span>
+          {
+            anyUser === usuarioLogado ? (
+              <button className="flex items-center text-sm font-semibold" onClick={openEditaPerfilModal}>
+                <MdEdit size={25} />
+                Editar Perfil
+              </button>
+            ) : null
+          }
         </div>
         <EditaPerfilModal />
         <ToastContainer />
@@ -281,14 +292,14 @@ const Perfil = ({listas, dados}) => {
         {/* Corpo do Perfil */}
         <div className="text-center p-4">
           <img
-            src={user.avatar}
-            alt={user.nome}
+            src={anyUser.avatar}
+            alt={anyUser.nome}
             className="w-24 h-24 rounded-full mx-auto shadow-lg"
           />
-          <h2 className="mt-2 text-2xl font-semibold">{user.nome}</h2>
-          <p className="text-gray-500">{user.descricao}</p>
+          <h2 className="mt-2 text-2xl font-semibold">{anyUser.nome}</h2>
+          <p className="text-gray-500">{anyUser.descricao}</p>
           <p className="text-xs text-gray-400 mt-1">
-            {user.localizacao} • Membro desde {user.membroDesde}
+            {anyUser.localizacao} • Membro desde {anyUser.membroDesde}
           </p>
         </div>
 
@@ -297,15 +308,15 @@ const Perfil = ({listas, dados}) => {
           <h3 className="text-lg font-semibold">Estatísticas</h3>
           <div className="grid grid-cols-3 text-center">
             <div>
-              <span className="text-lg font-bold">{user.analises}</span>
-              <p className="text-gray-500 text-sm">Análises</p>
+              <span className="text-lg font-bold">{anyUser.avaliacaoCount}</span>
+              <p className="text-gray-500 text-sm">Avaliações</p>
             </div>
             <div>
-              <span className="text-lg font-bold">{user.media}</span>
+              <span className="text-lg font-bold">{anyUser.avaliacaoMedia}</span>
               <p className="text-gray-500 text-sm">Média</p>
             </div>
             <div>
-              <span className="text-lg font-bold">{user.amigos}</span>
+              <span className="text-lg font-bold">{anyUser.amigos}</span>
               <p className="text-gray-500 text-sm">Amigos</p>
             </div>
           </div>
@@ -322,7 +333,7 @@ const Perfil = ({listas, dados}) => {
           </div>
         </div>
 
-        {/* LISTAS QUE O USUARIO DESEJAR MOSTRAR: */}
+        {/* LISTAS QUE O usuarioLogado DESEJAR MOSTRAR: */}
         <div className="flex justify-center mt-16">
           <button className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter transition" onClick={openFixaListaModal}>
             <MdPlaylistAdd size={25}/>
@@ -338,22 +349,22 @@ const Perfil = ({listas, dados}) => {
         <FixaListaModal/>
 
         {/*PRINTANDO LISTAS*/}
-        {user.listasFixadasIds && user.listasFixadasIds.length > 0 && user.listasFixadasIds.map((idLista) => {
-        const lista = listas.find((l) => l.id === idLista);
-        return lista ? (
-          <div key={idLista} className="mb-4">
-            {/* Cabeçalho da lista */}
-            <div className="flex justify-between items-center p-4 bg-blue-500 text-white">
-              <h3 className="text-lg font-semibold">• {lista.nome}</h3>
-            </div>
-
-            {/* Carrossel com os jogos */}
-              <div className="bg-white shadow-xl rounded-lg overflow-hidden">
-                <Carrossel jogos={obtemJogos(lista.id)} />
+        {usuarioLogado.listasFixadasIds && usuarioLogado.listasFixadasIds.length > 0 && usuarioLogado.listasFixadasIds.map((idLista) => {
+          const lista = listas.find((l) => l.id === idLista);
+          return lista ? (
+            <div key={idLista} className="mb-4">
+              {/* Cabeçalho da lista */}
+              <div className="flex justify-between items-center p-4 bg-blue-500 text-white">
+                <h3 className="text-lg font-semibold">• {lista.nome}</h3>
               </div>
-            </div>
-            ) : null;
-          })}
+
+              {/* Carrossel com os jogos */}
+                <div className="bg-white shadow-xl rounded-lg overflow-hidden">
+                  <Carrossel jogos={obtemJogos(lista.id)} />
+                </div>
+              </div>
+              ) : null;
+            })}
 
         </div>
       </div>

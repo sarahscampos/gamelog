@@ -6,19 +6,19 @@ export const fetchAvaliacoes = createAsyncThunk('avaliacoes/fetchAvaliacoes', as
   return response.json();
 });
 
-export const addAvaliacoes = createAsyncThunk('Avaliacoes/addAvaliacoes', async ({avaliacaoId, avaliacaoNum, avaliacaoReview}) => {
+export const addAvaliacoes = createAsyncThunk('Avaliacoes/addAvaliacoes', async ({ userId, avaliacaoId, avaliacaoNum, avaliacaoReview }) => {
+    // Obter as avaliações existentes
+    const response = await fetch('http://localhost:3000/avaliacoes');
+    if (!response.ok) {
+      throw new Error(`Erro ao obter Avaliacoes: ${response.statusText}`);
+    }
 
-  const response = await fetch('http://localhost:3000/avaliacoes');
-  if (!response.ok) {
-    throw new Error(`Erro ao obter Avaliacoess: ${response.statusText}`);
-  }
+    const data = await response.json();
 
-  const data = await response.json();
+    const avaliacao = { usuarioId: userId, nota: avaliacaoNum, comentario: avaliacaoReview };
 
-  const avaliacao = {"usuario": "Usuario", "nota": avaliacaoNum, "comentario": avaliacaoReview, "imgSrc": ""};
-
-  const avaliacoesDoJogo = data[avaliacaoId] || [];
-  const indexExistente = avaliacoesDoJogo.findIndex(avaliacao => avaliacao.usuario === "Usuario");
+    const avaliacoesDoJogo = data[avaliacaoId] || [];
+    const indexExistente = avaliacoesDoJogo.findIndex(avaliacao => avaliacao.usuarioId === userId);
 
   if (indexExistente !== -1) {
     // Atualizar avaliação existente
@@ -36,13 +36,47 @@ export const addAvaliacoes = createAsyncThunk('Avaliacoes/addAvaliacoes', async 
     body: JSON.stringify(data), 
   });
 
+    if (!patchResponse.ok) {
+      throw new Error(`Erro ao atualizar as Avaliacoes: ${patchResponse.statusText}`);
+    }
 
-  if (!patchResponse.ok) {
-    throw new Error(`Erro ao atualizar as Avaliacoes: ${patchResponse.statusText}`);
+    // Incrementar o avaliacaoCount no perfil do usuário
+    const perfilResponse = await fetch(`http://localhost:3000/perfil/${userId}`);
+    if (!perfilResponse.ok) {
+      throw new Error(`Erro ao obter perfil do usuário: ${perfilResponse.statusText}`);
+    }
+
+    const perfilData = await perfilResponse.json();
+
+    // Filtrar todas as avaliações do usuário
+    const avaliacoesUsuario = Object.values(data)
+      .flat() // Transforma todas as listas em uma única lista
+      .filter(avaliacao => avaliacao.usuarioId === userId);
+
+    const totalNotas = avaliacoesUsuario.reduce((acc, curr) => acc + curr.nota, 0);
+    const avaliacaoMedia = avaliacoesUsuario.length > 0 ? Math.round((totalNotas / avaliacoesUsuario.length)*10) / 10 : 0;
+
+    const updatedPerfil = {
+      ...perfilData,
+      avaliacaoCount: avaliacoesUsuario.length,
+      avaliacaoMedia,
+    };
+
+    const updatePerfilResponse = await fetch(`http://localhost:3000/perfil/${userId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedPerfil),
+    });
+
+    if (!updatePerfilResponse.ok) {
+      throw new Error(`Erro ao atualizar o perfil do usuário: ${updatePerfilResponse.statusText}`);
+    }
+
+    return { avaliacoes: data.Avaliacoes, perfil: updatedPerfil };
   }
-
-  return data.Avaliacoess;
-});
+);
 
 //delete Jogo
 export const deleteAvaliacao = createAsyncThunk('avaliacoes/deleteAvaliacao',
