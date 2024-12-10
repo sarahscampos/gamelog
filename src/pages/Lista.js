@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import CarrosselEdit from '../components/CarrosselEdit';
 import { RiArrowGoBackFill } from "react-icons/ri";
 import {Helmet} from "react-helmet";
-import { useDispatch, useSelector } from "react-redux";
 
 
 const Lista = ({listas, dados}) => {

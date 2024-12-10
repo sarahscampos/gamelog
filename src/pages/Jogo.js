@@ -18,7 +18,7 @@ import ReviewModal from "../components/ReviewModal";
 
 
 
-const Jogo = ({dados, avaliacaoInfo, listas}) => {
+const Jogo = ({dados, avaliacaoInfo, listas, usuarioLogado}) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const numericId = parseInt(id, 10);
@@ -48,7 +48,7 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
   const addToList = (list) => {
 
     setSelectedList(list);
-    dispatch(addJogoToList({ idJogo: id, idLista: list.id }))
+    dispatch(addJogoToList({ idJogo: id, idLista: list.id , userId: usuarioLogado.id})) // por enquanto
     .then(() => {
       toast.success(`${dados[numericId].nome} foi adicionado à lista ${list.nome}!`);
       closeModal();
@@ -58,7 +58,8 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
     });
   }
 
-  const avaliacaoUsuario = avaliacaoInfo[id]?.find(avaliacao => avaliacao.usuario === 'Usuario');
+  {/* por enquanto usuarioId = 0 */}
+  const avaliacaoUsuario = avaliacaoInfo[id]?.find(avaliacao => avaliacao.usuarioId === usuarioLogado.id);
 
   if (!dados || !dados[numericId]) {
     return <Loading />;
@@ -88,7 +89,7 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
     <div className="flex flex-col items-center m-10">
         <img src={`${dados[numericId].capa}`} alt={dados[numericId].nome} className="w-52 h-72 ring-4 ring-indigo-700 rounded-md mb-6 lg:h-96 lg:w-72"/>
         <h2 className ="text-xl sm:text-2xl lg:text-3xl font-inter font-bold text-white mb-3">{dados[numericId].nome}</h2>
-        <p className="text-white rounded bg-gradient-to-tl from-indigo-500 to-cyan-600 px-5 py-2 font-fira">Nota média: {dados[numericId].nota}</p>
+        <p className="text-white rounded bg-gradient-to-tl from-indigo-500 to-cyan-600 px-5 py-2 font-fira">Nota média: {dados[numericId].notaMedia}</p>
 
       </div>
       
@@ -102,19 +103,19 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
           </button>
 
           {avaliacaoUsuario ? (
-    <div className="flex flex-col items-center">
-      <p className="text-white text-sm mb-2">
-        Sua nota: <span className="font-bold">{avaliacaoUsuario.nota}</span>
-      </p>
-      <button
-        className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-green-500 text-white hover:bg-green-400 font-inter transition"
-        onClick={openModalAvaliacao}
-      >
-        <MdOutlineRateReview size={25} />
-        Editar avaliação
-      </button>
-    </div>
-  ) : (
+            <div className="flex flex-col items-center">
+              <p className="text-white text-sm mb-2">
+                Sua nota: <span className="font-bold">{avaliacaoUsuario.nota}</span>
+              </p>
+              <button
+                className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-green-500 text-white hover:bg-green-400 font-inter transition"
+                onClick={openModalAvaliacao}
+              >
+                <MdOutlineRateReview size={25} />
+                Editar avaliação
+              </button>
+            </div>
+          ) : (
             <button
               className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-cyan-600 text-white hover:bg-cyan-500 font-inter transition"
               onClick={openModalAvaliacao}
@@ -203,15 +204,18 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
       </div>
     
   </section>
-    
+  
+  {/* PRINTANDO AS AVALIACOES! */}
   <section>
     <section className = "mx-auto my-5 px-10 text-left md:px-64 py-20">
       <h2 className="text-2xl p-4 font-bold font-inter">Avaliações</h2>
     </section>
+    
+    {/*substituir 0 pelo userID real*/}
     <section className = "mx-auto my-5 px-10 text-left md:px-64">
       { 
       avaliacaoInfo[id].length ? (
-        <Avaliacao dadosAvaliacao={avaliacaoInfo[id][0]} />
+        <Avaliacao dadosAvaliacao={avaliacaoInfo[id][0]} userId={0} />
       ) : (
         <p>Não possui avaliações</p>
       )
