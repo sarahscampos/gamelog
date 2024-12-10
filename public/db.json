@@ -4,7 +4,7 @@
       "id": "0",
       "nome": "Mario Kart",
       "colocacao": 1,
-      "nota": 10,
+      "notaMedia": 10,
       "capa": "https://upload.wikimedia.org/wikipedia/pt/0/0d/MarioKart8.jpg",
       "dataLancamento": "17/09/2013",
       "desenvolvedora": "Nintendo",
@@ -18,7 +18,7 @@
       "id": "1",
       "nome": "Ghost of Tsushima",
       "colocacao": 2,
-      "nota": 10,
+      "notaMedia": 10,
       "capa": "https://upload.wikimedia.org/wikipedia/pt/d/dc/Ghost_of_Tsushima_capa.png?20200515013229",
       "dataLancamento": "16/07/2020",
       "desenvolvedora": "Sucker Punch",
@@ -33,7 +33,7 @@
       "id": "2",
       "nome": "The Legend of Zelda: Breath of the Wild",
       "colocacao": 3,
-      "nota": 9.7,
+      "notaMedia": 9.7,
       "capa": "https://upload.wikimedia.org/wikipedia/pt/0/0f/Legend_of_Zelda_Breath_of_the_Wild_capa.png?20170116194041",
       "dataLancamento": "03/03/2017",
       "desenvolvedora": "Nintendo",
@@ -48,7 +48,7 @@
       "id": "3",
       "nome": "Red Dead Redemption 2",
       "colocacao": 4,
-      "nota": 9.5,
+      "notaMedia": 9.5,
       "capa": "https://upload.wikimedia.org/wikipedia/en/4/44/Red_Dead_Redemption_II.jpg",
       "dataLancamento": "26/10/2018",
       "desenvolvedora": "Rockstar Games",
@@ -64,7 +64,7 @@
       "id": "4",
       "nome": "The Witcher 3: Wild Hunt",
       "colocacao": 5,
-      "nota": 9,
+      "notaMedia": 9,
       "capa": "https://upload.wikimedia.org/wikipedia/en/0/0c/Witcher_3_cover_art.jpg",
       "dataLancamento": "19/05/2015",
       "desenvolvedora": "CD Projekt Red",
@@ -78,7 +78,7 @@
     },
     {
       "id": "5",
-      "nome": "God of War",
+      "nomeMedia": "God of War",
       "colocacao": 7,
       "nota": 9,
       "capa": "https://upload.wikimedia.org/wikipedia/en/a/a7/God_of_War_4_cover.jpg",
@@ -95,7 +95,7 @@
       "id": "6",
       "nome": "Hollow Knight",
       "colocacao": 6,
-      "nota": 9,
+      "notaMedia": 9,
       "capa": "https://i.pinimg.com/236x/3c/da/43/3cda430dcb205ab6de1ab5189e711583.jpg",
       "dataLancamento": "24/02/2017",
       "desenvolvedora": "Team Cherry",
@@ -126,9 +126,9 @@
         "comentario": "Muito divertido, mas prefiro os clássicos."
       },
       {
-        "usuarioId": "0",
-        "nota": 10,
-        "comentario": "melhor que dirigir de verdade"
+        "usuarioId": 0,
+        "nota": 9,
+        "comentario": "aaaa"
       }
     ],
     "1": [
@@ -167,7 +167,7 @@
       {
         "usuarioId": 0,
         "nota": 10,
-        "comentario": "masterpiece"
+        "comentario": "MASTERPIECE."
       }
     ],
     "3": [
@@ -276,43 +276,6 @@
         {
           "id": 2,
           "nome": "SoulsLikes Favoritos",
-          "ids": [
-            "0"
-          ]
-        },
-        {
-          "id": 3,
-          "nome": "RPGs infancia",
-          "ids": []
-        },
-        {
-          "id": 4,
-          "nome": "FINAL FANTASY's",
-          "ids": []
-        },
-        {
-          "id": 5,
-          "nome": "novaLista",
-          "ids": [
-            "0",
-            "1"
-          ]
-        },
-        {
-          "id": 6,
-          "nome": "novalista2",
-          "ids": [
-            "2"
-          ]
-        },
-        {
-          "id": 7,
-          "nome": "novalista5",
-          "ids": []
-        },
-        {
-          "id": 8,
-          "nome": "teste",
           "ids": []
         }
       ]
@@ -337,11 +300,12 @@
       "nome": "Diogo Mendonça",
       "avatar": "https://github.com/diogosmendonca.png",
       "descricao": "Sou fã de jogos difíceis",
-      "avaliacaoCount": 0,
-      "avaliacaoMedia": 0,
+      "avaliacaoCount": 2,
+      "avaliacaoMedia": 9.5,
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
       "listasFixadasIds": []
     },
     {
@@ -410,6 +374,7 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -424,6 +389,7 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -438,6 +404,7 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -452,6 +419,7 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -466,6 +434,7 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -480,6 +449,7 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -494,6 +464,7 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -508,6 +479,7 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -522,6 +494,7 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -536,6 +509,7 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -550,6 +524,7 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -564,6 +539,7 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -578,6 +554,7 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -592,6 +569,7 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -606,6 +584,7 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -620,6 +599,7 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -634,6 +614,7 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -648,6 +629,7 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
+      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]

@@ -22,7 +22,7 @@ const RankItem = ({jogo}) => {
                     <div className='flex-col text-gray-800 text-xl font-semibold'>
                         <div className='text-center items-center gap-2 text-yellow-500 text-2xl lg:text-3xl flex'>
                             <FaStar />
-                        <div className='text-center'>{jogo.nota}</div>
+                        <div className='text-center'>{jogo.notaMedia}</div>
                         </div>
                     </div>
                     <div>{jogo.nome}</div>
