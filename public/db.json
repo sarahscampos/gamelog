@@ -114,17 +114,21 @@
         "usuarioId": "1",
         "nota": 10,
         "comentario": "Adorei o jogo! Sempre jogamos com os amigos."
-        },
+      },
       {
-        "usuario": "2",
+        "usuarioId": "2",
         "nota": 9,
         "comentario": "Ótimo jogo, mas algumas pistas poderiam ser mais desafiadoras."
       },
       {
         "usuarioId": "3",
         "nota": 8,
-        "comentario": "Muito divertido, mas prefiro os clássicos.",
-        "imgSrc": "https://m.media-amazon.com/images/I/71HW-x8cH+L._AC_UF894,1000_QL80_.jpg"
+        "comentario": "Muito divertido, mas prefiro os clássicos."
+      },
+      {
+        "usuarioId": "0",
+        "nota": 10,
+        "comentario": "melhor que dirigir de verdade"
       }
     ],
     "1": [
@@ -132,7 +136,7 @@
         "usuarioId": "19",
         "nota": 10,
         "comentario": "Uma verdadeira obra-prima. A história é cativante."
-      }
+      },
       {
         "usuarioId": "20",
         "nota": 9,
@@ -159,6 +163,11 @@
         "usuarioId": "6",
         "nota": 8,
         "comentario": "Ótimo, mas acho que poderia ser mais desafiador em certas partes."
+      },
+      {
+        "usuarioId": 0,
+        "nota": 10,
+        "comentario": "masterpiece"
       }
     ],
     "3": [
@@ -267,7 +276,9 @@
         {
           "id": 2,
           "nome": "SoulsLikes Favoritos",
-          "ids": []
+          "ids": [
+            "0"
+          ]
         },
         {
           "id": 3,
@@ -324,28 +335,22 @@
     {
       "id": "0",
       "nome": "Diogo Mendonça",
-      "avatar": "https://yt3.googleusercontent.com/ytc/AIdro_lSrjxAHpuNs-cwfeiwjPQtN0fzybQBRAAUkNsLOXJ3hy0=s160-c-k-c0x00ffffff-no-rj",
+      "avatar": "https://github.com/diogosmendonca.png",
       "descricao": "Sou fã de jogos difíceis",
-      "analises": 0,
-      "media": 0,
+      "avaliacaoCount": 0,
+      "avaliacaoMedia": 0,
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
-      "completos": 0,
-      "jogando": 0,
-      "desejados": 0,
-      "listasFixadasIds": [
-        1
-      ]
+      "listasFixadasIds": []
     },
     {
       "id": "1",
       "nome": "Luigi",
       "avatar": "https://m.media-amazon.com/images/I/516GYeRR9WL._AC_UF894,1000_QL80_.jpg",
       "descricao": "Oi meu nome é paco e eu sou mt legal! Gosto de jojar jojos",
-      "analises": 15,
-      "media": 8.5,
+      "avaliacaoCount": 15,
+      "avaliacaoMedia": 8.5,
       "amigos": 5,
       "localizacao": "Rio de Janeiro, RJ",
       "membroDesde": "10/10/24",
@@ -362,8 +367,8 @@
       "nome": "Peach",
       "avatar": "https://p2.trrsf.com.br/image/fget/cf/540/960/smart/images.terra.com/2024/03/20/card-1-peach-ts572v0ihgza.jpg",
       "descricao": "Gamer apaixonada por RPGs.",
-      "analises": 25,
-      "media": 4.8,
+      "avaliacaoCount": 25,
+      "avaliacaoMedia": 4.8,
       "amigos": 130,
       "localizacao": "São Paulo, Brasil",
       "membroDesde": "2022",
@@ -381,8 +386,8 @@
       "nome": "Bowser",
       "avatar": "https://m.media-amazon.com/images/I/71HW-x8cH+L._AC_UF894,1000_QL80_.jpg",
       "descricao": "Streamer e entusiasta de FPS.",
-      "analises": 15,
-      "media": 4.2,
+      "avaliacaoCount": 15,
+      "avaliacaoMedia": 4.2,
       "amigos": 80,
       "localizacao": "Rio de Janeiro, Brasil",
       "membroDesde": "2023",
@@ -400,15 +405,11 @@
       "nome": "Zelda",
       "avatar": "https://play.nintendo.com/images/Gallery_Lozbotw_15.aaaec624.2d958659.jpg",
       "descricao": "Sou fã de jogos difíceis",
-      "analises": 0,
-      "media": 0,
+      "avaliacaoCount": 0,
+      "avaliacaoMedia": 0,
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
-      "completos": 0,
-      "jogando": 0,
-      "desejados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -418,15 +419,11 @@
       "nome": "Link",
       "avatar": "https://www.zeldadungeon.net/wiki/images/thumb/c/ce/Link_-_TotK_art_02_alt.png/400px-Link_-_TotK_art_02_alt.png",
       "descricao": "Sou fã de jogos difíceis",
-      "analises": 0,
-      "media": 0,
+      "avaliacaoCount": 0,
+      "avaliacaoMedia": 0,
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
-      "completos": 0,
-      "jogando": 0,
-      "desejados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -436,15 +433,11 @@
       "nome": "Ganon",
       "avatar": "https://images.squarespace-cdn.com/content/v1/58d66569b3db2b57ce7db1e2/1694545656330-WG7I8ILCYMHJ436XZGA9/ganon+zoom+1.jpg",
       "descricao": "Sou fã de jogos difíceis",
-      "analises": 0,
-      "media": 0,
+      "avaliacaoCount": 0,
+      "avaliacaoMedia": 0,
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
-      "completos": 0,
-      "jogando": 0,
-      "desejados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -454,15 +447,11 @@
       "nome": "Arthur",
       "avatar": "https://http2.mlstatic.com/D_NQ_NP_810647-MLB42808104113_072020-O.webp",
       "descricao": "Sou fã de jogos difíceis",
-      "analises": 0,
-      "media": 0,
+      "avaliacaoCount": 0,
+      "avaliacaoMedia": 0,
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
-      "completos": 0,
-      "jogando": 0,
-      "desejados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -472,15 +461,11 @@
       "nome": "Dutch",
       "avatar": "https://oyster.ignimgs.com/mediawiki/apis.ign.com/red-dead-redemption-2/7/7c/ThHAP39JQI.jpg",
       "descricao": "Sou fã de jogos difíceis",
-      "analises": 0,
-      "media": 0,
+      "avaliacaoCount": 0,
+      "avaliacaoMedia": 0,
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
-      "completos": 0,
-      "jogando": 0,
-      "desejados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -490,15 +475,11 @@
       "nome": "Sadie",
       "avatar": "https://oyster.ignimgs.com/mediawiki/apis.ign.com/red-dead-redemption-2/7/7c/ThHAP39JQI.jpg",
       "descricao": "Sou fã de jogos difíceis",
-      "analises": 0,
-      "media": 0,
+      "avaliacaoCount": 0,
+      "avaliacaoMedia": 0,
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
-      "completos": 0,
-      "jogando": 0,
-      "desejados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -508,15 +489,11 @@
       "nome": "Kratos",
       "avatar": "https://selectgame.gamehall.com.br/wp-content/uploads/2021/09/cropped-Freya-em-God-of-War-Ragnarok-Capa.jpg",
       "descricao": "Sou fã de jogos difíceis",
-      "analises": 0,
-      "media": 0,
+      "avaliacaoCount": 0,
+      "avaliacaoMedia": 0,
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
-      "completos": 0,
-      "jogando": 0,
-      "desejados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -526,15 +503,11 @@
       "nome": "Atreus",
       "avatar": "https://oyster.ignimgs.com/mediawiki/apis.ign.com/god-of-war-ragnarok/1/1b/Ater.jpg",
       "descricao": "Sou fã de jogos difíceis",
-      "analises": 0,
-      "media": 0,
+      "avaliacaoCount": 0,
+      "avaliacaoMedia": 0,
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
-      "completos": 0,
-      "jogando": 0,
-      "desejados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -544,15 +517,11 @@
       "nome": "Freya",
       "avatar": "https://oyster.ignimgs.com/mediawiki/apis.ign.com/god-of-war-ragnarok/9/93/Freya.jpg",
       "descricao": "Sou fã de jogos difíceis",
-      "analises": 0,
-      "media": 0,
+      "avaliacaoCount": 0,
+      "avaliacaoMedia": 0,
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
-      "completos": 0,
-      "jogando": 0,
-      "desejados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -562,15 +531,11 @@
       "nome": "Geralt",
       "avatar": "https://tm.ibxk.com.br/2022/12/23/23110710926049.jpg",
       "descricao": "Sou fã de jogos difíceis",
-      "analises": 0,
-      "media": 0,
+      "avaliacaoCount": 0,
+      "avaliacaoMedia": 0,
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
-      "completos": 0,
-      "jogando": 0,
-      "desejados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -580,15 +545,11 @@
       "nome": "Yeneffer",
       "avatar": "https://image.api.playstation.com/cdn/UP4497/CUSA00527_00/65vdrfyv7RwISVz8ATFr2DKSmUeaIuz2.png",
       "descricao": "Sou fã de jogos difíceis",
-      "analises": 0,
-      "media": 0,
+      "avaliacaoCount": 0,
+      "avaliacaoMedia": 0,
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
-      "completos": 0,
-      "jogando": 0,
-      "desejados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -598,15 +559,11 @@
       "nome": "Ciri",
       "avatar": "https://s2-techtudo.glbimg.com/jKDQdpF0Cv4VwkUg0Dw8StfShhQ=/0x0:695x390/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2021/I/U/zsD8U5TeWZiqJDPRcc3A/2014-12-16-witcher-3-ciri-rpg.jpg",
       "descricao": "Sou fã de jogos difíceis",
-      "analises": 0,
-      "media": 0,
+      "avaliacaoCount": 0,
+      "avaliacaoMedia": 0,
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
-      "completos": 0,
-      "jogando": 0,
-      "desejados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -616,15 +573,11 @@
       "nome": "Hornet",
       "avatar": "https://pm1.aminoapps.com/6783/9b1433c160fafdad459bab201f51b78e6a07a9dav2_00.jpg",
       "descricao": "Sou fã de jogos difíceis",
-      "analises": 0,
-      "media": 0,
+      "avaliacaoCount": 0,
+      "avaliacaoMedia": 0,
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
-      "completos": 0,
-      "jogando": 0,
-      "desejados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -634,15 +587,11 @@
       "nome": "Knight",
       "avatar": "https://cdn.awsli.com.br/2657/2657807/produto/270496847/photo_5094015974415379628_x-4ucvc1908c.jpg",
       "descricao": "Sou fã de jogos difíceis",
-      "analises": 0,
-      "media": 0,
+      "avaliacaoCount": 0,
+      "avaliacaoMedia": 0,
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
-      "completos": 0,
-      "jogando": 0,
-      "desejados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -652,15 +601,11 @@
       "nome": "Grimm",
       "avatar": "https://cdn.awsli.com.br/2657/2657807/produto/270496847/photo_5094015974415379628_x-4ucvc1908c.jpg",
       "descricao": "Sou fã de jogos difíceis",
-      "analises": 0,
-      "media": 0,
+      "avaliacaoCount": 0,
+      "avaliacaoMedia": 0,
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
-      "completos": 0,
-      "jogando": 0,
-      "desejados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -670,15 +615,11 @@
       "nome": "Jin",
       "avatar": "https://cdn.awsli.com.br/600x700/222/222813/produto/110661252/5a9e3133b9.jpg",
       "descricao": "Sou fã de jogos difíceis",
-      "analises": 0,
-      "media": 0,
+      "avaliacaoCount": 0,
+      "avaliacaoMedia": 0,
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
-      "completos": 0,
-      "jogando": 0,
-      "desejados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -688,15 +629,11 @@
       "nome": "Yuna",
       "avatar": "https://cdn.awsli.com.br/600x700/222/222813/produto/110661252/5a9e3133b9.jpg",
       "descricao": "Sou fã de jogos difíceis",
-      "analises": 0,
-      "media": 0,
+      "avaliacaoCount": 0,
+      "avaliacaoMedia": 0,
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
-      "completos": 0,
-      "jogando": 0,
-      "desejados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -706,15 +643,11 @@
       "nome": "Khotun",
       "avatar": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/YuanEmperorAlbumGenghisPortrait.jpg/330px-YuanEmperorAlbumGenghisPortrait.jpg",
       "descricao": "Sou fã de jogos difíceis",
-      "analises": 0,
-      "media": 0,
+      "avaliacaoCount": 0,
+      "avaliacaoMedia": 0,
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
-      "completos": 0,
-      "jogando": 0,
-      "desejados": 0,
       "listasFixadasIds": [
         1
       ]

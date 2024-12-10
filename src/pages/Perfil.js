@@ -48,8 +48,7 @@ const Perfil = ({listas, dados}) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        //const response = await fetch(`http://localhost:3000/perfil/${id}`);
-        const response = await fetch(`http://localhost:3000/perfil/0`);
+        const response = await fetch(`http://localhost:3000/perfil/${id}`);
         if (!response.ok) {
           throw new Error("Erro ao carregar o perfil do usuário");
         }
@@ -66,7 +65,7 @@ const Perfil = ({listas, dados}) => {
   }, [id]);
   
   const atualizaPerfil = createAsyncThunk('perfil/atualizaPerfil', async ({ updatedUserData }) => {
-    const response = await fetch('http://localhost:3000/perfil/0', {
+    const response = await fetch(`http://localhost:3000/perfil/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -297,11 +296,11 @@ const Perfil = ({listas, dados}) => {
           <h3 className="text-lg font-semibold">Estatísticas</h3>
           <div className="grid grid-cols-3 text-center">
             <div>
-              <span className="text-lg font-bold">{user.analises}</span>
-              <p className="text-gray-500 text-sm">Análises</p>
+              <span className="text-lg font-bold">{user.avaliacaoCount}</span>
+              <p className="text-gray-500 text-sm">Avaliações</p>
             </div>
             <div>
-              <span className="text-lg font-bold">{user.media}</span>
+              <span className="text-lg font-bold">{user.avaliacaoMedia}</span>
               <p className="text-gray-500 text-sm">Média</p>
             </div>
             <div>

@@ -9,7 +9,7 @@ const Avaliacao = ({dadosAvaliacao}) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/perfil/${dadosAvaliacao.usuario}`);
+        const response = await fetch(`http://localhost:3000/perfil/${dadosAvaliacao.usuarioId}`);
         if (!response.ok) {
           throw new Error("Erro ao carregar o perfil do usuário");
         }
@@ -21,7 +21,7 @@ const Avaliacao = ({dadosAvaliacao}) => {
     };
 
     fetchUser();
-  }, /*[dadosAvaliacao.usuario]*/); // reexecutar o fetch se mudar
+  }, [dadosAvaliacao.usuarioId]); // reexecutar o fetch se mudar
 
   if (!usuario) {
     return <div>Carregando...</div>;
@@ -33,7 +33,7 @@ const Avaliacao = ({dadosAvaliacao}) => {
             {/* mantem esse || so pra ter os comentarios mockados*/}
             <img src={usuario.avatar} alt="Foto do usuário" className="w-16 h-16 ring-4  ring-indigo-600 rounded-full" />
             <div className="flex flex-col gap-2 p-4">
-              <p className="text-gray-800 text-sm italic">{usuario.nome || usuario}</p>
+              <p className="text-gray-800 text-sm italic">{usuario.nome}</p>
               <p className="text-0.8xl text-indigo-600 font-bold font-inter">Nota: {dadosAvaliacao.nota}</p>
               <p className="text-md">
                 {dadosAvaliacao.comentario}
