@@ -18,7 +18,7 @@ import ReviewModal from "../components/ReviewModal";
 
 
 
-const Jogo = ({dados, avaliacaoInfo, listas}) => {
+const Jogo = ({dados, avaliacaoInfo, listas, usuarioLogado}) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const numericId = parseInt(id, 10);
@@ -48,7 +48,7 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
   const addToList = (list) => {
 
     setSelectedList(list);
-    dispatch(addJogoToList({ idJogo: id, idLista: list.id }))
+    dispatch(addJogoToList({ idJogo: id, idLista: list.id , userId: usuarioLogado.id})) // por enquanto
     .then(() => {
       toast.success(`${dados[numericId].nome} foi adicionado à lista ${list.nome}!`);
       closeModal();
@@ -59,7 +59,7 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
   }
 
   {/* por enquanto usuarioId = 0 */}
-  const avaliacaoUsuario = avaliacaoInfo[id]?.find(avaliacao => avaliacao.usuarioId === 0);
+  const avaliacaoUsuario = avaliacaoInfo[id]?.find(avaliacao => avaliacao.usuarioId === usuarioLogado.id);
 
   if (!dados || !dados[numericId]) {
     return <Loading />;

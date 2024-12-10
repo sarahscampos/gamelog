@@ -2,7 +2,7 @@ import React from 'react';
 import Carousel from "react-multi-carousel";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { removeJogoToList } from "../slices/listasSlice";
+import { removeJogoFromList } from "../slices/listasSlice";
 
 const responsive = {
     superLargeDesktop: {
@@ -35,7 +35,7 @@ const responsive = {
     const remove = (idJogo, idLista) => {
       console.log("AAAAAAAAAAAAAAAAAAAAAAAA");
       console.log(id);
-      dispatch(removeJogoToList({ idJogo: idJogo, idLista: idLista }))
+      dispatch(removeJogoFromList({ idJogo: idJogo, idLista: idLista, userId: 0 })) // por enquanto
       .then(() => {
       })
       .catch((error) => {

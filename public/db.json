@@ -78,9 +78,9 @@
     },
     {
       "id": "5",
-      "nomeMedia": "God of War",
+      "nome": "God of War",
       "colocacao": 7,
-      "nota": 9,
+      "notaMedia": 9,
       "capa": "https://upload.wikimedia.org/wikipedia/en/a/a7/God_of_War_4_cover.jpg",
       "dataLancamento": "20/04/2018",
       "desenvolvedora": "Santa Monica Studio",
@@ -126,9 +126,9 @@
         "comentario": "Muito divertido, mas prefiro os clássicos."
       },
       {
-        "usuarioId": 0,
-        "nota": 9,
-        "comentario": "aaaa"
+        "usuarioId": "0",
+        "nota": 8,
+        "comentario": "melhor que dirigir na vida real"
       }
     ],
     "1": [
@@ -146,6 +146,11 @@
         "usuarioId": "21",
         "nota": 7,
         "comentario": "Jogo bom, mas esperava mais no modo exploração."
+      },
+      {
+        "usuarioId": "0",
+        "nota": 8,
+        "comentario": "belissimo jogo"
       }
     ],
     "2": [
@@ -165,9 +170,9 @@
         "comentario": "Ótimo, mas acho que poderia ser mais desafiador em certas partes."
       },
       {
-        "usuarioId": 0,
-        "nota": 10,
-        "comentario": "MASTERPIECE."
+        "usuarioId": "0",
+        "nota": 9,
+        "comentario": "masterpiece"
       }
     ],
     "3": [
@@ -219,6 +224,11 @@
         "usuarioId": "12",
         "nota": 8,
         "comentario": "Muito bom, mas algumas partes são repetitivas."
+      },
+      {
+        "usuarioId": "0",
+        "nota": 6,
+        "comentario": "meh"
       }
     ],
     "6": [
@@ -263,19 +273,29 @@
           "id": 0,
           "nome": "Favoritos",
           "ids": [
-            "1"
+            "1",
+            "0",
+            "2"
           ]
         },
         {
           "id": 1,
           "nome": "Desejados",
           "ids": [
-            "1"
+            "3",
+            "4"
           ]
         },
         {
           "id": 2,
           "nome": "SoulsLikes Favoritos",
+          "ids": [
+            "6"
+          ]
+        },
+        {
+          "id": 3,
+          "nome": "paco",
           "ids": []
         }
       ]
@@ -300,13 +320,15 @@
       "nome": "Diogo Mendonça",
       "avatar": "https://github.com/diogosmendonca.png",
       "descricao": "Sou fã de jogos difíceis",
-      "avaliacaoCount": 2,
-      "avaliacaoMedia": 9.5,
+      "avaliacaoCount": 4,
+      "avaliacaoMedia": 7.8,
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
-      "listasFixadasIds": []
+      "listasFixadasIds": [
+        1,
+        2
+      ]
     },
     {
       "id": "1",
@@ -318,10 +340,6 @@
       "amigos": 5,
       "localizacao": "Rio de Janeiro, RJ",
       "membroDesde": "10/10/24",
-      "jogosAdicionados": 27,
-      "completos": 15,
-      "jogando": 4,
-      "desejados": 8,
       "listasFixadasIds": [
         1
       ]
@@ -336,10 +354,6 @@
       "amigos": 130,
       "localizacao": "São Paulo, Brasil",
       "membroDesde": "2022",
-      "jogosAdicionados": 45,
-      "completos": 30,
-      "jogando": 5,
-      "desejados": 10,
       "listasFixadasIds": [
         0,
         2
@@ -355,10 +369,6 @@
       "amigos": 80,
       "localizacao": "Rio de Janeiro, Brasil",
       "membroDesde": "2023",
-      "jogosAdicionados": 20,
-      "completos": 10,
-      "jogando": 7,
-      "desejados": 3,
       "listasFixadasIds": [
         1,
         3
@@ -374,7 +384,6 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -389,7 +398,6 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -404,7 +412,6 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -419,7 +426,6 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -434,7 +440,6 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -449,7 +454,6 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -464,7 +468,6 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -479,7 +482,6 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -494,7 +496,6 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -509,7 +510,6 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -524,7 +524,6 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -539,7 +538,6 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -554,7 +552,6 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -569,7 +566,6 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -584,7 +580,6 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -599,7 +594,6 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -614,7 +608,6 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]
@@ -629,7 +622,6 @@
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
-      "jogosAdicionados": 0,
       "listasFixadasIds": [
         1
       ]

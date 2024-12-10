@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Modal from "react-modal";
 import { MdAddCircleOutline } from "react-icons/md";
 
-const Listas = ({ listas, dados }) => {
+const Listas = ({ listas, dados, usuarioLogado }) => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [novaListaNome, setNovaListaNome] = useState("");
@@ -43,8 +43,9 @@ const Listas = ({ listas, dados }) => {
         ids: [], 
       };
 
+      console.log(usuarioLogado.id)
       
-      dispatch(addLista(novaLista))
+      dispatch(addLista({userId: usuarioLogado.id, novaLista: novaLista}))
         .unwrap()
         .then(() => {
           toast.success(`Lista "${novaListaNome}" criada com sucesso!`);
