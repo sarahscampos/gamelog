@@ -45,6 +45,10 @@ const Jogo = ({dados, avaliacaoInfo, listas, usuarioLogado}) => {
     setIsModalOpen(false)
   }
 
+  const deletarAvaliacao = () =>{
+    dispatch(deleteAvaliacao({jogoId: id, usuarioId: usuarioLogado.id})) // por enqunato
+  }
+  
   const addToList = (list) => {
 
     setSelectedList(list);
@@ -113,6 +117,13 @@ const Jogo = ({dados, avaliacaoInfo, listas, usuarioLogado}) => {
               >
                 <MdOutlineRateReview size={25} />
                 Editar avaliação
+              </button>
+              <button
+                className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-green-500 text-white hover:bg-green-400 font-inter transition"
+                onClick={deletarAvaliacao}
+              >
+                <MdOutlineRateReview size={25} />
+                Remover avaliação
               </button>
             </div>
           ) : (
