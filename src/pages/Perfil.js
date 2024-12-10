@@ -278,7 +278,7 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
         <div className="flex justify-between p-4 bg-blue-500 text-white">
           <span className="text-sm font-semibold">{anyUser.nome}</span>
           {
-            anyUser === usuarioLogado ? (
+            id === usuarioLogado.id ? (
               <button className="flex items-center text-sm font-semibold" onClick={openEditaPerfilModal}>
                 <MdEdit size={25} />
                 Editar Perfil

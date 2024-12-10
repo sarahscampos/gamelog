@@ -119,7 +119,7 @@ const Jogo = ({dados, avaliacaoInfo, listas, usuarioLogado}) => {
                 Editar avaliação
               </button>
               <button
-                className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-green-500 text-white hover:bg-green-400 font-inter transition"
+                className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-red-500 text-white hover:bg-red-400 font-inter transition"
                 onClick={deletarAvaliacao}
               >
                 <MdOutlineRateReview size={25} />
