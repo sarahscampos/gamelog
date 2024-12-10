@@ -15,7 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {Helmet} from "react-helmet";
 import backgroundJogo from "../assets/img/backgroundJogo.png";
 import ReviewModal from "../components/ReviewModal";
-
+import {deleteAvaliacao} from "../slices/avaliacoesSlice";
 
 
 const Jogo = ({dados, avaliacaoInfo, listas, usuarioLogado}) => {
