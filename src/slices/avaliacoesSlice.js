@@ -107,7 +107,41 @@ export const deleteAvaliacao = createAsyncThunk('Avaliacoes/deleteAvaliacao',
       throw new Error("Erro ao deletar a avaliação");
     }
 
-    return { jogoId, novasAvaliacoes };
+    // Incrementar o avaliacaoCount no perfil do usuário
+    const perfilResponse = await fetch(`http://localhost:3000/perfil/${usuarioId}`);
+    if (!perfilResponse.ok) {
+      throw new Error(`Erro ao obter perfil do usuário: ${perfilResponse.statusText}`);
+    }
+
+    const perfilData = await perfilResponse.json();
+
+    // Filtrar todas as avaliações do usuário
+    const avaliacoesUsuario = Object.values(data)
+      .flat() // Transforma todas as listas em uma única lista
+      .filter(avaliacao => avaliacao.usuarioId === usuarioId);
+
+    const totalNotas = avaliacoesUsuario.reduce((acc, curr) => acc + curr.nota, 0);
+    const avaliacaoMedia = avaliacoesUsuario.length > 0 ? Math.round((totalNotas / avaliacoesUsuario.length)*10) / 10 : 0;
+
+    const updatedPerfil = {
+      ...perfilData,
+      avaliacaoCount: avaliacoesUsuario.length,
+      avaliacaoMedia,
+    };
+
+    const updatePerfilResponse = await fetch(`http://localhost:3000/perfil/${usuarioId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedPerfil),
+    });
+
+    if (!updatePerfilResponse.ok) {
+      throw new Error(`Erro ao atualizar o perfil do usuário: ${updatePerfilResponse.statusText}`);
+    }
+
+    return { jogoId, novasAvaliacoes, avaliacoes: data.avaliacoes, perfil: updatedPerfil };
   }
 );
 
