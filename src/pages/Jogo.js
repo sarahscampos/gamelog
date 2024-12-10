@@ -97,7 +97,7 @@ const Jogo = ({dados, avaliacaoInfo, listas, usuarioLogado}) => {
 
       </div>
       
-      <div className="flex flex-col items-center gap-6 justify-center mt-16 lg:flex-row">
+      <div className="flex flex-col items-center gap-6 justify-center mt-16">
           <button
             className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter transition"
             onClick={openModal}
@@ -112,7 +112,7 @@ const Jogo = ({dados, avaliacaoInfo, listas, usuarioLogado}) => {
                 Sua nota: <span className="font-bold">{avaliacaoUsuario.nota}</span>
               </p>
               <button
-                className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-green-500 text-white hover:bg-green-400 font-inter transition"
+                className="text-lg mb-2 flex items-center gap-2 px-8 py-2 rounded-md bg-green-500 text-white hover:bg-green-400 font-inter transition"
                 onClick={openModalAvaliacao}
               >
                 <MdOutlineRateReview size={25} />

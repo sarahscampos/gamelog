@@ -11,6 +11,7 @@ import { MdPlaylistAdd, MdEdit } from "react-icons/md";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import Loading from "../components/Loading";
 import { MdOutlinePushPin } from "react-icons/md";
+import {Helmet} from "react-helmet";
 
 // QUERO IMPLEMENTAR: - tela de todas as avaliacoes do usuario
 // - nota do usuario pros jogos aparecendo junto aos jogos
@@ -116,6 +117,9 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
       });
   };
 
+
+
+  //Componentes Modais
   const FixaListaModal = () =>{
     return(
     <Modal
@@ -179,6 +183,9 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
       editaPerfil(formData); // Chama a função com os dados atualizados
     };
     
+
+
+
     return (
     <Modal
       ariaHideApp={false}
@@ -193,13 +200,16 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
         <div>
           <label className="block font-medium mb-2" htmlFor="nome">Nome:</label>
           <input
+            required
             type="text"
             id="nome"
             name="nome"
             value={formData.nome}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-md"
+            maxLength={25}
           />
+          <p className="text-sm text-gray-500">{25 - formData.nome.length} caracteres restantes</p>
         </div>
         <div>
           <label className="block font-medium mb-2" htmlFor="avatar">Avatar URL:</label>
@@ -220,7 +230,9 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
             value={formData.descricao}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-md"
+            maxLength={150}
           />
+          <p className="text-sm text-gray-500">{150 - formData.descricao.length} caracteres restantes</p>
         </div>
         <div>
           <label className="block font-medium mb-2" htmlFor="localizacao">Localização:</label>
@@ -231,7 +243,9 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
             value={formData.localizacao}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-md"
+            maxLength={20}
           />
+          <p className="text-sm text-gray-500">{20 - formData.localizacao.length} caracteres restantes</p>
         </div>
         <div className="flex justify-between mt-4">
           <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-400">
@@ -265,7 +279,21 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
     );
   }
   
+
+
+
+
+  //Página
   return (
+<>
+    <Helmet>
+    <meta charSet="utf-8" />
+    <title>Perfil</title>
+    <link rel="canonical" href="http://mysite.com/example" />
+    <meta name="description" content="Página principal" />
+  </Helmet>
+
+
     <div style={{backgroundImage: `url(${background})`}} className="p-10">
       <div className="flex justify-between w-full mx-auto my-0 px-10 md:px-64 bg-fixed">
       <button onClick={() => navigate(-1)} className="items-center gap-1 flex px-4 py-2 rounded-lg border-2 border-cyan-600 text-white hover:bg-cyan-600 font-inter transition-all duration-300 mb-3 text-left">
@@ -298,7 +326,7 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
             className="w-24 h-24 rounded-full mx-auto shadow-lg"
           />
           <h2 className="mt-2 text-2xl font-semibold">{anyUser.nome}</h2>
-          <p className="text-gray-500">{anyUser.descricao}</p>
+          <p className="text-gray-500 break-all">{anyUser.descricao}</p>
           <p className="text-xs text-gray-400 mt-1">
             {anyUser.localizacao} • Membro desde {anyUser.membroDesde}
           </p>
@@ -370,6 +398,7 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
 
         </div>
       </div>
+      </>
   );
 };
 
