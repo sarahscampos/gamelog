@@ -10,6 +10,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { MdPlaylistAdd, MdEdit } from "react-icons/md";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import Loading from "../components/Loading";
+import { MdOutlinePushPin } from "react-icons/md";
 
 // QUERO IMPLEMENTAR: - tela de todas as avaliacoes do usuario
 // - nota do usuario pros jogos aparecendo junto aos jogos
@@ -122,10 +123,10 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
           isOpen={isFixaListaModalOpen}
           onRequestClose={closeFixaListaModal}
           contentLabel="Escolha as Listas"
-          className="bg-white p-6 rounded-lg w-96"
+          className="bg-white p-6 rounded-lg w-96 font-fira"
           overlayClassName="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50"
         >
-          <h2 className="text-xl font-semibold mb-4">Escolha as listas para fixar/desfixar no perfil</h2>
+          <h2 className="text-xl font-semibold mb-4 ">Escolha as listas para fixar/desfixar no perfil</h2>
           <ul className="space-y-4">
             {listas && listas.length > 0 && listas.map((lista, index) => (
               <li key={index} className="flex items-center">
@@ -267,7 +268,7 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
   return (
     <div style={{backgroundImage: `url(${background})`}} className="p-10">
       <div className="flex justify-between w-full mx-auto my-0 px-10 md:px-64 bg-fixed">
-      <button onClick={() => navigate(-1)} className="items-center gap-1 inline-flex px-4 py-2 rounded-lg border-2 border-cyan-600 text-white hover:bg-cyan-600 font-inter transition-all duration-300">
+      <button onClick={() => navigate(-1)} className="items-center gap-1 flex px-4 py-2 rounded-lg border-2 border-cyan-600 text-white hover:bg-cyan-600 font-inter transition-all duration-300 mb-3 text-left">
       <RiArrowGoBackFill />
         Voltar
       </button>
@@ -290,7 +291,7 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
         
 
         {/* Corpo do Perfil */}
-        <div className="text-center p-4">
+        <div className="text-center p-4 font-inter">
           <img
             src={anyUser.avatar}
             alt={anyUser.nome}
@@ -304,7 +305,7 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
         </div>
 
         {/* Estatísticas */}
-        <div className="text-center p-4">
+        <div className="text-center p-4 font-inter">
           <h3 className="text-lg font-semibold">Estatísticas</h3>
           <div className="grid grid-cols-3 text-center">
             <div>
@@ -325,25 +326,26 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
           
         {/* AREA PRA LISTAS! - JOGOS FAVORITOS */}
         <div className="text-center p-4">
-        <div className="flex justify-between items-center p-4 bg-blue-500 text-white">
+        <div className="flex justify-between items-center p-4 bg-blue-500 rounded-md text-white mb-1 ">
           <h3 className="text-lg font-semibold">Jogos Favoritos ♥</h3>
         </div>
-          <div className="bg-white shadow-xl rounded-lg overflow-hidden">
+          <div className="bg-white shadow-xl rounded-md overflow-hidden">
               <Carrossel jogos={jogosFav} />
           </div>
         </div>
 
         {/* LISTAS QUE O usuarioLogado DESEJAR MOSTRAR: */}
-        <div className="flex justify-center mt-16">
+        <div className="flex justify-center mt-8">
           <button className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter transition" onClick={openFixaListaModal}>
-            <MdPlaylistAdd size={25}/>
+            <MdOutlinePushPin size={20}/>
+          
             Fixar Lista
           </button>
           <ToastContainer />
           </div>
         <div className="text-center p-4">
-        <div className="flex justify-between items-center p-4 bg-blue-500 text-white">
-          <h3 className="text-lg font-semibold">Minhas Listas Fixadas: </h3>
+        <div className="flex justify-between items-center p-4 bg-gradient-to-tl from-indigo-600 to-cyan-600 text-white rounded-md  mb-5">
+          <h3 className="text-lg font-semibold font-inter">Minhas Listas Fixadas</h3>
         </div>
 
         <FixaListaModal/>
@@ -352,10 +354,10 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
         {usuarioLogado.listasFixadasIds && usuarioLogado.listasFixadasIds.length > 0 && usuarioLogado.listasFixadasIds.map((idLista) => {
           const lista = listas.find((l) => l.id === idLista);
           return lista ? (
-            <div key={idLista} className="mb-4">
+            <div key={idLista} className="mb-10">
               {/* Cabeçalho da lista */}
-              <div className="flex justify-between items-center p-4 bg-blue-500 text-white">
-                <h3 className="text-lg font-semibold">• {lista.nome}</h3>
+              <div className="flex justify-between items-center p-4 bg-blue-500 text-white rounded-md mb-1">
+                <h3 className="text-lg font-semibold font-fira">• {lista.nome}</h3>
               </div>
 
               {/* Carrossel com os jogos */}
