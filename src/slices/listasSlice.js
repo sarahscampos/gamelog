@@ -1,30 +1,34 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const fetchListas = createAsyncThunk('listas/fetchListas', async () => {
-  const response = await fetch('http://localhost:3000/listas/0');
+export const fetchListas = createAsyncThunk('listas/fetchListas', async (userId) => {
+  const response = await fetch(`http://localhost:3000/listas/${userId}`);
   if (!response.ok) throw new Error('Erro ao carregar as listas');
   return response.json();
 });
 
-export const addLista = createAsyncThunk('listas/addLista', async (novaLista) => {
-
-  const response = await fetch('http://localhost:3000/listas/0');
+export const addLista = createAsyncThunk('listas/addLista', async ({ userId, novaLista }) => {
+  console.log(userId)
+  const response = await fetch(`http://localhost:3000/listas/${userId}`);
   if (!response.ok) {
     throw new Error(`Erro ao obter listas: ${response.statusText}`);
   }
 
   const data = await response.json();
 
+  // Verifica se a nova lista não está já na coleção
+  if (data.listas.some(lista => lista.id === novaLista.id)) {
+    throw new Error(`Lista com id ${novaLista.id} já existe`);
+  }
 
-  //const listasAtualizadas = [...listas, novaLista];
+  // Adiciona a nova lista
   data.listas.push(novaLista);
- 
-  const patchResponse = await fetch('http://localhost:3000/listas/0', {
-    method: 'PUT',
+
+  const patchResponse = await fetch(`http://localhost:3000/listas/${userId}`, {
+    method: 'PUT', // ou 'PATCH', dependendo de como o backend trata os dados
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data), 
+    body: JSON.stringify(data),
   });
 
   if (!patchResponse.ok) {
@@ -34,9 +38,9 @@ export const addLista = createAsyncThunk('listas/addLista', async (novaLista) =>
   return data.listas;
 });
 
-export const addJogoToList = createAsyncThunk('listas/addJogo', async ({ idJogo, idLista }) => {
+export const addJogoToList = createAsyncThunk('listas/addJogo', async ({ idJogo, idLista, userId }) => {
 
-  const response = await fetch('http://localhost:3000/listas/0');
+  const response = await fetch(`http://localhost:3000/listas/${userId}`);
   if (!response.ok) {
     throw new Error(`Erro ao obter listas: ${response.statusText}`);
   }
@@ -50,12 +54,12 @@ export const addJogoToList = createAsyncThunk('listas/addJogo', async ({ idJogo,
     throw new Error(`lista com id: ${idLista} não existe`);
   }
 
-  if(data.listas[index].ids.findIndex((jogo) => jogo.id === idJogo) != -1){
+  if(data.listas[index].ids.findIndex((jogo) => jogo.id === idJogo) !== -1){
     throw new Error(`Jogo com id ${idJogo} já está na lista: ${data.listas[index].nome}`);
   }
   data.listas[index].ids.push(idJogo);
  
-  const patchResponse = await fetch('http://localhost:3000/listas/0', {
+  const patchResponse = await fetch(`http://localhost:3000/listas/${userId}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -70,6 +74,44 @@ export const addJogoToList = createAsyncThunk('listas/addJogo', async ({ idJogo,
   return data.listas;
 });
 
+export const removeJogoFromList = createAsyncThunk('listas/removeJogo', async ({ idJogo, idLista, userId }) => {
+  const response = await fetch(`http://localhost:3000/listas/${userId}`);
+  if (!response.ok) {
+    throw new Error(`Erro ao obter listas: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+
+  // Encontra a lista pelo ID
+  const index = data.listas.findIndex((lista) => lista.id === idLista);
+  if (index === -1) {
+    throw new Error(`Lista com id: ${idLista} não existe`);
+  }
+
+  // Verifica se o jogo existe na lista
+  const jogoIndex = data.listas[index].ids.indexOf(idJogo);
+  if (jogoIndex === -1) {
+    throw new Error(`Jogo com id ${idJogo} não está na lista: ${data.listas[index].nome}`);
+  }
+
+  // Remove o jogo da lista
+  data.listas[index].ids.splice(jogoIndex, 1);
+
+  // Atualiza os dados no backend
+  const patchResponse = await fetch(`http://localhost:3000/listas/${userId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!patchResponse.ok) {
+    throw new Error(`Erro ao atualizar as listas: ${patchResponse.statusText}`);
+  }
+
+  return data.listas;
+});
 
 const listasSlice = createSlice({
   name: 'listas',

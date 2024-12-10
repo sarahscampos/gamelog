@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
-import background from "../assets/img/backgroundJogo.png";
-import logo from "../assets/img/logoGAMELOG2.svg";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchJogos } from '../slices/jogosSlice';
-import RankItem from '../components/RankItem'
+import RankItem from '../components/RankItem';
+import Loading from '../components/Loading';
+import { Helmet } from "react-helmet";
 
 const Ranking = () => {
     const dispatch = useDispatch();
@@ -15,24 +15,36 @@ const Ranking = () => {
         }
     }, [status, dispatch]);
 
+    if(status === 'loading'){
+        return <Loading />
+    }
+
+    if(status === 'failed'){
+        return <div className="text-red-700 text-center py-10">Erro ao carregar os jogos</div>
+    }
+
     const topJogos = [...jogos].sort((a, b) => a.colocacao - b.colocacao);
 
 
     return(
         <div>
-            <section style={{backgroundImage: `url(${background})`}} className=" bg-fixed w-full mx-auto my-0 px-10 md:px-64 py-20 font-fira text-white">
-                <div className='flex flex-col items-center gap-5 mb-10'>
-                <img src={logo} alt="logoGamelog" className="w-16"/>
-                <h1 className='text-4xl font-inter font-bold text-center'>Top Ranking</h1>
-                </div>
-            </section>
-
-            <div class="flex justify-between items-center text-lg lg:text-xl font-inter text-white font-bold mb-4 px-4 bg-indigo-600">
-                <div class="w-1/4 text-right">Título</div>
-                <div class="hidden md:block w-1/4 text-right">Score</div>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Ranking</title>
+                <link rel="canonical" href="http://mysite.com/example" />
+                <meta name="description" content="Página de ranking" />
+            </Helmet>
+            <div className="flex justify-between items-center w-full mx-auto my-0 px-10 py-10 bg-zinc-600 text-white font-inter">
+        <h1 className="text-2xl font-bold">Top Ranking</h1>
+        
             </div>
+            
+            {/* <div class="flex justify-between items-center text-lg lg:text-xl font-inter text-white font-bold mb-4 px-5 bg-indigo-600 py-5 pl-5 pr-5">
+                <div class="w-1/4 text-right font-fira">Título</div>
+                <div class="hidden md:block w-1/4 text-right font-fira ">Score</div>
+            </div> */}
 
-            <div>
+            <div className="ml-12 mr-12">
                 {topJogos.map((jogo) => (<RankItem key={jogo.id} jogo={jogo} />))}
             </div>
 

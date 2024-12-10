@@ -56,7 +56,7 @@ export const Header = () => {
     {
       user ? 
       (
-        navLinks.slice(0, 2).map((link, index) => (
+        navLinks.slice(0, 3).map((link, index) => (
           <Link
             key={index}
             to={link.link}

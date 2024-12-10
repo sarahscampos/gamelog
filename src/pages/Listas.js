@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Modal from "react-modal";
 import { MdAddCircleOutline } from "react-icons/md";
 
-const Listas = ({ listas, dados }) => {
+const Listas = ({ listas, dados, usuarioLogado }) => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [novaListaNome, setNovaListaNome] = useState("");
@@ -43,8 +43,9 @@ const Listas = ({ listas, dados }) => {
         ids: [], 
       };
 
+      console.log(usuarioLogado.id)
       
-      dispatch(addLista(novaLista))
+      dispatch(addLista({userId: usuarioLogado.id, novaLista: novaLista}))
         .unwrap()
         .then(() => {
           toast.success(`Lista "${novaListaNome}" criada com sucesso!`);
@@ -114,7 +115,7 @@ const Listas = ({ listas, dados }) => {
       </div>
 
       <section className="ml-5 mr-5">
-        <div className="mt-16">
+        <div className="mt-5">
           {listas && listas.length > 0 ? (
             listas.map((item, index) => {
               const jogosLista = obtemJogos(index);
@@ -122,13 +123,16 @@ const Listas = ({ listas, dados }) => {
                 <div key={index} className="flex flex-col">
                   <Link
                     to={`/lista/${index}`}
-                    className="text-2xl font-bold font-inter flex items-center gap-5"
+                    className="text-2xl font-bold font-inter flex items-center gap-5 mt-10"
                   >
                     {item.nome}
                     <FaArrowCircleRight className="text-indigo-600" />
                   </Link>
-
+                  {jogosLista.length !== 0 ? 
                   <Carrossel jogos={jogosLista} />
+                  :
+                  <p className="mb-10 mt-2 font-fira">Lista vazia</p>
+                  }
                 </div>
               );
             })

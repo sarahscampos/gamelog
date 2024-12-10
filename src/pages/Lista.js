@@ -1,11 +1,13 @@
 import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
-import Carrossel from '../components/Carrossel';
+import CarrosselEdit from '../components/CarrosselEdit';
 import { RiArrowGoBackFill } from "react-icons/ri";
 import {Helmet} from "react-helmet";
 
+
 const Lista = ({listas, dados}) => {
   const { id } = useParams();
+  const numericId = parseInt(id, 10);
   const navigate = useNavigate();
 
 
@@ -40,12 +42,12 @@ const Lista = ({listas, dados}) => {
                     <meta name="description" content="Página de jogo" />
                   </Helmet>
                 </h2>
-                <Carrossel  jogos={jogosLista}/>
+                <CarrosselEdit jogos={jogosLista} id={numericId} />
               </div>
   
           
         </div>
-      ) : <p className='font-fira p-5 text-lg'>Não foi possível carregar a lista</p>
+      ) : <p className='font-fira p-5 text-lg text-red-700'>Não foi possível carregar a lista</p>
     }
     </section>
     </>

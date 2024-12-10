@@ -1,55 +1,42 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { login } from '../slices/loginSlice';
 import { useNavigate } from 'react-router-dom';
 
+// Esquema de validação com Yup
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .email('Insira um email válido.')
+    .required('O email é obrigatório.'),
+  senha: yup.string().required('A senha é obrigatória.'),
+});
+
 const Login = () => {
-  const [formData, setFormData] = useState({ email: '', senha: '' });
-  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
-
   const navigate = useNavigate();
 
-  const validateForm = () => {
-    const newErrors = {};
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema), // Conecta o Yup ao React Hook Form
+  });
 
-    // Validação do email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.email.trim()) {
-      newErrors.email = 'O email é obrigatório.';
-    } else if (!emailRegex.test(formData.email)) {
-      newErrors.email = 'Insira um email válido.';
-    }
-
-    // Validação da senha
-    if (!formData.senha.trim()) {
-      newErrors.senha = 'A senha é obrigatória.';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (validateForm()) {
-      dispatch(login({ email: formData.email })); // Armazena o email do usuário no Redux
-      alert('Login realizado com sucesso!');
-      navigate('/')
-      setErrors({}); // Limpa os erros
-    }
+  const onSubmit = (data) => {
+    dispatch(login({ email: data.email })); // Armazena o email do usuário no Redux
+    alert('Login realizado com sucesso!');
+    navigate('/');
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         className="bg-white p-8 rounded shadow-md w-96"
       >
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
@@ -62,15 +49,13 @@ const Login = () => {
           <input
             type="email"
             id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
+            {...register('email')}
             className={`mt-1 block w-full px-4 py-2 border ${
               errors.email ? 'border-red-500' : 'border-gray-300'
             } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
           />
           {errors.email && (
-            <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
           )}
         </div>
 
@@ -82,15 +67,13 @@ const Login = () => {
           <input
             type="password"
             id="senha"
-            name="senha"
-            value={formData.senha}
-            onChange={handleChange}
+            {...register('senha')}
             className={`mt-1 block w-full px-4 py-2 border ${
               errors.senha ? 'border-red-500' : 'border-gray-300'
             } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500`}
           />
           {errors.senha && (
-            <p className="text-red-500 text-sm mt-1">{errors.senha}</p>
+            <p className="text-red-500 text-sm mt-1">{errors.senha.message}</p>
           )}
         </div>
 
