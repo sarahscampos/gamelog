@@ -36,12 +36,47 @@ export const addAvaliacoes = createAsyncThunk('Avaliacoes/addAvaliacoes', async 
     body: JSON.stringify(data), 
   });
 
+
   if (!patchResponse.ok) {
     throw new Error(`Erro ao atualizar as Avaliacoes: ${patchResponse.statusText}`);
   }
 
   return data.Avaliacoess;
 });
+
+//delete Jogo
+export const deleteAvaliacao = createAsyncThunk('avaliacoes/deleteAvaliacao',
+  async ({ jogoId, usuario }, { getState }) => {
+    
+    const state = getState();
+    const data = state.avaliacoes.dados;
+
+    if (!data[jogoId]) throw new Error("Jogo não possui avaliações.");
+
+    const novasAvaliacoes = data[jogoId].filter(
+      (avaliacao) => avaliacao.usuario !== usuario
+    );
+
+    // Atualiza o backend com a nova lista
+    const response = await fetch(`http://localhost:3000/avaliacoes`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ...data,
+        [jogoId]: novasAvaliacoes,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Erro ao deletar a avaliação");
+    }
+
+    return { jogoId, novasAvaliacoes };
+  }
+);
+
 
 const avaliacoesSlice = createSlice({
   name: 'avaliacoes',
