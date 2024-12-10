@@ -79,8 +79,8 @@ export const addAvaliacoes = createAsyncThunk('Avaliacoes/addAvaliacoes', async 
 );
 
 //delete Jogo
-export const deleteAvaliacao = createAsyncThunk('avaliacoes/deleteAvaliacao',
-  async ({ jogoId, usuario }, { getState }) => {
+export const deleteAvaliacao = createAsyncThunk('Avaliacoes/deleteAvaliacao',
+  async ({ jogoId, usuarioId }, { getState }) => {
     
     const state = getState();
     const data = state.avaliacoes.dados;
@@ -88,7 +88,7 @@ export const deleteAvaliacao = createAsyncThunk('avaliacoes/deleteAvaliacao',
     if (!data[jogoId]) throw new Error("Jogo não possui avaliações.");
 
     const novasAvaliacoes = data[jogoId].filter(
-      (avaliacao) => avaliacao.usuario !== usuario
+      (avaliacao) => avaliacao.usuarioId !== usuarioId
     );
 
     // Atualiza o backend com a nova lista
