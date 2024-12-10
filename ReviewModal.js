@@ -15,7 +15,7 @@ const GameReviewModal = ({id,close}) => {
       return;
     }
     {/*trocar userid 0 pelo real*/}
-    dispatch(addAvaliacoes({userId: "0", avaliacaoId:id, avaliacaoReview: newAvaliacao, avaliacaoNum : newAvaliacaoNota}))
+    dispatch(addAvaliacoes({userId: "0", avaliacaoId: id, avaliacaoReview: newAvaliacao, avaliacaoNum : newAvaliacaoNota}))
     .then(() => {
       close();
     });

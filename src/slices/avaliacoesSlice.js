@@ -10,7 +10,7 @@ export const addAvaliacoes = createAsyncThunk('Avaliacoes/addAvaliacoes', async 
 
   const response = await fetch('http://localhost:3000/avaliacoes');
   if (!response.ok) {
-    throw new Error(`Erro ao obter Avaliacoess: ${response.statusText}`);
+    throw new Error(`Erro ao obter Avaliacoes: ${response.statusText}`);
   }
 
   const data = await response.json();
@@ -40,7 +40,7 @@ export const addAvaliacoes = createAsyncThunk('Avaliacoes/addAvaliacoes', async 
     throw new Error(`Erro ao atualizar as Avaliacoes: ${patchResponse.statusText}`);
   }
 
-  return data.Avaliacoess;
+  return data.Avaliacoes;
 });
 
 const avaliacoesSlice = createSlice({
