@@ -6,9 +6,7 @@ export const fetchAvaliacoes = createAsyncThunk('avaliacoes/fetchAvaliacoes', as
   return response.json();
 });
 
-export const addAvaliacoes = createAsyncThunk(
-  'Avaliacoes/addAvaliacoes',
-  async ({ userId, avaliacaoId, avaliacaoNum, avaliacaoReview }) => {
+export const addAvaliacoes = createAsyncThunk('Avaliacoes/addAvaliacoes', async ({ userId, avaliacaoId, avaliacaoNum, avaliacaoReview }) => {
     // Obter as avaliações existentes
     const response = await fetch('http://localhost:3000/avaliacoes');
     if (!response.ok) {
@@ -57,7 +55,7 @@ export const addAvaliacoes = createAsyncThunk(
       .filter(avaliacao => avaliacao.usuarioId === userId);
 
     const totalNotas = avaliacoesUsuario.reduce((acc, curr) => acc + curr.nota, 0);
-    const avaliacaoMedia = avaliacoesUsuario.length > 0 ? totalNotas / avaliacoesUsuario.length : 0;
+    const avaliacaoMedia = avaliacoesUsuario.length > 0 ? Math.round((totalNotas / avaliacoesUsuario.length)*10) / 10 : 0;
 
     const updatedPerfil = {
       ...perfilData,
@@ -80,8 +78,6 @@ export const addAvaliacoes = createAsyncThunk(
     return { avaliacoes: data.Avaliacoes, perfil: updatedPerfil };
   }
 );
-
-
 
 const avaliacoesSlice = createSlice({
   name: 'avaliacoes',

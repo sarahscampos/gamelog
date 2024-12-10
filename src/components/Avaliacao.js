@@ -19,10 +19,8 @@ const Avaliacao = ({dadosAvaliacao}) => {
         console.error(error);
       }
     };
-
     fetchUser();
   }, [dadosAvaliacao.usuarioId]); // reexecutar o fetch se mudar
-
   if (!usuario) {
     return <div>Carregando...</div>;
   }
@@ -30,7 +28,6 @@ const Avaliacao = ({dadosAvaliacao}) => {
   return (
     <>
           <div className="flex flex-col items-center space-x-4 py-8 px-8 bg-indigo-100 rounded-lg w-full mb-8 lg:flex-row">
-            {/* mantem esse || so pra ter os comentarios mockados*/}
             <img src={usuario.avatar} alt="Foto do usuário" className="w-16 h-16 ring-4  ring-indigo-600 rounded-full" />
             <div className="flex flex-col gap-2 p-4">
               <p className="text-gray-800 text-sm italic">{usuario.nome}</p>
