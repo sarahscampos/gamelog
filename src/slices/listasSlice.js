@@ -113,6 +113,39 @@ export const removeJogoFromList = createAsyncThunk('listas/removeJogo', async ({
   return data.listas;
 });
 
+export const deleteLista = createAsyncThunk('listas/deleteLista', async ({ userId, idLista }) => {
+  const response = await fetch(`http://localhost:3000/listas/${userId}`);
+  if (!response.ok) {
+    throw new Error(`Erro ao obter listas: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+
+  // Encontra a lista pelo ID
+  const index = data.listas.findIndex((lista) => lista.id === idLista);
+  if (index === -1) {
+    throw new Error(`Lista com id: ${idLista} não encontrada`);
+  }
+
+  // Remove a lista do array
+  data.listas.splice(index, 1);
+
+  // Atualiza os dados no backend
+  const patchResponse = await fetch(`http://localhost:3000/listas/${userId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!patchResponse.ok) {
+    throw new Error(`Erro ao atualizar as listas: ${patchResponse.statusText}`);
+  }
+
+  return data.listas;  // Retorna a lista atualizada sem a lista deletada
+});
+
 const listasSlice = createSlice({
   name: 'listas',
   initialState: {
@@ -136,6 +169,9 @@ const listasSlice = createSlice({
       })
       .addCase(addLista.fulfilled, (state, action) => {
         state.dados = action.payload; // Atualiza apenas o array "0"
+      })
+      .addCase(deleteLista.fulfilled, (state, action) => {
+        state.dados = action.payload;  // Atualiza a lista com o item deletado
       });
   },
 });

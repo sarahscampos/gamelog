@@ -15,7 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {Helmet} from "react-helmet";
 import backgroundJogo from "../assets/img/backgroundJogo.png";
 import ReviewModal from "../components/ReviewModal";
-
+import {deleteAvaliacao} from "../slices/avaliacoesSlice";
 
 
 const Jogo = ({dados, avaliacaoInfo, listas, usuarioLogado}) => {
@@ -45,6 +45,10 @@ const Jogo = ({dados, avaliacaoInfo, listas, usuarioLogado}) => {
     setIsModalOpen(false)
   }
 
+  const deletarAvaliacao = () =>{
+    dispatch(deleteAvaliacao({jogoId: id, usuarioId: usuarioLogado.id})) // por enqunato
+  }
+  
   const addToList = (list) => {
 
     setSelectedList(list);
@@ -93,7 +97,7 @@ const Jogo = ({dados, avaliacaoInfo, listas, usuarioLogado}) => {
 
       </div>
       
-      <div className="flex flex-col items-center gap-6 justify-center mt-16 lg:flex-row">
+      <div className="flex flex-col items-center gap-6 justify-center mt-16">
           <button
             className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter transition"
             onClick={openModal}
@@ -108,11 +112,18 @@ const Jogo = ({dados, avaliacaoInfo, listas, usuarioLogado}) => {
                 Sua nota: <span className="font-bold">{avaliacaoUsuario.nota}</span>
               </p>
               <button
-                className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-green-500 text-white hover:bg-green-400 font-inter transition"
+                className="text-lg mb-2 flex items-center gap-2 px-8 py-2 rounded-md bg-green-500 text-white hover:bg-green-400 font-inter transition"
                 onClick={openModalAvaliacao}
               >
                 <MdOutlineRateReview size={25} />
                 Editar avaliação
+              </button>
+              <button
+                className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-red-500 text-white hover:bg-red-400 font-inter transition"
+                onClick={deletarAvaliacao}
+              >
+                <MdOutlineRateReview size={25} />
+                Remover avaliação
               </button>
             </div>
           ) : (

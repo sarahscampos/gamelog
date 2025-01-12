@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Modal from "react-modal";
 import { MdAddCircleOutline } from "react-icons/md";
+import { deleteLista } from "../slices/listasSlice";
 
 const Listas = ({ listas, dados, usuarioLogado }) => {
   const dispatch = useDispatch();
@@ -58,6 +59,20 @@ const Listas = ({ listas, dados, usuarioLogado }) => {
         });
     } else {
       toast.error("Por favor, insira um nome para a lista!");
+    }
+  };
+
+  const handleDeletarLista = (idLista) => {
+    if (window.confirm("Tem certeza que deseja deletar esta lista?")) {
+      dispatch(deleteLista({ userId: usuarioLogado.id, idLista }))
+        .unwrap()
+        .then(() => {
+          toast.success("Lista deletada com sucesso!");
+        })
+        .catch((error) => {
+          toast.error("Erro ao deletar a lista.");
+          console.error("Erro ao deletar a lista:", error);
+        });
     }
   };
 
@@ -113,7 +128,6 @@ const Listas = ({ listas, dados, usuarioLogado }) => {
           Nova lista
         </button>
       </div>
-
       <section className="ml-5 mr-5">
         <div className="mt-5">
           {listas && listas.length > 0 ? (
@@ -121,18 +135,26 @@ const Listas = ({ listas, dados, usuarioLogado }) => {
               const jogosLista = obtemJogos(index);
               return (
                 <div key={index} className="flex flex-col">
-                  <Link
-                    to={`/lista/${index}`}
-                    className="text-2xl font-bold font-inter flex items-center gap-5 mt-10"
-                  >
-                    {item.nome}
-                    <FaArrowCircleRight className="text-indigo-600" />
-                  </Link>
-                  {jogosLista.length !== 0 ? 
-                  <Carrossel jogos={jogosLista} />
-                  :
-                  <p className="mb-10 mt-2 font-fira">Lista vazia</p>
-                  }
+                  <div className="flex justify-between items-center">
+                    <Link
+                      to={`/lista/${index}`}
+                      className="text-2xl font-bold font-inter flex items-center gap-5 mt-10"
+                    >
+                      {item.nome}
+                      <FaArrowCircleRight className="text-indigo-600" />
+                    </Link>
+                    <button
+                      onClick={() => handleDeletarLista(item.id)}
+                      className="text-red-600 hover:text-red-400 font-bold"
+                    >
+                      Deletar
+                    </button>
+                  </div>
+                  {jogosLista.length !== 0 ? (
+                    <Carrossel jogos={jogosLista} />
+                  ) : (
+                    <p className="mb-10 mt-2 font-fira">Lista vazia</p>
+                  )}
                 </div>
               );
             })
