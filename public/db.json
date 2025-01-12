@@ -124,11 +124,6 @@
         "usuarioId": "3",
         "nota": 8,
         "comentario": "Muito divertido, mas prefiro os clássicos."
-      },
-      {
-        "usuarioId": "0",
-        "nota": 8,
-        "comentario": "melhor que dirigir na vida real"
       }
     ],
     "1": [
@@ -146,11 +141,6 @@
         "usuarioId": "21",
         "nota": 7,
         "comentario": "Jogo bom, mas esperava mais no modo exploração."
-      },
-      {
-        "usuarioId": "0",
-        "nota": 8,
-        "comentario": "belissimo jogo"
       }
     ],
     "2": [
@@ -168,11 +158,6 @@
         "usuarioId": "6",
         "nota": 8,
         "comentario": "Ótimo, mas acho que poderia ser mais desafiador em certas partes."
-      },
-      {
-        "usuarioId": "0",
-        "nota": 9,
-        "comentario": "masterpiece"
       }
     ],
     "3": [
@@ -224,11 +209,6 @@
         "usuarioId": "12",
         "nota": 8,
         "comentario": "Muito bom, mas algumas partes são repetitivas."
-      },
-      {
-        "usuarioId": "0",
-        "nota": 6,
-        "comentario": "meh"
       }
     ],
     "6": [
@@ -273,30 +253,13 @@
           "id": 0,
           "nome": "Favoritos",
           "ids": [
-            "1",
-            "0",
-            "2"
           ]
         },
         {
           "id": 1,
           "nome": "Desejados",
           "ids": [
-            "3",
-            "4"
           ]
-        },
-        {
-          "id": 2,
-          "nome": "SoulsLikes Favoritos",
-          "ids": [
-            "6"
-          ]
-        },
-        {
-          "id": 3,
-          "nome": "paco",
-          "ids": []
         }
       ]
     },
@@ -317,11 +280,11 @@
   "perfil": [
     {
       "id": "0",
-      "nome": "Diogo Mendonça",
+      "nome": "Diogo",
       "avatar": "https://github.com/diogosmendonca.png",
       "descricao": "Sou fã de jogos difíceis",
-      "avaliacaoCount": 4,
-      "avaliacaoMedia": 7.8,
+      "avaliacaoCount": 0,
+      "avaliacaoMedia": 0,
       "amigos": 0,
       "localizacao": "Rio de Janeiro",
       "membroDesde": "07/12/24",
