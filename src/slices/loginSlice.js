@@ -3,14 +3,16 @@ import { createSlice } from '@reduxjs/toolkit';
 const loginSlice = createSlice({
   name: 'auth',
   initialState: {
-    user: { email: '', senha: '' },
+    user: JSON.parse(localStorage.getItem('user')) || { email: '', senha: '', role: '' },
   },
   reducers: {
     login: (state, action) => {
-      state.user = action.payload; // Armazena o usuário logado
+      state.user = action.payload;
+      localStorage.setItem('user', JSON.stringify(action.payload));
     },
     logout: (state) => {
-      state.user = null; // Remove o usuário ao sair
+      state.user = { email: '', senha: '', role: '' };
+      localStorage.removeItem('user');  // Remover usuário do localStorage
     },
   },
 });
