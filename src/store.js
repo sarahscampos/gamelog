@@ -4,8 +4,8 @@ import avaliacoesReducer from './slices/avaliacoesSlice';
 import listasReducer from './slices/listasSlice';
 import forumReducer from './slices/forumSlice';
 import cadastroReducer from './slices/cadastroSlice';
-import usuarioReducer from './slices/usuarioSlice'
-
+import usuarioReducer from './slices/usuarioSlice';
+import loginReducer from './slices/loginSlice';
 const store = configureStore({
   reducer: {
     jogos: jogosReducer,
@@ -14,6 +14,7 @@ const store = configureStore({
     forum: forumReducer,
     cadastro: cadastroReducer,
     perfil: usuarioReducer,
+    auth: loginReducer,
   },
 });
 
