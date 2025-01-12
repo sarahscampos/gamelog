@@ -222,11 +222,11 @@ const Jogo = ({dados, avaliacaoInfo, listas, usuarioLogado}) => {
       <h2 className="text-2xl p-4 font-bold font-inter">Avaliações</h2>
     </section>
     
-    {/*substituir 0 pelo userID real*/}
+    {/* substituir 0 pelo userID real*/}
     <section className = "mx-auto my-5 px-10 text-left md:px-64">
       { 
-      avaliacaoInfo[id].length ? (
-        <Avaliacao dadosAvaliacao={avaliacaoInfo[id][0]} userId={0} />
+      avaliacaoInfo[numericId]?.length ? (
+        <Avaliacao dadosAvaliacao={avaliacaoInfo[numericId][0]} userId={0} />
       ) : (
         <p>Não possui avaliações</p>
       )

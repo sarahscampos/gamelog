@@ -15,6 +15,12 @@ const schema = yup.object().shape({
   senha: yup.string().required('A senha é obrigatória.'),
 });
 
+const users = [
+  { email: "admin@gamelog.com", password: "admin123", role: "admin" },
+  { email: "user1@gamelog.com", password: "user123", role: "user" },
+];
+
+
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,9 +34,24 @@ const Login = () => {
   });
 
   const onSubmit = (data) => {
-    dispatch(login({ email: data.email })); // Armazena o email do usuário no Redux
-    alert('Login realizado com sucesso!');
-    navigate('/');
+    const user = users.find(
+      (u) => u.email === data.email && u.password === data.senha
+    );
+  
+    if (user) {
+      // Salvar informações do usuário no Redux ou localStorage
+      dispatch(login({ email: user.email, role: user.role }));
+      alert("Login realizado com sucesso!");
+  
+      // Redirecionar com base no papel do usuário
+      if (user.role === "admin") {
+        navigate("/admin"); // Redirecionar para a página de administração
+      } else {
+        navigate("/"); // Redirecionar para a página principal
+      }
+    } else {
+      alert("Email ou senha inválidos.");
+    }
   };
 
   return (

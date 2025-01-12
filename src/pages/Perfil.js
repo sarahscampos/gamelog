@@ -5,7 +5,7 @@ import background from "../assets/img/backgroundJogo.png";
 import Modal from "react-modal"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { MdPlaylistAdd, MdEdit } from "react-icons/md";
 import { RiArrowGoBackFill } from "react-icons/ri";
@@ -13,10 +13,18 @@ import Loading from "../components/Loading";
 import { MdOutlinePushPin } from "react-icons/md";
 import {Helmet} from "react-helmet";
 
+import { logout } from "../slices/loginSlice"; // Importe a ação de logout
+
 // QUERO IMPLEMENTAR: - tela de todas as avaliacoes do usuario
 // - nota do usuario pros jogos aparecendo junto aos jogos
 
 const Perfil = ({listas, dados, usuarioLogado}) => {
+  const handleLogout = () => {
+    dispatch(logout());
+  
+  
+    navigate("/login");
+  };
   // para usuarios que nao sao o usuarioLogado:
   const { id } = useParams(); // Captura o ID do usuário na URL
   const [anyUser, setAnyUser] = useState(null);
@@ -305,14 +313,20 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
         {/* Cabeçalho */}
         <div className="flex justify-between p-4 bg-blue-500 text-white">
           <span className="text-sm font-semibold">{anyUser.nome}</span>
-          {
-            id === usuarioLogado.id ? (
-              <button className="flex items-center text-sm font-semibold" onClick={openEditaPerfilModal}>
-                <MdEdit size={25} />
-                Editar Perfil
-              </button>
-            ) : null
-          }
+          {id === usuarioLogado.id && (
+    <div className="flex items-center gap-3">
+      <button className="flex items-center text-sm font-semibold" onClick={openEditaPerfilModal}>
+        <MdEdit size={25} />
+        Editar Perfil
+      </button>
+      <button
+        className="flex items-center text-sm font-semibold bg-red-500 px-3 py-1 rounded hover:bg-red-600 transition-all"
+        onClick={handleLogout}
+      >
+        Sair
+      </button>
+    </div>
+  )}
         </div>
         <EditaPerfilModal />
         <ToastContainer />
