@@ -32,7 +32,6 @@ server.post("/jogos", async (request, response) => {
   if (!id || !nome || !colocacao || !capa || !desenvolvedora || !dataLancamento || !distribuidora || !generos || !sumario) {
     return response.status(400).json({ error: "Todos os campos são obrigatórios" });
   }
-
   // Verificar se o jogo já existe
   const jogoJaExiste = await Jogo.findOne({ id });
   if (jogoJaExiste) {
