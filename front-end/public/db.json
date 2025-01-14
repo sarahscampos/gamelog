@@ -252,14 +252,17 @@
         {
           "id": 0,
           "nome": "Favoritos",
-          "ids": [
-          ]
+          "ids": []
         },
         {
           "id": 1,
           "nome": "Desejados",
-          "ids": [
-          ]
+          "ids": []
+        },
+        {
+          "id": 2,
+          "nome": "ececec",
+          "ids": []
         }
       ]
     },
