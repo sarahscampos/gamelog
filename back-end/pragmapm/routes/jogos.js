@@ -10,9 +10,19 @@ server.post("/jogos", (request, response) => {
 
   const {id, nome, colocacao, capa, desenvolvedora, dataLancamento, distribuidora, generos, sumario} = request.body
 
-  jogos.push([id, nome, colocacao, capa, dataLancamento, desenvolvedora, distribuidora, generos, sumario])
+  if (!id || !nome || !colocacao || !capa || !desenvolvedora || !dataLancamento || !distribuidora || !generos || !sumario) {
+    return response.status(400).json({ error: "Todos os campos são obrigatórios" });
+  }
 
-  return response.json({ok: true})
+  const jogoJaExiste = jogos.find(jogo => jogo.id === id);
+  if (jogoJaExiste) {
+    return response.status(409).json({ error: "Já existe um jogo com esse id" });
+  }
+
+  const novoJogo = {id, nome, colocacao, capa, dataLancamento, desenvolvedora, distribuidora, generos, sumario}; //novo jogo é um objeto
+  jogos.push(novoJogo);
+
+  return response.status(201).json({ message: "Novo jogo adicionado", jogo: novoJogo });
 })
 
 server.get("/jogos", (request, response) => {
