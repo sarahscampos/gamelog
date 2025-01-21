@@ -28,10 +28,7 @@ app.use('/listas', listasRouter);
 app.use('/perfil', perfilRouter);
 app.use('/forum', forumRouter)
 
-mongoose.connect('mongodb+srv://<username>:<password>@gamelog-cluster.7j4rt.mongodb.net/?retryWrites=true&w=majority', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect('mongodb+srv://sarahcaulfieldlis:enTLXSHZrrwj2UkZ@gamelog-cluster.7j4rt.mongodb.net/?retryWrites=true&w=majority&appName=gamelog-cluster')
 .then(() => console.log('Conexão com MongoDB bem-sucedida!'))
 .catch(err => {
   console.error('Erro ao conectar ao MongoDB:', err.message);
