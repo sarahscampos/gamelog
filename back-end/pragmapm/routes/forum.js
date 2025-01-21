@@ -1,8 +1,5 @@
 const express = require("express")
-const server = express()
-
-server.use(express.json())
-//server.listen(3004)
+const router = express.Router()
 
 let data = [
     {
@@ -13,7 +10,7 @@ let data = [
     }
 ];
 
-server.post("/forum/:gameId/:userId", (request, response) =>{
+router.post("/forum/:gameId/:userId", (request, response) =>{
     const game = data.find((game) => game.gameId === request.params.gameId)
     if(!game){
         return response.status(404).json({error: 'Página não encontrada'})
@@ -35,7 +32,7 @@ server.post("/forum/:gameId/:userId", (request, response) =>{
     return response.status(201).json(game.comentarios)
 })
 
-server.get("/forum/:gameId", (request, response) => {
+router.get("/forum/:gameId", (request, response) => {
     const game = data.find((game) => game.gameId === request.params.gameId)
     if(!game){
         return response.status(404).json({error: 'Jogo não encontrado'})
@@ -43,7 +40,7 @@ server.get("/forum/:gameId", (request, response) => {
     return response.status(200).json(game.comentarios)
   })
 
-server.delete("/forum/:gameId/:userId/:comentId", (request, response) => {
+router.delete("/forum/:gameId/:userId/:comentId", (request, response) => {
     const game = data.find((game) => game.gameId === request.params.gameId)
     if(!game){
         return response.status(404).json({error: 'Página não encontrada'})
@@ -61,7 +58,7 @@ server.delete("/forum/:gameId/:userId/:comentId", (request, response) => {
 return response.status(200).json(game.comentarios)
 })
 
-server.patch('/forum/:gameId/:userId/:comentId', (request, response) => {
+router.patch('/forum/:gameId/:userId/:comentId', (request, response) => {
     const game = data.find((game) => game.gameId === request.params.gameId)
     if(!game){
         return response.status(404).json({error: 'Página não encontrada'})
@@ -83,4 +80,4 @@ server.patch('/forum/:gameId/:userId/:comentId', (request, response) => {
 
 })
 
-module.exports = server
+module.exports = router

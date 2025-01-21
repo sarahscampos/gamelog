@@ -6,12 +6,12 @@ var logger = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-var indexRouter = require('./routes/index');
-var avaliacoesRouter = require('./routes/avaliacoes');
-var jogosRouter = require('./routes/jogos');
-var listasRouter = require('./routes/listas');
-var perfilRouter = require('./routes/perfil')
-var forumRouter = require('./routes/forum')
+var indexRouter = require('./routes/index.js');
+var avaliacoesRouter = require('./routes/avaliacoes.js');
+var jogosRouter = require('./routes/jogos.js');
+var listasRouter = require('./routes/listas.js');
+var perfilRouter = require('./routes/perfil.js')
+var forumRouter = require('./routes/forum.js')
 
 var app = express();
 app.use(cors());
