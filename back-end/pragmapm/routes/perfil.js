@@ -1,8 +1,8 @@
 const express = require('express');
 const server = express();
-//const Usuario = require('../models/Perfil');
+const Perfil = require('../models/Perfil');
 
-server.listen(3004)
+//server.listen(3004)
 server.use(express.json())
 
 let usuarios = [{
@@ -56,26 +56,26 @@ let usuarios = [{
 ]
 
 // pega todos usuarios
-server.get('/usuarios', (request, response) => {
+server.get('/perfil', (request, response) => {
   response.json(usuarios);
 });
 
 // pega um unico usuario
-server.get('/usuarios/:id', (request, response) => {
+server.get('/perfil/:id', (request, response) => {
   const usuario = usuarios.find(u => u.id === request.params.id);
   if (!usuario) return response.status(404).json({ message: 'Usuario nao encontrado' });
   response.json(usuario);
 });
 
 // cria um usuario
-server.post('/usuarios', (request, response) => {
+server.post('/perfil', (request, response) => {
   const novoUsuario = { id: Date.now().toString(), ...request.body };
   usuarios.push(novoUsuario);
   response.status(201).json(novoUsuario);
 });
 
 // atualiza um usuario
-server.put('/usuarios/:id', (request, response) => {
+server.put('/perfil/:id', (request, response) => {
   const index = usuarios.findIndex(u => u.id === request.params.id);
   if (index === -1) return response.status(404).json({ message: 'Usuario nao encontrado' });
   usuarios[index] = { ...usuarios[index], ...request.body };
@@ -83,7 +83,7 @@ server.put('/usuarios/:id', (request, response) => {
 });
 
 // deleta um usuario
-server.delete('/usuarios/:id', (request, response) => {
+server.delete('/perfil/:id', (request, response) => {
   const index = usuarios.findIndex(u => u.id === request.params.id);
   if (index === -1) return response.status(404).json({ message: 'Usuario nao encontrado' });
   const deletedUser = usuarios.splice(index, 1);

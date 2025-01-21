@@ -2,7 +2,7 @@ const express = require("express")
 const server = express()
 
 server.use(express.json())
-server.listen(3004)
+//server.listen(3004)
 
 let data = [
     {
@@ -82,3 +82,5 @@ server.patch('/forum/:gameId/:userId/:comentId', (request, response) => {
     return response.status(200).json(comentario);
 
 })
+
+module.exports = server

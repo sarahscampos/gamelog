@@ -2,12 +2,12 @@ var express = require('express');
 var server = express();
 const mongoose = require('mongoose');
 
-const uri = 'mongodb+srv://sarahcaulfieldlis:enTLXSHZrrwj2UkZ@gamelog-cluster.7j4rt.mongodb.net/?retryWrites=true&w=majority&appName=gamelog-cluster';
+//const uri = 'mongodb+srv://sarahcaulfieldlis:enTLXSHZrrwj2UkZ@gamelog-cluster.7j4rt.mongodb.net/?retryWrites=true&w=majority&appName=gamelog-cluster';
 
 mongoose
-  .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Conectado ao MongoDB Atlas com sucesso!'))
-  .catch((err) => console.error('Erro ao conectar ao MongoDB Atlas:', err));
+  //.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  //.then(() => console.log('Conectado ao MongoDB Atlas com sucesso!'))
+  //catch((err) => console.error('Erro ao conectar ao MongoDB Atlas:', err));
 
 
   const Jogo = mongoose.model('Jogo', new mongoose.Schema({
@@ -22,7 +22,8 @@ mongoose
     sumario: { type: String, required: true }
   }));
 
-server.listen(3004)
+//server.listen(3004)
+
 server.use(express.json())
 
 server.post("/jogos", async (request, response) => {
@@ -66,4 +67,4 @@ server.get("/jogos", async (request, response) => {
   res.json();
 })*/
 
-//module.exports = router;
+module.exports = server;
