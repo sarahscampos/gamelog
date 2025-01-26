@@ -11,13 +11,9 @@ let data = [
 ];
 
 router.post("/forum/:gameId/:userId", (request, response) =>{
-    const game = data.find((game) => game.gameId === request.params.gameId)
+    const game = data.find((game) => game.gameId === request.params.gameId);
     if(!game){
         return response.status(404).json({error: 'Página não encontrada'})
-    }
-    const usuario = game.comentarios.find((usuario) => usuario.userId === request.params.userId)
-    if(!usuario){
-        return response.status(404).json({error: 'Usuário não encontrado'})
     }
 
     const novoComentario = request.body;
@@ -31,6 +27,30 @@ router.post("/forum/:gameId/:userId", (request, response) =>{
 
     return response.status(201).json(game.comentarios)
 })
+
+router.post("/forum", (request, response) => {
+    const { gameId } = request.body;
+
+    // Verifica se o gameId foi enviado
+    if (!gameId) {
+        return response.status(400).json({ error: "gameId é obrigatório" });
+    }
+
+    // Verifica se o gameId já existe
+    const existingGame = data.find((game) => game.gameId === gameId);
+    if (existingGame) {
+        return response.status(400).json({ error: "gameId já existe" });
+    }
+
+    // Cria um novo fórum/jogo
+    const newForum = {
+        gameId,
+        comentarios: [],
+    };
+    data.push(newForum);
+
+    return response.status(201).json(newForum);
+});
 
 router.get("/forum/:gameId", (request, response) => {
     const game = data.find((game) => game.gameId === request.params.gameId)

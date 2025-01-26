@@ -22,11 +22,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use('/', indexRouter);
-app.use('/avaliacoes', avaliacoesRouter);
-app.use('/jogos', jogosRouter);
-app.use('/listas', listasRouter);
-app.use('/perfil', perfilRouter);
-app.use('/forum', forumRouter)
+app.use('/', avaliacoesRouter);
+app.use('/', jogosRouter);
+app.use('/', listasRouter);
+app.use('/', perfilRouter);
+app.use('/', forumRouter)
 
 mongoose.connect('mongodb+srv://sarahcaulfieldlis:enTLXSHZrrwj2UkZ@gamelog-cluster.7j4rt.mongodb.net/?retryWrites=true&w=majority&appName=gamelog-cluster')
 .then(() => console.log('Conexão com MongoDB bem-sucedida!'))
