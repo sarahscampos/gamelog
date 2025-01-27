@@ -98,7 +98,7 @@ server.patch('/forum/:gameId/:userId/:comentId', async(request, response) => {
     }
     const comentario = game.comentarios.find((comentario) => comentario.comentId === request.params.comentId)
     if(!comentario){
-        return response.status(404).json({error: 'Comentario não encontrada'})
+        return response.status(404).json({error: 'Comentário não encontrado'})
     }
     if(comentario.userId != userId){
         return response.status(403).json({error: "Permissão negada"})
