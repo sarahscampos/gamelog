@@ -1,5 +1,7 @@
 var express = require('express');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const passport = require('passport');
+require('./config/passport')(passport);
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
