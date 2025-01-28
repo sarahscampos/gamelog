@@ -1,103 +1,119 @@
-const express = require("express")
-const router = express.Router()
+const express = require("express");
+const passport = require("passport");
+const mongoose = require("mongoose");
+const Forum = require("../models/ForumSchema");
 
-let data = [
-    {
-        gameId: "0",
-        comentarios:[
-            {userId:"0", comentId:"0", coment: "Muito bom!"}
-        ]
-    }
-];
+const server = express();
+server.use(express.json());
 
-router.post("/forum/:gameId/:userId", (request, response) =>{
-    const game = data.find((game) => game.gameId === request.params.gameId);
-    if(!game){
-        return response.status(404).json({error: 'Página não encontrada'})
-    }
-
+// Rota POST - Adicionar Comentário
+server.post("/protected/forum/:gameId/:userId", 
+    passport.authenticate("jwt", { session: false }),
+    async (request, response) => {
+  try {
+    const { gameId, userId } = request.params;
     const novoComentario = request.body;
-    if (!novoComentario) {
-        return response.status(400).json({ error: 'Comentário não pode ser vazio' });
+
+    if (!novoComentario || !novoComentario.comentId || !novoComentario.coment) {
+      return response.status(400).json({ error: "Dados incompletos para criar o comentário." });
     }
 
-    // Adicionando o novo comentário ao jogo
+    const game = await Forum.findOne({ gameId });
+    if (!game) {
+      return response.status(404).json({ error: "Jogo não encontrado." });
+    }
+
+    const usuario = game.comentarios.find((usuario) => usuario.userId === userId);
+    if (!usuario) {
+      return response.status(404).json({ error: "Usuário não encontrado." });
+    }
+
+    // Adicionando o novo comentário
     game.comentarios.push(novoComentario);
+    await game.save();
 
-
-    return response.status(201).json(game.comentarios)
-})
-
-router.post("/forum", (request, response) => {
-    const { gameId } = request.body;
-
-    // Verifica se o gameId foi enviado
-    if (!gameId) {
-        return response.status(400).json({ error: "gameId é obrigatório" });
-    }
-
-    // Verifica se o gameId já existe
-    const existingGame = data.find((game) => game.gameId === gameId);
-    if (existingGame) {
-        return response.status(400).json({ error: "gameId já existe" });
-    }
-
-    // Cria um novo fórum/jogo
-    const newForum = {
-        gameId,
-        comentarios: [],
-    };
-    data.push(newForum);
-
-    return response.status(201).json(newForum);
+    return response.status(201).json(game.comentarios);
+  } catch (err) {
+    return response.status(500).json({ error: "Erro interno do servidor." });
+  }
 });
 
-router.get("/forum/:gameId", (request, response) => {
-    const game = data.find((game) => game.gameId === request.params.gameId)
-    if(!game){
-        return response.status(404).json({error: 'Jogo não encontrado'})
-    }
-    return response.status(200).json(game.comentarios)
-  })
+// Rota GET - Obter Comentários
+server.get("/forum/:gameId", async (request, response) => {
+  try {
+    const { gameId } = request.params;
+    const game = await Forum.findOne({ gameId });
 
-router.delete("/forum/:gameId/:userId/:comentId", (request, response) => {
-    const game = data.find((game) => game.gameId === request.params.gameId)
-    if(!game){
-        return response.status(404).json({error: 'Página não encontrada'})
-    }
-    const comentario = game.comentarios.find((comentario) => comentario.comentId === request.params.comentId)
-    if(!comentario){
-        return response.status(404).json({error: 'Comentario não encontrado'})
-    }
-    if(comentario.userId != request.params.userId){
-        return response.status(400).json({error: "Id de usuário inválido"})
+    if (!game) {
+      return response.status(404).json({ error: "Jogo não encontrado." });
     }
 
-    game.comentarios = game.comentarios.filter((comentario) => comentario.comentId !== request.params.comentId)
+    return response.status(200).json(game.comentarios);
+  } catch (err) {
+    return response.status(500).json({ error: "Erro interno do servidor." });
+  }
+});
 
-return response.status(200).json(game.comentarios)
-})
+// Rota DELETE - Remover Comentário
+server.delete("/forum/:gameId/:userId/:comentId", async (request, response) => {
+  try {
+    const { gameId, userId, comentId } = request.params;
+    const game = await Forum.findOne({ gameId });
 
-router.patch('/forum/:gameId/:userId/:comentId', (request, response) => {
-    const game = data.find((game) => game.gameId === request.params.gameId)
-    if(!game){
-        return response.status(404).json({error: 'Página não encontrada'})
-    }
-    const comentario = game.comentarios.find((comentario) => comentario.comentId === request.params.comentId)
-    if(!comentario){
-        return response.status(404).json({error: 'Comentario não encontrada'})
-    }
-    if(comentario.userId != request.params.userId){
-        return response.status(400).json({error: "Id de usuário inválido"})
+    if (!game) {
+      return response.status(404).json({ error: "Jogo não encontrado." });
     }
 
-    const updatedComentario = request.body.coment
-    if( updatedComentario){
-        comentario.coment = updatedComentario;
+    const comentario = game.comentarios.find((comentario) => comentario.comentId.toString() === comentId);
+    if (!comentario) {
+      return response.status(404).json({ error: "Comentário não encontrado." });
     }
+
+    if (comentario.userId !== userId) {
+      return response.status(403).json({ error: "Permissão negada." });
+    }
+
+    // Removendo o comentário
+    game.comentarios = game.comentarios.filter((comentario) => comentario.comentId.toString() !== comentId);
+    await game.save();
+
+    return response.status(200).json({ message: "Comentário removido com sucesso.", comentarios: game.comentarios });
+  } catch (err) {
+    return response.status(500).json({ error: "Erro interno do servidor." });
+  }
+});
+
+// Rota PATCH - Atualizar Comentário
+server.patch("/forum/:gameId/:userId/:comentId", async (request, response) => {
+  try {
+    const { gameId, userId, comentId } = request.params;
+    const { coment } = request.body;
+
+    if (!coment) {
+      return response.status(400).json({ error: "Comentário não pode ser vazio." });
+    }
+
+    const game = await Forum.findOne({ gameId });
+
+    if (!game) {
+      return response.status(404).json({ error: "Jogo não encontrado." });
+    }
+
+    const comentario = game.comentarios.find((comentario) => comentario.comentId.toString() === comentId);
+    if (!comentario) {
+      return response.status(404).json({ error: "Comentário não encontrado." });
+    }
+
+    if (comentario.userId !== userId) {
+      return response.status(403).json({ error: "Permissão negada." });
+    }
+
+    // Atualizando o comentário
+    comentario.coment = coment;
+    await game.save();
 
     return response.status(200).json(comentario);
-
-})
-
-module.exports = router
+  } catch (err) {
+    return response.status(500).json({ error: "Erro interno do servidor." });
+  }
+});
