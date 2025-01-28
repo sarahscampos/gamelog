@@ -7,9 +7,9 @@ const forumSchema = mongoose.Schema(
       comentarios: [
         {
           userId: { type: String, required: true },
-          comentId: { type: Number, required: true, unique: true },
+          //comentId: { type: Number, required: true, unique: true },
           coment: { type: String, required: true, minlength: 1, maxlength: 500 },
-          data: {type: Date}
+          data: {type: Date, required: true}
         },
       ],
     },

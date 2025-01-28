@@ -5,39 +5,49 @@ const Forum = require("../models/ForumSchema");
 const router = express.Router();
 
 // Rota POST - Adicionar Comentário
-router.post("/protected/forum/:gameId/:userId", 
+router.post("/protected/forum/:gameId", 
     passport.authenticate("jwt", { session: false }),
     async (request, response) => {
-  try {
-    const { gameId, userId } = request.params;
-    const novoComentario = request.body;
-
-    if (!novoComentario || !novoComentario.comentId || !novoComentario.coment || !novoComentario.data) {
-      return response.status(400).json({ error: "Dados incompletos para criar o comentário." });
+      try {
+        const { gameId } = request.params;
+        const { coment, userId } = request.body; // Obtém os dados do corpo da requisição
+  
+        // Verifica campos obrigatórios
+        if (!coment || !userId || coment.trim() === '') {
+          return response.status(400).json({ error: "Comentário ou usuário não informado corretamente." });
+        }
+  
+        // Busca o jogo no banco
+        const game = await Forum.findOne({ gameId });
+        if (!game) {
+          return response.status(404).json({ error: "Jogo não encontrado." });
+        }
+  
+        // Formata e adiciona o novo comentário
+        const novoComentario = {
+          coment,
+          userId,
+          data: new Date(), // Adiciona a data do comentário
+        };
+        game.comentarios.push(novoComentario);
+  
+        // Salva as alterações no banco
+        await game.save();
+  
+        return response.status(201).json(game.comentarios); // Retorna os comentários atualizados
+      } catch (err) {
+        console.error(err);
+        return response.status(500).json({ error: "Erro interno do servidor." });
+      }
     }
-
-    const game = await Forum.findOne({ gameId });
-    if (!game) {
-      return response.status(404).json({ error: "Jogo não encontrado." });
-    }
-
-    const usuario = game.comentarios.find((usuario) => usuario.userId === userId);
-    if (!usuario) {
-      return response.status(404).json({ error: "Usuário não encontrado." });
-    }
-
-    // Adicionando o novo comentário
-    game.comentarios.push(novoComentario);
-    await game.save();
-
-    return response.status(201).json(game.comentarios);
-  } catch (err) {
-    return response.status(500).json({ error: "Erro interno do servidor." });
-  }
-});
+  );
+  
 
 //Rota POST - Adiciona novo Forum
-router.post("/forum", (request, response) => {
+router.post("/forum", 
+    passport.authenticate("jwt", { session: false }),
+    async (request, response) => {
+    try{
     const { gameId } = request.body;
 
     // Verifica se o gameId foi enviado
@@ -46,19 +56,23 @@ router.post("/forum", (request, response) => {
     }
 
     // Verifica se o gameId já existe
-    const existingGame = data.find((game) => game.gameId === gameId);
+    const existingGame = await Forum.findOne({gameId});
     if (existingGame) {
         return response.status(400).json({ error: "gameId já existe" });
     }
 
     // Cria um novo fórum/jogo
-    const newGame = {
+    const newGame = new Forum({
         gameId,
         comentarios: [],
-    };
-    data.push(newGame);
+    });
+    
+    await newGame.save();
 
     return response.status(201).json(newGame);
+} catch(err){
+    return response.status(500).json({error: "Erro interno do servidor"});
+}
 });
 
 // Rota GET - Obter Comentários
@@ -77,17 +91,29 @@ router.get("/forum/:gameId", async (request, response) => {
   }
 });
 
+router.get("/forum", async (request, response) => {
+    try {
+      const forums = await Forum.find();
+      response.json(forums);
+    } catch (err) {
+      return response.status(500).json({ error: "Erro interno do servidor." });
+    }
+  });
+
 // Rota DELETE - Remover Comentário
-router.delete("/forum/:gameId/:userId/:comentId", async (request, response) => {
+router.delete("/forum/:gameId/:userId/:comentId", 
+    passport.authenticate("jwt", { session: false }),
+    async (request, response) => {
   try {
     const { gameId, userId, comentId } = request.params;
     const game = await Forum.findOne({ gameId });
+
 
     if (!game) {
       return response.status(404).json({ error: "Jogo não encontrado." });
     }
 
-    const comentario = game.comentarios.find((comentario) => comentario.comentId.toString() === comentId);
+    const comentario = game.comentarios.find((comentario) => comentario._id.toString() === comentId);
     if (!comentario) {
       return response.status(404).json({ error: "Comentário não encontrado." });
     }
@@ -97,7 +123,7 @@ router.delete("/forum/:gameId/:userId/:comentId", async (request, response) => {
     }
 
     // Removendo o comentário
-    game.comentarios = game.comentarios.filter((comentario) => comentario.comentId.toString() !== comentId);
+    game.comentarios = game.comentarios.filter((comentario) => comentario._id.toString() !== comentId);
     await game.save();
 
     return response.status(200).json({ message: "Comentário removido com sucesso.", comentarios: game.comentarios });
@@ -107,7 +133,9 @@ router.delete("/forum/:gameId/:userId/:comentId", async (request, response) => {
 });
 
 // Rota PATCH - Atualizar Comentário
-router.patch("/forum/:gameId/:userId/:comentId", async (request, response) => {
+router.patch("/forum/:gameId/:userId/:comentId",
+    passport.authenticate("jwt", { session: false }),
+    async (request, response) => {
   try {
     const { gameId, userId, comentId } = request.params;
     const { coment } = request.body;
@@ -122,12 +150,12 @@ router.patch("/forum/:gameId/:userId/:comentId", async (request, response) => {
       return response.status(404).json({ error: "Jogo não encontrado." });
     }
 
-    const comentario = game.comentarios.find((comentario) => comentario.comentId.toString() === comentId);
+    const comentario = game.comentarios.find((comentario) => comentario._id.toString() === comentId);
     if (!comentario) {
       return response.status(404).json({ error: "Comentário não encontrado." });
     }
 
-    if (comentario.userId !== userId) {
+    if (comentario.userId.toString() !== userId) {
       return response.status(403).json({ error: "Permissão negada." });
     }
 
