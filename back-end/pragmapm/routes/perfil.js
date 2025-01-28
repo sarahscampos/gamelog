@@ -1,10 +1,7 @@
 const express = require('express');
-const server = express();
-//const Usuario = require('../models/Perfil');
-
-server.listen(3004)
-server.use(express.json())
-
+const router = express.Router();
+const Perfil = require('../models/Perfil');
+/*
 let usuarios = [{
   id: "0",
   nome: "Usuário",
@@ -53,41 +50,60 @@ let usuarios = [{
   desejados: 10,
   listasFixadasIds: [0, 2],
 }
-]
+]*/
 
-// pega todos usuarios
-server.get('/usuarios', (request, response) => {
-  response.json(usuarios);
+// pega todos os usuários
+router.get('/perfil', async (request, response) => {
+  try {
+    const usuarios = await Perfil.find();
+    response.json(usuarios);
+  } catch (error) {
+    response.status(500).json({ message: 'Erro ao obter usuários', error });
+  }
 });
 
-// pega um unico usuario
-server.get('/usuarios/:id', (request, response) => {
-  const usuario = usuarios.find(u => u.id === request.params.id);
-  if (!usuario) return response.status(404).json({ message: 'Usuario nao encontrado' });
-  response.json(usuario);
+// pega um único usuário
+router.get('/perfil/:id', async (request, response) => {
+  try {
+    const usuario = await Perfil.findById(request.params.id);
+    if (!usuario) return response.status(404).json({ message: 'Usuário não encontrado' });
+    response.json(usuario);
+  } catch (error) {
+    response.status(500).json({ message: 'Erro ao obter usuário', error });
+  }
 });
 
-// cria um usuario
-server.post('/usuarios', (request, response) => {
-  const novoUsuario = { id: Date.now().toString(), ...request.body };
-  usuarios.push(novoUsuario);
-  response.status(201).json(novoUsuario);
+// cria um usuário
+router.post('/perfil', async (request, response) => {
+  try {
+    const novoUsuario = new Perfil(request.body);  // Criando uma instância do modelo Perfil
+    await novoUsuario.save();
+    response.status(201).json(novoUsuario);
+  } catch (error) {
+    response.status(500).json({ message: 'Erro ao criar usuário', error });
+  }
 });
 
-// atualiza um usuario
-server.put('/usuarios/:id', (request, response) => {
-  const index = usuarios.findIndex(u => u.id === request.params.id);
-  if (index === -1) return response.status(404).json({ message: 'Usuario nao encontrado' });
-  usuarios[index] = { ...usuarios[index], ...request.body };
-  response.json(usuarios[index]);
+// atualiza um usuário
+router.put('/perfil/:id', async (request, response) => {
+  try {
+    const usuario = await Perfil.findByIdAndUpdate(request.params.id, request.body, { new: true });
+    if (!usuario) return response.status(404).json({ message: 'Usuário não encontrado' });
+    response.json(usuario);
+  } catch (error) {
+    response.status(500).json({ message: 'Erro ao atualizar usuário', error });
+  }
 });
 
-// deleta um usuario
-server.delete('/usuarios/:id', (request, response) => {
-  const index = usuarios.findIndex(u => u.id === request.params.id);
-  if (index === -1) return response.status(404).json({ message: 'Usuario nao encontrado' });
-  const deletedUser = usuarios.splice(index, 1);
-  response.json(deletedUser[0]);
+// deleta um usuário
+router.delete('/perfil/:id', async (request, response) => {
+  try {
+    const usuario = await Perfil.findByIdAndDelete(request.params.id);
+    if (!usuario) return response.status(404).json({ message: 'Usuário não encontrado' });
+    response.json(usuario);
+  } catch (error) {
+    response.status(500).json({ message: 'Erro ao deletar usuário', error });
+  }
 });
 
-module.exports = server;
+module.exports = router;

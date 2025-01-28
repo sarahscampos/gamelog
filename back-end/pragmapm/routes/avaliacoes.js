@@ -1,8 +1,142 @@
 var express = require('express');
+const server = express();
+
+const mongoose = require('mongoose');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
+//link de conexão com mongodb
+const uri = ""
+mongoose
+  .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Conectado ao MongoDB Atlas com sucesso!'))
+  .catch((err) => console.error('Erro ao conectar ao MongoDB Atlas:', err));
+
+const Avaliacao = require('./models/Avaliacao')
+
+server.use(express.json())
+server.listen(3004)
+
+//Pega lista de avaliações de um jogo
+server.get("/avaliacoes/:gameId", async (request, response) => {
+  try{
+  const { gameId } = request.params;
+  const game = await Avaliacao.findOne( {gameId} );
+  if(!game){
+      return response.status(404).json({error: 'Jogo não encontrado'})
+  }
+
+  return response.status(200).json(game.avaliacoes)
+
+} catch(err){
+  return response.status(500).json({ error: "Erro ao acessar avaliações", details: err });
+}
+});
+
+//Publica nova avaliação
+server.post("/avaliacoes/:gameId/:userId", async(request, response) =>{
+  try{
+    const { gameId, userId } = request.params;
+    const newAvaliacao = request.body;
+
+    //Verifica campos obrigatórios
+    if (!newAvaliacao.score || !newAvaliacao.avaliacaoId) {
+      return response.status(400).json({ error: "Dados incompletos para criar o Avaliação." });
+    }
+
+    const game = await Avaliacao.findOne({gameId});
+    if(!game){
+      return response.status(404).json({error: 'Página não encontrada'})
+    }
+
+    //Verifica usuário
+    const usuario = game.avaliacoes.find((usuario => usuario.userId === request.params.userId));
+    if(!usuario){
+      return response.status(404).json("Usuário não pode ser encontrado")
+    }
+
+    game.avaliacoes.push(newAvaliacao);
+    return response.status(201).json(game.avaliacoes);
+
+  }catch(err){
+    return response.status(500).json({error: "Erro ao publicar avaliação", details: err });
+  }
+})
+
+//Deleta uma avaliação
+server.delete("/avaliacoes/:gameId/:userId/:avaliacaoId", async (request, response) =>{
+  try{
+    const { gameId, userId, avaliacaoId} = request.params;
+    const game = await Avaliacao.findOne({ gameId });
+
+    if(!game){
+      return response.status(404).json({error: "Página não encontrada"})
+    }
+
+    //Procura avaliação a ser deletada
+    const index = game.avaliacoes.findIndex((aval) => aval.avaliacaoId === request.params.avaliacaoId)
+    if(index == -1){
+      return response.status(404).json({error: "Avaliação não pode ser encontrada"})
+    }
+
+    const delAvaliacao = game.avaliacoes[index];
+
+    //Checa id do usuário e avaliação
+    if(delAvaliacao.userId != request.params.userId){
+      return response.status(400).json({error: "Usuário inválido"})
+    }
+
+    //Deleta avaliação do banco
+    game.avaliacoes.splice(index, 1);
+    return response.status(200).json(game.avaliacoes);
+
+  } catch(err){
+      return response.status(500).json({ error: "Erro ao deletar avaliação", details: err })
+  }
+})
+
+server.patch("/avaliacoes/:gameId/:userId/:avaliacaoId", async(request, response) =>{
+  try{
+    const {gameId, userId, avaliacaoId} = request.params;
+    const newAval = request.body;
+
+    //Checa campos obrigatórios
+    if(!newAval.score || !newAval.avaliacaoId){
+      return response.status(400).json({error: "Campos obrigatórios inválidos"})
+    }
+
+    const game = await Avaliacao.findOne({ gameId });
+    if(!game){
+      return response.status(404).json({error: "Página não encontrada"})
+    }
+
+    //Procura a avaliação
+    const aval = game.avaliacoes.findOne((aval) => aval.avaliacaoId === request.params.avaliacaoId);
+    if(!aval){
+      return response.status(400).json({error: "Avaliação não encontrada"})
+    }
+
+    //Verifica usuário
+    if(aval.userId != request.params.userId){
+      return response.status(400).json({error: "Usuário inválido"})
+    }
+
+    //Substitui avaliação antiga por nova
+    aval = newAval;
+    await game.save();
+
+    return response.status(200).json(aval)
+
+  } catch(err){
+    return response.status(500).json({ error: "Erro ao atualizar avaliação", details: err })
+  }
+})
+
+
+/* 
+========== Espero poder deixar tudo isso comentado  ===========
+*/
+/* GET users listing. */ 
+/*router.get('/', function(req, res, next) { 
 
   res.statusCode = 200;
   res.setHeader('Content-Type', 'application/json');
@@ -148,5 +282,7 @@ router.get('/', function(req, res, next) {
       }
     ]
   });
-})
+})*/
+
+
 module.exports = router;

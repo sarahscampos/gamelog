@@ -7,7 +7,7 @@ var router = express.Router();*/
 router.get('/:id', function(req, res, next) {
 
   res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Content-Type', 'routerlication/json');
   res.json();
 
 });*/
@@ -15,8 +15,7 @@ router.get('/:id', function(req, res, next) {
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const app = express();
-app.use(bodyParser.json());
+const router = express.Router();
 
 let data = [
   {
@@ -35,7 +34,7 @@ let data = [
 ];
 
 // GET /listas/:userId
-app.get('/listas/:userId', (req, res) => {
+router.get('/listas/:userId', (req, res) => {
   const user = data.find((user) => user.id === req.params.userId);
   if (!user) {
     return res.status(404).json({ error: 'Usuário não encontrado' });
@@ -44,7 +43,7 @@ app.get('/listas/:userId', (req, res) => {
 });
 
 // POST /listas/:userId
-app.post('/listas/:userId', (req, res) => {
+router.post('/listas/:userId', (req, res) => {
   const user = data.find((user) => user.id === req.params.userId);
   if (!user) {
     return res.status(404).json({ error: 'Usuário não encontrado' });
@@ -60,7 +59,7 @@ app.post('/listas/:userId', (req, res) => {
 });
 
 // PATCH /listas/:userId/:idLista
-app.patch('/listas/:userId/:idLista', (req, res) => {
+router.patch('/listas/:userId/:idLista', (req, res) => {
   const user = data.find((user) => user.id === req.params.userId);
   if (!user) {
     return res.status(404).json({ error: 'Usuário não encontrado' });
@@ -81,7 +80,7 @@ app.patch('/listas/:userId/:idLista', (req, res) => {
 });
 
 // PATCH /listas/:userId/:idLista/remove
-app.patch('/listas/:userId/:idLista/remove', (req, res) => {
+router.patch('/listas/:userId/:idLista/remove', (req, res) => {
   const user = data.find((user) => user.id === req.params.userId);
   if (!user) {
     return res.status(404).json({ error: 'Usuário não encontrado' });
@@ -103,7 +102,7 @@ app.patch('/listas/:userId/:idLista/remove', (req, res) => {
 });
 
 // DELETE /listas/:userId/:idLista
-app.delete('/listas/:userId/:idLista', (req, res) => {
+router.delete('/listas/:userId/:idLista', (req, res) => {
   const user = data.find((user) => user.id === req.params.userId);
   if (!user) {
     return res.status(404).json({ error: 'Usuário não encontrado' });
@@ -120,7 +119,7 @@ app.delete('/listas/:userId/:idLista', (req, res) => {
 
 // Porta do servidor
 /*const PORT = 3000;
-app.listen(PORT, () => {
+router.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });*/
 
