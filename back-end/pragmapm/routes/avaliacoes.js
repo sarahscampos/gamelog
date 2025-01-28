@@ -3,9 +3,6 @@ const passport = require('passport');
 var router = express.Router();
 const Avaliacao = require('../models/Avaliacao');
 
-router.use(express.json())
-
-
 //Pega lista de avaliações de um jogo
 router.get("/avaliacoes/:gameId", async (request, response) => {
   try{
