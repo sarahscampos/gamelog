@@ -12,7 +12,7 @@ router.post("/protected/forum/:gameId/:userId",
     const { gameId, userId } = request.params;
     const novoComentario = request.body;
 
-    if (!novoComentario || !novoComentario.comentId || !novoComentario.coment) {
+    if (!novoComentario || !novoComentario.comentId || !novoComentario.coment || !novoComentario.data) {
       return response.status(400).json({ error: "Dados incompletos para criar o comentário." });
     }
 
@@ -34,6 +34,31 @@ router.post("/protected/forum/:gameId/:userId",
   } catch (err) {
     return response.status(500).json({ error: "Erro interno do servidor." });
   }
+});
+
+//Rota POST - Adiciona novo Forum
+router.post("/forum", (request, response) => {
+    const { gameId } = request.body;
+
+    // Verifica se o gameId foi enviado
+    if (!gameId) {
+        return response.status(400).json({ error: "gameId é obrigatório" });
+    }
+
+    // Verifica se o gameId já existe
+    const existingGame = data.find((game) => game.gameId === gameId);
+    if (existingGame) {
+        return response.status(400).json({ error: "gameId já existe" });
+    }
+
+    // Cria um novo fórum/jogo
+    const newGame = {
+        gameId,
+        comentarios: [],
+    };
+    data.push(newGame);
+
+    return response.status(201).json(newGame);
 });
 
 // Rota GET - Obter Comentários
