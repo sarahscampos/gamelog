@@ -2,22 +2,11 @@ var express = require('express');
 var router = express.Router();
 const Jogo = require('../models/Jogo');
 
-
 router.post("/jogos", async (request, response) => {
-  const { id, nome, colocacao, capa, desenvolvedora, dataLancamento, distribuidora, generos, sumario } = request.body;
-
-  // Validação dos campos obrigatórios
-  if (!id || !nome || !colocacao || !capa || !desenvolvedora || !dataLancamento || !distribuidora || !generos || !sumario) {
-    return response.status(400).json({ error: "Todos os campos são obrigatórios" });
-  }
-  // Verificar se o jogo já existe
-  const jogoJaExiste = await Jogo.findOne({ id });
-  if (jogoJaExiste) {
-    return response.status(409).json({ error: "Já existe um jogo com esse id" });
-  }
+  const { nome, colocacao, capa, desenvolvedora, dataLancamento, distribuidora, generos, sumario } = request.body;
 
   // Criar o novo jogo e salvar no MongoDB
-  const novoJogo = new Jogo({ id, nome, colocacao, capa, desenvolvedora, dataLancamento, distribuidora, generos, sumario });
+  const novoJogo = new Jogo({ nome, colocacao, capa, desenvolvedora, dataLancamento, distribuidora, generos, sumario });
   
   try {
     await novoJogo.save();
@@ -37,11 +26,24 @@ router.get("/jogos", async (request, response) => {
   }
 });
 
-/* GET users listing. */
-/*router.get('/', function(req, res, next) {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/json');
-  res.json();
-})*/
+router.delete("/jogos/:id", async (req, res) => {
+  try {
+      const jogo = await Jogo.findByIdAndDelete(req.params.id);
+      if (!jogo) return res.status(404).json({ message: 'Jogo não encontrado' });
+      res.json(jogo);
+    } catch (error) {
+      res.status(500).json({ message: 'Erro ao deletar jogo', error });
+    }
+})
+
+router.get('/jogos/:id', async (request, response) => {
+  try {
+    const jogo = await Jogo.findById(request.params.id);
+    if (!jogo) return response.status(404).json({ message: 'Jogo não encontrado' });
+    response.json(jogo);
+  } catch (error) {
+    response.status(500).json({ message: 'Erro ao obter jogo', error });
+  }
+});
 
 module.exports = router;
