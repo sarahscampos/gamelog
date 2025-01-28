@@ -1,13 +1,11 @@
 const express = require("express");
 const passport = require("passport");
-const mongoose = require("mongoose");
 const Forum = require("../models/ForumSchema");
 
-const server = express();
-server.use(express.json());
+const router = express.Router();
 
 // Rota POST - Adicionar Comentário
-server.post("/protected/forum/:gameId/:userId", 
+router.post("/protected/forum/:gameId/:userId", 
     passport.authenticate("jwt", { session: false }),
     async (request, response) => {
   try {
@@ -39,7 +37,7 @@ server.post("/protected/forum/:gameId/:userId",
 });
 
 // Rota GET - Obter Comentários
-server.get("/forum/:gameId", async (request, response) => {
+router.get("/forum/:gameId", async (request, response) => {
   try {
     const { gameId } = request.params;
     const game = await Forum.findOne({ gameId });
@@ -55,7 +53,7 @@ server.get("/forum/:gameId", async (request, response) => {
 });
 
 // Rota DELETE - Remover Comentário
-server.delete("/forum/:gameId/:userId/:comentId", async (request, response) => {
+router.delete("/forum/:gameId/:userId/:comentId", async (request, response) => {
   try {
     const { gameId, userId, comentId } = request.params;
     const game = await Forum.findOne({ gameId });
@@ -84,7 +82,7 @@ server.delete("/forum/:gameId/:userId/:comentId", async (request, response) => {
 });
 
 // Rota PATCH - Atualizar Comentário
-server.patch("/forum/:gameId/:userId/:comentId", async (request, response) => {
+router.patch("/forum/:gameId/:userId/:comentId", async (request, response) => {
   try {
     const { gameId, userId, comentId } = request.params;
     const { coment } = request.body;
@@ -117,3 +115,5 @@ server.patch("/forum/:gameId/:userId/:comentId", async (request, response) => {
     return response.status(500).json({ error: "Erro interno do servidor." });
   }
 });
+
+module.exports = router;
