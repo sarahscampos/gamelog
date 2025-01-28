@@ -9,19 +9,6 @@ mongoose
   .then(() => console.log('Conectado ao MongoDB Atlas com sucesso!'))
   .catch((err) => console.error('Erro ao conectar ao MongoDB Atlas:', err));
 
-
-  const Jogo = mongoose.model('Jogo', new mongoose.Schema({
-    id: { type: String, required: true, unique: true },
-    nome: { type: String, required: true },
-    colocacao: { type: Number, required: true },
-    capa: { type: String, required: true },
-    desenvolvedora: { type: String, required: true },
-    dataLancamento: { type: Date, required: true },
-    distribuidora: { type: String, required: true },
-    generos: { type: [String], required: true },
-    sumario: { type: String, required: true }
-  }));
-
 server.listen(3004)
 server.use(express.json())
 
@@ -59,11 +46,3 @@ server.get("/jogos", async (request, response) => {
   }
 });
 
-/* GET users listing. */
-/*router.get('/', function(req, res, next) {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/json');
-  res.json();
-})*/
-
-//module.exports = router;
