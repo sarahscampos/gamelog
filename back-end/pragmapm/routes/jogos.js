@@ -1,26 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const mongoose = require('mongoose');
-
-//const uri = 'mongodb+srv://sarahcaulfieldlis:enTLXSHZrrwj2UkZ@gamelog-cluster.7j4rt.mongodb.net/?retryWrites=true&w=majority&appName=gamelog-cluster';
-
-mongoose
-  //.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-  //.then(() => console.log('Conectado ao MongoDB Atlas com sucesso!'))
-  //catch((err) => console.error('Erro ao conectar ao MongoDB Atlas:', err));
-
-
-  const Jogo = mongoose.model('Jogo', new mongoose.Schema({
-    id: { type: String, required: true, unique: true },
-    nome: { type: String, required: true },
-    colocacao: { type: Number, required: true },
-    capa: { type: String, required: true },
-    desenvolvedora: { type: String, required: true },
-    dataLancamento: { type: Date, required: true },
-    distribuidora: { type: String, required: true },
-    generos: { type: [String], required: true },
-    sumario: { type: String, required: true }
-  }));
+const Jogo = require('../models/Jogo');
 
 
 router.post("/jogos", async (request, response) => {
