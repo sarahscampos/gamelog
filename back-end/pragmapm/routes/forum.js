@@ -112,3 +112,5 @@ server.patch('/forum/:gameId/:userId/:comentId', async(request, response) => {
       }
 
 })
+
+module.exports = router

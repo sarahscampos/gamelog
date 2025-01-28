@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const usuarioSchema = new mongoose.Schema({
+const perfilSchema = new mongoose.Schema({
   id: { type: String, required: true },
   nome: { type: String, required: true },
   avatar: { type: String, required: true },
@@ -17,4 +17,4 @@ const usuarioSchema = new mongoose.Schema({
   listasFixadasIds: [{ type: Number }]
 });
 
-module.exports = mongoose.model('Usuario', usuarioSchema);
+module.exports = mongoose.model('Perfil', perfilSchema);
