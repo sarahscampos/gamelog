@@ -36,6 +36,31 @@ router.post("/protected/forum/:gameId/:userId",
   }
 });
 
+//Rota POST - Adiciona novo Forum
+router.post("/forum", (request, response) => {
+    const { gameId } = request.body;
+
+    // Verifica se o gameId foi enviado
+    if (!gameId) {
+        return response.status(400).json({ error: "gameId é obrigatório" });
+    }
+
+    // Verifica se o gameId já existe
+    const existingGame = data.find((game) => game.gameId === gameId);
+    if (existingGame) {
+        return response.status(400).json({ error: "gameId já existe" });
+    }
+
+    // Cria um novo fórum/jogo
+    const newGame = {
+        gameId,
+        comentarios: [],
+    };
+    data.push(newGame);
+
+    return response.status(201).json(newGame);
+});
+
 // Rota GET - Obter Comentários
 router.get("/forum/:gameId", async (request, response) => {
   try {
