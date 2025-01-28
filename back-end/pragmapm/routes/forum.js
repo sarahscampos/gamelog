@@ -12,7 +12,7 @@ router.post("/protected/forum/:gameId/:userId",
     const { gameId, userId } = request.params;
     const novoComentario = request.body;
 
-    if (!novoComentario || !novoComentario.comentId || !novoComentario.coment) {
+    if (!novoComentario || !novoComentario.comentId || !novoComentario.coment || !novoComentario.data) {
       return response.status(400).json({ error: "Dados incompletos para criar o comentário." });
     }
 
