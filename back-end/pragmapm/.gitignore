@@ -2,7 +2,6 @@
 
 # dependencies
 /node_modules
-/back-end/pragmapm/node_modules
 /.pnp
 .pnp.js
 
