@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const jogoSchema = new mongoose.Schema({
-    id: { type: String, required: true, unique: true },
-    nome: { type: String, required: true },
+    nome: { type: String, required: true, unique: true},
     colocacao: { type: Number, required: true },
+    notaMedia: { type: Number, required: false},
     capa: { type: String, required: true },
     desenvolvedora: { type: String, required: true },
     dataLancamento: { type: Date, required: true },
@@ -12,4 +12,4 @@ const jogoSchema = new mongoose.Schema({
     sumario: { type: String, required: true }
   });
 
-module.exports = mongoose.model('Jogo', jogoSchema);
+  module.exports = mongoose.model('Jogo', jogoSchema)

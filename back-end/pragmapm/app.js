@@ -1,12 +1,13 @@
 var express = require('express');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const passport = require('passport');
+require('./config/passport')(passport);
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-var indexRouter = require('./routes/index.js');
 var avaliacoesRouter = require('./routes/avaliacoes.js');
 var jogosRouter = require('./routes/jogos.js');
 var listasRouter = require('./routes/listas.js');
@@ -21,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
-app.use('/', indexRouter);
+
 app.use('/', avaliacoesRouter);
 app.use('/', jogosRouter);
 app.use('/', listasRouter);
