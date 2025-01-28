@@ -8,7 +8,7 @@ const perfilSchema = new mongoose.Schema({
   media: { type: Number, default: 0 },
   amigos: { type: Number, default: 0 },
   localizacao: { type: String },
-  membroDesde: { type: String },
+  membroDesde: { type: Date },
   jogosAdicionados: { type: Number, default: 0 },
   completos: { type: Number, default: 0 },
   jogando: { type: Number, default: 0 },

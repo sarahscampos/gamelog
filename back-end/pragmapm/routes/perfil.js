@@ -1,56 +1,7 @@
 const express = require('express');
+const passport = require('passport')
 const router = express.Router();
 const Perfil = require('../models/Perfil');
-/*
-let usuarios = [{
-  id: "0",
-  nome: "Usuário",
-  avatar: "https://via.placeholder.com/100",
-  descricao: "Oi eu sou um usuário do gamelog!",
-  analises: 0,
-  media: 0,
-  amigos: 0,
-  localizacao: "Minha Localização",
-  membroDesde: "07/12/24",
-  jogosAdicionados: 0,
-  completos: 0,
-  jogando: 0,
-  desejados: 0,
-  listasFixadasIds: [3, 2],
-},
-{
-  id: "1",
-  nome: "pacooooo",
-  avatar: "https://via.placeholder.com/100",
-  descricao: "Oi meu nome é paco e eu sou mt legal! Gosto de jojar jojos",
-  analises: 15,
-  media: 8.5,
-  amigos: 5,
-  localizacao: "Rio de Janeiro, RJ",
-  membroDesde: "10/10/24",
-  jogosAdicionados: 27,
-  completos: 15,
-  jogando: 4,
-  desejados: 8,
-  listasFixadasIds: [1],
-},
-{
-  id: "2",
-  nome: "Ana Clara",
-  avatar: "https://via.placeholder.com/100",
-  descricao: "Gamer apaixonada por RPGs.",
-  analises: 25,
-  media: 4.8,
-  amigos: 130,
-  localizacao: "São Paulo, Brasil",
-  membroDesde: "2022",
-  jogosAdicionados: 45,
-  completos: 30,
-  jogando: 5,
-  desejados: 10,
-  listasFixadasIds: [0, 2],
-}
-]*/
 
 // pega todos os usuários
 router.get('/perfil', async (request, response) => {
@@ -74,7 +25,9 @@ router.get('/perfil/:id', async (request, response) => {
 });
 
 // cria um usuário
-router.post('/perfil', async (request, response) => {
+router.post('/protected/perfil',
+  passport.authenticate("jwt", { session: false }),
+  async (request, response) => {
   try {
     const novoUsuario = new Perfil(request.body);  // Criando uma instância do modelo Perfil
     await novoUsuario.save();
@@ -96,7 +49,9 @@ router.put('/perfil/:id', async (request, response) => {
 });
 
 // deleta um usuário
-router.delete('/perfil/:id', async (request, response) => {
+router.delete('/protected/perfil/:id',
+  passport.authenticate("jwt", { session: false }),
+  async (request, response) => {
   try {
     const usuario = await Perfil.findByIdAndDelete(request.params.id);
     if (!usuario) return response.status(404).json({ message: 'Usuário não encontrado' });

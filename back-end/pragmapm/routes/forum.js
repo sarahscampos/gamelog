@@ -6,7 +6,7 @@ const router = express.Router();
 
 // Rota POST - Adicionar Comentário
 router.post("/protected/forum/:gameId/:userId", 
-    passport.authenticate("jwt", { session: false }),
+    passport.authenticate("teste", { session: false }),
     async (request, response) => {
   try {
     const { gameId, userId } = request.params;
