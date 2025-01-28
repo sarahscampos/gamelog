@@ -37,3 +37,4 @@ router.get("/jogos", async (request, response) => {
   }
 });
 
+module.exports = router
