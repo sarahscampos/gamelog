@@ -14,8 +14,13 @@ router.get('/:id', function(req, res, next) {
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('./cors');
+
+
 
 const router = express.Router();
+
+router.use(cors.corsWithOptions);
 
 let data = [
   {

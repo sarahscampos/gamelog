@@ -5,29 +5,33 @@ require('./config/passport')(passport);
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+const cors = require('./routes/cors');
 
 var avaliacoesRouter = require('./routes/avaliacoes.js');
 var jogosRouter = require('./routes/jogos.js');
 var listasRouter = require('./routes/listas.js');
-var perfilRouter = require('./routes/perfil.js')
-var forumRouter = require('./routes/forum.js')
+var perfilRouter = require('./routes/perfil.js');
+var forumRouter = require('./routes/forum.js');
+var loginRouter = require('./routes/login.js');
+var cadastroRouter = require('./router/cadastro.js');
 
 var app = express();
-app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.json());
+
+app.use(cors.corsWithOptions);
+
 
 app.use('/', avaliacoesRouter);
 app.use('/', jogosRouter);
 app.use('/', listasRouter);
 app.use('/', perfilRouter);
-app.use('/', forumRouter)
+app.use('/', forumRouter);
+app.use('/', loginRouter);
+app.use('/', cadastroRouter);
 
 mongoose.connect('mongodb+srv://sarahcaulfieldlis:enTLXSHZrrwj2UkZ@gamelog-cluster.7j4rt.mongodb.net/?retryWrites=true&w=majority&appName=gamelog-cluster')
 .then(() => console.log('Conexão com MongoDB bem-sucedida!'))

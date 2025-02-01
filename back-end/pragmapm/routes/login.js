@@ -2,8 +2,11 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const User = require('../models/Usuario'); // Modelo de usuário
 require('dotenv').config();
+const cors = require('./cors');
 
 const router = express.Router();
+
+router.use(cors.corsWithOptions);
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;

@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 const Jogo = require('../models/Jogo');
+const cors = require('./cors');
+
+router.use(cors.corsWithOptions);
 
 router.post("/jogos", async (request, response) => {
   const { nome, colocacao, capa, desenvolvedora, dataLancamento, distribuidora, generos, sumario } = request.body;

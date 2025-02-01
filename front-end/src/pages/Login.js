@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { login } from '../slices/loginSlice';
+import { login } from '../actions/authActions'; // Ação de login
 import { useNavigate } from 'react-router-dom';
 
 // Esquema de validação com Yup
@@ -14,12 +14,6 @@ const schema = yup.object().shape({
     .required('O email é obrigatório.'),
   senha: yup.string().required('A senha é obrigatória.'),
 });
-
-const users = [
-  { email: "admin@gamelog.com", password: "admin123", role: "admin" },
-  { email: "user1@gamelog.com", password: "user123", role: "user" },
-];
-
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -33,24 +27,20 @@ const Login = () => {
     resolver: yupResolver(schema), // Conecta o Yup ao React Hook Form
   });
 
-  const onSubmit = (data) => {
-    const user = users.find(
-      (u) => u.email === data.email && u.password === data.senha
-    );
-  
-    if (user) {
-      // Salvar informações do usuário no Redux ou localStorage
-      dispatch(login({ email: user.email, role: user.role }));
-      alert("Login realizado com sucesso!");
-  
-      // Redirecionar com base no papel do usuário
-      if (user.role === "admin") {
-        navigate("/admin"); // Redirecionar para a página de administração
+  const onSubmit = async (data) => {
+    try {
+      // Envia os dados do login para a ação que se conecta ao backend
+      await dispatch(login(data.email, data.senha));
+
+      // Após o login, redireciona com base no papel do usuário
+      const userRole = JSON.parse(localStorage.getItem('user')).role;
+      if (userRole === 'admin') {
+        navigate('/admin'); // Página de administração
       } else {
-        navigate("/"); // Redirecionar para a página principal
+        navigate('/'); // Página principal
       }
-    } else {
-      alert("Email ou senha inválidos.");
+    } catch (error) {
+      alert(error.response?.data?.message || 'Erro ao fazer login.');
     }
   };
 

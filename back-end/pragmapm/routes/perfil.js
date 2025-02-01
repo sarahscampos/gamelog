@@ -2,7 +2,10 @@ const express = require('express');
 const passport = require('passport')
 const router = express.Router();
 const Perfil = require('../models/Perfil');
+const cors = require('./cors');
 
+
+router.use(cors.corsWithOptions);
 // pega todos os usuários
 router.get('/perfil', async (request, response) => {
   try {

@@ -3,6 +3,9 @@ const passport = require("passport");
 const Forum = require("../models/ForumSchema");
 
 const router = express.Router();
+const cors = require('./cors');
+
+router.use(cors.corsWithOptions);
 
 // Rota POST - Adicionar Comentário
 router.post("/protected/forum/:gameId", 

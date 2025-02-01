@@ -2,7 +2,9 @@ var express = require('express');
 const passport = require('passport');
 var router = express.Router();
 const Avaliacao = require('../models/Avaliacao');
+const cors = require('./cors');
 
+router.use(cors.corsWithOptions);
 //Pega lista de avaliações de um jogo
 router.get("/avaliacoes/:gameId", async (request, response) => {
   try{
@@ -121,7 +123,8 @@ router.patch("/avaliacoes/:gameId/:userId/:avaliacaoId", async(request, response
     }
 
     //Substitui avaliação antiga por nova
-    aval = newAval;
+    aval.score = newAval.score;
+    aval.coment = newAval.coment;
     await game.save();
 
     return response.status(200).json(aval)
