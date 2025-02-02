@@ -31,10 +31,10 @@ const Login = () => {
     try {
       // Envia os dados do login para a ação que se conecta ao backend
       await dispatch(login(data.email, data.senha));
-
-      // Após o login, redireciona com base no papel do usuário
-      const userRole = JSON.parse(localStorage.getItem('user')).role;
-      if (userRole === 'admin') {
+  
+      // Redireciona com base no papel do usuário
+      const { role } = JSON.parse(localStorage.getItem('user'));
+      if (role === 'admin') {
         navigate('/admin'); // Página de administração
       } else {
         navigate('/'); // Página principal

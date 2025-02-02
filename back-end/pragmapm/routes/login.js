@@ -1,6 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const User = require('../models/Usuario'); // Modelo de usuário
+const User = require('../models/User'); // Modelo de usuário
 require('dotenv').config();
 const cors = require('./cors');
 
@@ -19,10 +19,10 @@ router.post('/login', async (req, res) => {
     }
 
     // Criação do token JWT
-    const payload = { id: user.id }; // ID do usuário
+    const payload = { id: user.id, role: user.role }; // Inclua o papel do usuário (role)
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    res.json({ token, user: { id: user.id, email: user.email } });
+    res.json({ token, user: { id: user.id, email: user.email, role: user.role } });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Erro no servidor' });

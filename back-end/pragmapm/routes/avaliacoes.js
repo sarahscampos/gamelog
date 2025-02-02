@@ -4,7 +4,7 @@ var router = express.Router();
 const Avaliacao = require('../models/Avaliacao');
 const cors = require('./cors');
 
-router.use(cors.corsWithOptions);
+router.use(cors.corsWithOptions); 
 //Pega lista de avaliações de um jogo
 router.get("/avaliacoes/:gameId", async (request, response) => {
   try{

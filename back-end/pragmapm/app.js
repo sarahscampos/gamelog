@@ -13,7 +13,7 @@ var listasRouter = require('./routes/listas.js');
 var perfilRouter = require('./routes/perfil.js');
 var forumRouter = require('./routes/forum.js');
 var loginRouter = require('./routes/login.js');
-var cadastroRouter = require('./router/cadastro.js');
+var cadastroRouter = require('./routes/cadastro.js');
 
 var app = express();
 app.use(logger('dev'));
@@ -22,7 +22,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(cors.corsWithOptions);
+app.use(cors.corsWithOptions); // Para a configuração de CORS sem opções
+
 
 
 app.use('/', avaliacoesRouter);
@@ -30,7 +31,7 @@ app.use('/', jogosRouter);
 app.use('/', listasRouter);
 app.use('/', perfilRouter);
 app.use('/', forumRouter);
-app.use('/', loginRouter);
+app.use('/api/auth', loginRouter);
 app.use('/', cadastroRouter);
 
 mongoose.connect('mongodb+srv://sarahcaulfieldlis:enTLXSHZrrwj2UkZ@gamelog-cluster.7j4rt.mongodb.net/?retryWrites=true&w=majority&appName=gamelog-cluster')

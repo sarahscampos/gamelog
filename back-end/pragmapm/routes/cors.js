@@ -1,20 +1,16 @@
-const express = require('express');
 const cors = require('cors');
-const app = express();
 
-const whitelist = ['http://localhost:3000', 'https://localhost:3001'];
+const whitelist = ['http://localhost:3000', 'http://localhost:3001']; // Lista de domínios permitidos
 var corsOptionsDelegate = (req, callback) => {
   var corsOptions;
-  console.log(req.header('Origin'));
-  if(whitelist.indexOf(req.header('Origin')) !== -1) {
-    corsOptions = { origin: true };
+  const origin = req.get('Origin');
+  if (whitelist.indexOf(origin) !== -1) {
+    corsOptions = { origin: true }; // Permite o domínio da whitelist
+  } else {
+    corsOptions = { origin: false }; // Bloqueia outros domínios
   }
-  else {
-    corsOptions = { origin: false };
-  }
+
   callback(null, corsOptions);
 };
 
-exports.cors = cors();
-exports.corsWithOptions = cors(corsOptionsDelegate);
-
+exports.corsWithOptions = cors(corsOptionsDelegate); // Exporta a configuração do CORS
