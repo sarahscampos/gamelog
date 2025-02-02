@@ -1,131 +1,77 @@
-/*var express = require('express');
-var router = express.Router();*/
-
-/* GET users listing. */
-
-/*
-router.get('/:id', function(req, res, next) {
-
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'routerlication/json');
-  res.json();
-
-});*/
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('./cors');
-
-
+const Lista = require('../models/Lista');
 
 const router = express.Router();
-
 router.use(cors.corsWithOptions);
-
-let data = [
-  {
-    id: "0",
-    listas: [
-      { id: 0, nome: "Favoritos", ids: ["0", "1", "2"] },
-      { id: 1, nome: "Desejados", ids: ["2", "3"] },
-    ],
-  },
-  {
-    id: "1",
-    listas: [
-      { id: 0, nome: "Favoritos", ids: ["6", "7"] },
-    ],
-  },
-];
+router.use(bodyParser.json());
 
 // GET /listas/:userId
-router.get('/listas/:userId', (req, res) => {
-  const user = data.find((user) => user.id === req.params.userId);
-  if (!user) {
-    return res.status(404).json({ error: 'Usuário não encontrado' });
+router.get('/listas/:userId', async (req, res) => {
+  try {
+    const listas = await Lista.find({ userId: req.params.userId });
+    if (!listas.length) {
+      return res.status(404).json({ error: 'Usuário não encontrado ou sem listas' });
+    }
+    res.status(200).json(listas);
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao buscar listas' });
   }
-  res.status(200).json(user);
 });
 
 // POST /listas/:userId
-router.post('/listas/:userId', (req, res) => {
-  const user = data.find((user) => user.id === req.params.userId);
-  if (!user) {
-    return res.status(404).json({ error: 'Usuário não encontrado' });
+router.post('/listas/:userId', async (req, res) => {
+  try {
+    const novaLista = new Lista({ ...req.body, userId: req.params.userId });
+    await novaLista.save();
+    res.status(201).json(novaLista);
+  } catch (error) {
+    res.status(400).json({ error: 'Erro ao criar lista' });
   }
-
-  const novaLista = req.body;
-  if (user.listas.some((lista) => lista.id === novaLista.id)) {
-    return res.status(400).json({ error: 'Lista com esse ID já existe' });
-  }
-
-  user.listas.push(novaLista);
-  res.status(201).json(user.listas);
 });
 
 // PATCH /listas/:userId/:idLista
-router.patch('/listas/:userId/:idLista', (req, res) => {
-  const user = data.find((user) => user.id === req.params.userId);
-  if (!user) {
-    return res.status(404).json({ error: 'Usuário não encontrado' });
+router.patch('/listas/:userId/:idLista', async (req, res) => {
+  try {
+    const { idJogo } = req.body;
+    const lista = await Lista.findOneAndUpdate(
+      { _id: req.params.idLista, userId: req.params.userId },
+      { $addToSet: { ids: idJogo } },
+      { new: true }
+    );
+    if (!lista) return res.status(404).json({ error: 'Lista não encontrada' });
+    res.status(200).json(lista);
+  } catch (error) {
+    res.status(400).json({ error: 'Erro ao atualizar lista' });
   }
-
-  const lista = user.listas.find((lista) => lista.id == req.params.idLista);
-  if (!lista) {
-    return res.status(404).json({ error: 'Lista não encontrada' });
-  }
-
-  const { idJogo } = req.body;
-  if (lista.ids.includes(idJogo)) {
-    return res.status(400).json({ error: 'Jogo já está na lista' });
-  }
-
-  lista.ids.push(idJogo);
-  res.status(200).json(lista);
 });
 
 // PATCH /listas/:userId/:idLista/remove
-router.patch('/listas/:userId/:idLista/remove', (req, res) => {
-  const user = data.find((user) => user.id === req.params.userId);
-  if (!user) {
-    return res.status(404).json({ error: 'Usuário não encontrado' });
+router.patch('/listas/:userId/:idLista/remove', async (req, res) => {
+  try {
+    const { idJogo } = req.body;
+    const lista = await Lista.findOneAndUpdate(
+      { _id: req.params.idLista, userId: req.params.userId },
+      { $pull: { ids: idJogo } },
+      { new: true }
+    );
+    if (!lista) return res.status(404).json({ error: 'Lista não encontrada' });
+    res.status(200).json(lista);
+  } catch (error) {
+    res.status(400).json({ error: 'Erro ao remover jogo da lista' });
   }
-
-  const lista = user.listas.find((lista) => lista.id == req.params.idLista);
-  if (!lista) {
-    return res.status(404).json({ error: 'Lista não encontrada' });
-  }
-
-  const { idJogo } = req.body;
-  const index = lista.ids.indexOf(idJogo);
-  if (index === -1) {
-    return res.status(400).json({ error: 'Jogo não encontrado na lista' });
-  }
-
-  lista.ids.splice(index, 1);
-  res.status(200).json(lista);
 });
 
 // DELETE /listas/:userId/:idLista
-router.delete('/listas/:userId/:idLista', (req, res) => {
-  const user = data.find((user) => user.id === req.params.userId);
-  if (!user) {
-    return res.status(404).json({ error: 'Usuário não encontrado' });
+router.delete('/listas/:userId/:idLista', async (req, res) => {
+  try {
+    const lista = await Lista.findOneAndDelete({ _id: req.params.idLista, userId: req.params.userId });
+    if (!lista) return res.status(404).json({ error: 'Lista não encontrada' });
+    res.status(200).json({ message: 'Lista removida com sucesso' });
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao deletar lista' });
   }
-
-  const index = user.listas.findIndex((lista) => lista.id == req.params.idLista);
-  if (index === -1) {
-    return res.status(404).json({ error: 'Lista não encontrada' });
-  }
-
-  user.listas.splice(index, 1);
-  res.status(200).json(user.listas);
 });
-
-// Porta do servidor
-/*const PORT = 3000;
-router.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
-});*/
 
 module.exports = router;
