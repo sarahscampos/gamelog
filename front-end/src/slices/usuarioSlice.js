@@ -1,22 +1,23 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import apiClient from '../apiCliente';
+//import apiClient from '../services/apiCliente';
 
-export const fetchUsuario = createAsyncThunk('perfil/fetchUsuario', async (userId) => {
+/*export const fetchUsuario = createAsyncThunk('perfil/fetchUsuario', async (userId) => {
     const response = await apiClient.get(`/perfil/${userId}`);
     return response.data;  // Axios já retorna JSON automaticamente
-});
+});*/
 
-/*
+
 export const fetchUsuario = createAsyncThunk('perfil/fetchUsuario', async (userId) => {
-    const response = await fetch(`http://localhost:5000/perfil/${userId}`);
+    const response = await fetch(`http://localhost:3000/perfil/${userId}`);
     if (!response.ok) throw new Error('Erro ao carregar o usuario');
     return response.json();
 });
-*/
+
+
 /*
 export const fetchUsuario = createAsyncThunk('perfil/fetchUsuario', async (userId, { getState }) => {
     const token = getState().auth.token;
-    const response = await fetch(`http://localhost:5000/perfil/${userId}`, {
+    const response = await fetch(`http://localhost:3000/perfil/${userId}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },

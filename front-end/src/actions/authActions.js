@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { loginSuccess } from '../slices/loginSlice';
 
-const API_URL = 'http://localhost:5000/api/auth/login'; // Substitua pelo seu backend
+const API_URL = 'http://localhost:3000/api/auth/login'; // Substitua pelo seu backend
 
 export const login = (email, password) => async (dispatch) => {
   try {

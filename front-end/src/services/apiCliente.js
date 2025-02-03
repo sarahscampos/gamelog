@@ -3,7 +3,7 @@ import store from '../store'; // Importa a Redux store para acessar o token
 
 // Cria uma instância do Axios
 const apiClient = axios.create({
-  baseURL: 'http://localhost:5000/api', // URL base do seu backend
+  baseURL: 'http://localhost:3000/api', // URL base do seu backend
 });
 
 // Interceptor para adicionar o token JWT

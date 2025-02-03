@@ -64,7 +64,7 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/perfil/${_id}`);
+        const response = await fetch(`http://localhost:3000/perfil/${_id}`);
         if (!response.ok) throw new Error("Erro ao carregar o perfil do usuário");
         const userData = await response.json();
         console.log(userData); // Log the response to check the data structure
@@ -83,7 +83,7 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
   }, [_id]);
 
   const atualizaPerfil = createAsyncThunk('perfil/atualizaPerfil', async ({ updatedUserData }) => {
-    const response = await fetch(`http://localhost:5000/perfil/${usuarioLogado._id}`, {
+    const response = await fetch(`http://localhost:3000/perfil/${usuarioLogado._id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
