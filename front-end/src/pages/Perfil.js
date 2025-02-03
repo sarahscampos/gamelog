@@ -26,7 +26,7 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
     navigate("/login");
   };
   // para usuarios que nao sao o usuarioLogado:
-  const { id } = useParams(); // Captura o ID do usuário na URL
+  const { _id } = useParams(); // Captura o ID do usuário na URL
   const [anyUser, setAnyUser] = useState(null);
   
   const [loading, setLoading] = useState(true);
@@ -64,7 +64,7 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/perfil/${id}`);
+        const response = await fetch(`http://localhost:5000/perfil/${_id}`);
         if (!response.ok) throw new Error("Erro ao carregar o perfil do usuário");
         const userData = await response.json();
         console.log(userData); // Log the response to check the data structure
@@ -77,13 +77,13 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
       }
     };
   
-    if (id) {
+    if (_id) {
       fetchUser();
     }
-  }, [id]);
+  }, [_id]);
 
   const atualizaPerfil = createAsyncThunk('perfil/atualizaPerfil', async ({ updatedUserData }) => {
-    const response = await fetch(`http://localhost:3000/perfil/${usuarioLogado.id}`, {
+    const response = await fetch(`http://localhost:5000/perfil/${usuarioLogado._id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -313,7 +313,7 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
         {/* Cabeçalho */}
         <div className="flex justify-between p-4 bg-blue-500 text-white">
           <span className="text-sm font-semibold">{anyUser.nome}</span>
-          {id === usuarioLogado.id && (
+          {_id === usuarioLogado._id && (
     <div className="flex items-center gap-3">
       <button className="flex items-center text-sm font-semibold" onClick={openEditaPerfilModal}>
         <MdEdit size={25} />
