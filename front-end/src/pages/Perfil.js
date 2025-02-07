@@ -18,7 +18,7 @@ import { logout } from "../slices/loginSlice"; // Importe a ação de logout
 // QUERO IMPLEMENTAR: - tela de todas as avaliacoes do usuario
 // - nota do usuario pros jogos aparecendo junto aos jogos
 
-const Perfil = ({listas, dados, usuarioLogado}) => {
+const Perfil = ({listas, dados, perfilLogado}) => {
   const handleLogout = () => {
     dispatch(logout());
   
@@ -83,7 +83,7 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
   }, [id]);
 
   const atualizaPerfil = createAsyncThunk('perfil/atualizaPerfil', async ({ updatedUserData }) => {
-    const response = await fetch(`http://localhost:3000/perfil/${usuarioLogado.id}`, {
+    const response = await fetch(`http://localhost:3000/perfil/${perfilLogado.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -101,15 +101,15 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
 
   const toggleFixaLista = (lista) => {
     // Verifica se a lista já está fixada
-    const isListaFixada = usuarioLogado.listasFixadasIds.includes(lista.id);
+    const isListaFixada = perfilLogado.listasFixadasIds.includes(lista.id);
   
     // Atualiza o array de IDs com base no estado atual
     const updatedListasFixadasIds = isListaFixada
-      ? usuarioLogado.listasFixadasIds.filter((id) => id !== lista.id) // Remove a lista se já estiver fixada
-      : [...usuarioLogado.listasFixadasIds, lista.id]; // Adiciona a lista se não estiver fixada
+      ? perfilLogado.listasFixadasIds.filter((id) => id !== lista.id) // Remove a lista se já estiver fixada
+      : [...perfilLogado.listasFixadasIds, lista.id]; // Adiciona a lista se não estiver fixada
   
     const updatedUserData = {
-      ...usuarioLogado, // Mantém todas as outras informações do usuário
+      ...perfilLogado, // Mantém todas as outras informações do usuário
       listasFixadasIds: updatedListasFixadasIds, // Atualiza apenas as listas fixadas
     };
   
@@ -144,7 +144,7 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
               <li key={index} className="flex items-center">
                 <input
                   type="checkbox"
-                  checked={usuarioLogado.listasFixadasIds?.includes(lista.id) || false}
+                  checked={perfilLogado.listasFixadasIds?.includes(lista.id) || false}
                   onChange={() => toggleFixaLista(lista)}
                   className="mr-3"
                 />
@@ -164,7 +164,7 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
 
   const editaPerfil = (updateData) =>{
       const updatedUserData = {
-        ...usuarioLogado, // Mantém as informações existentes
+        ...perfilLogado, // Mantém as informações existentes
         ...updateData, // Sobrescreve com as novas informações
       };
 
@@ -180,7 +180,7 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
   }
 
   const EditaPerfilModal = () => {
-    const [formData, setFormData] = useState(usuarioLogado);
+    const [formData, setFormData] = useState(perfilLogado);
     const handleChange = (e) => {
       const { name, value } = e.target;
       setFormData((prev) => ({ ...prev, [name]: value }));
@@ -279,7 +279,7 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
     );
   }
 
-  if (!usuarioLogado) {
+  if (!perfilLogado) {
     return (
       <div className="text-center mt-20 text-lg font-inter text-red-600">
         Não foi possível carregar o perfil.
@@ -313,7 +313,7 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
         {/* Cabeçalho */}
         <div className="flex justify-between p-4 bg-blue-500 text-white">
           <span className="text-sm font-semibold">{anyUser.nome}</span>
-          {id === usuarioLogado.id && (
+          {id === perfilLogado.id && (
     <div className="flex items-center gap-3">
       <button className="flex items-center text-sm font-semibold" onClick={openEditaPerfilModal}>
         <MdEdit size={25} />
@@ -393,7 +393,7 @@ const Perfil = ({listas, dados, usuarioLogado}) => {
         <FixaListaModal/>
 
         {/*PRINTANDO LISTAS*/}
-        {usuarioLogado.listasFixadasIds && usuarioLogado.listasFixadasIds.length > 0 && usuarioLogado.listasFixadasIds.map((idLista) => {
+        {perfilLogado.listasFixadasIds && perfilLogado.listasFixadasIds.length > 0 && perfilLogado.listasFixadasIds.map((idLista) => {
           const lista = listas.find((l) => l.id === idLista);
           return lista ? (
             <div key={idLista} className="mb-10">

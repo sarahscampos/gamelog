@@ -18,7 +18,7 @@ import ReviewModal from "../components/ReviewModal";
 import {deleteAvaliacao} from "../slices/avaliacoesSlice";
 
 
-const Jogo = ({dados, avaliacaoInfo, listas, usuarioLogado}) => {
+const Jogo = ({dados, avaliacaoInfo, listas, perfilLogado}) => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const numericId = parseInt(id, 10);
@@ -46,13 +46,13 @@ const Jogo = ({dados, avaliacaoInfo, listas, usuarioLogado}) => {
   }
 
   const deletarAvaliacao = () =>{
-    dispatch(deleteAvaliacao({jogoId: id, usuarioId: usuarioLogado.id})) // por enqunato
+    dispatch(deleteAvaliacao({jogoId: id, usuarioId: perfilLogado.id})) // por enqunato
   }
   
   const addToList = (list) => {
 
     setSelectedList(list);
-    dispatch(addJogoToList({ idJogo: id, idLista: list.id , userId: usuarioLogado.id})) // por enquanto
+    dispatch(addJogoToList({ idJogo: id, idLista: list.id , userId: perfilLogado.id})) // por enquanto
     .then(() => {
       toast.success(`${dados[numericId].nome} foi adicionado à lista ${list.nome}!`);
       closeModal();
@@ -63,7 +63,7 @@ const Jogo = ({dados, avaliacaoInfo, listas, usuarioLogado}) => {
   }
 
   {/* por enquanto usuarioId = 0 */}
-  const avaliacaoUsuario = avaliacaoInfo[id]?.find(avaliacao => avaliacao.usuarioId === usuarioLogado.id);
+  const avaliacaoUsuario = avaliacaoInfo[id]?.find(avaliacao => avaliacao.usuarioId === perfilLogado.id);
 
   if (!dados || !dados[numericId]) {
     return <Loading />;

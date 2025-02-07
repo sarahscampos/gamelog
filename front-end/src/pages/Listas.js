@@ -11,7 +11,7 @@ import Modal from "react-modal";
 import { MdAddCircleOutline } from "react-icons/md";
 import { deleteLista } from "../slices/listasSlice";
 
-const Listas = ({ listas, dados, usuarioLogado }) => {
+const Listas = ({ listas, dados, perfilLogado }) => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [novaListaNome, setNovaListaNome] = useState("");
@@ -44,9 +44,9 @@ const Listas = ({ listas, dados, usuarioLogado }) => {
         ids: [], 
       };
 
-      console.log(usuarioLogado.id)
+      console.log(perfilLogado.id)
       
-      dispatch(addLista({userId: usuarioLogado.id, novaLista: novaLista}))
+      dispatch(addLista({userId: perfilLogado.id, novaLista: novaLista}))
         .unwrap()
         .then(() => {
           toast.success(`Lista "${novaListaNome}" criada com sucesso!`);
@@ -64,7 +64,7 @@ const Listas = ({ listas, dados, usuarioLogado }) => {
 
   const handleDeletarLista = (idLista) => {
     if (window.confirm("Tem certeza que deseja deletar esta lista?")) {
-      dispatch(deleteLista({ userId: usuarioLogado.id, idLista }))
+      dispatch(deleteLista({ userId: perfilLogado.id, idLista }))
         .unwrap()
         .then(() => {
           toast.success("Lista deletada com sucesso!");

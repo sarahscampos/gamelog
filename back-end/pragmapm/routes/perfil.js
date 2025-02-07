@@ -4,63 +4,67 @@ const router = express.Router();
 const Perfil = require('../models/Perfil');
 const cors = require('./cors');
 
-
 router.use(cors.corsWithOptions);
-// pega todos os usuários
+// pega todos os perfis
 router.get('/perfil', async (request, response) => {
   try {
-    const usuarios = await Perfil.find();
-    response.json(usuarios);
+    const perfis = await Perfil.find();
+    response.json(perfis);
   } catch (error) {
-    response.status(500).json({ message: 'Erro ao obter usuários', error });
+    console.log(error)
+    response.status(500).json({ message: 'Erro ao obter todos os perfis', error });
   }
 });
 
-// pega um único usuário
+// pega um único perfil com id
 router.get('/perfil/:id', async (request, response) => {
   try {
-    const usuario = await Perfil.findById(request.params.id);
-    if (!usuario) return response.status(404).json({ message: 'Usuário não encontrado' });
-    response.json(usuario);
+    const perfil = await Perfil.findById(request.params.id);
+    if (!perfil) return response.status(404).json({ message: 'Perfil não encontrado' });
+    response.json(perfil);
   } catch (error) {
-    response.status(500).json({ message: 'Erro ao obter usuário', error });
+    console.log(error);
+    response.status(500).json({ message: 'Erro ao obter perfil', error });
   }
 });
 
-// cria um usuário
+// cria um perfil
 router.post('/protected/perfil',
   passport.authenticate("jwt", { session: false }),
   async (request, response) => {
   try {
-    const novoUsuario = new Perfil(request.body);  // Criando uma instância do modelo Perfil
-    await novoUsuario.save();
-    response.status(201).json(novoUsuario);
+    const novoPerfil = new Perfil(request.body);  // Criando uma instância do modelo Perfil
+    await novoPerfil.save();
+    response.status(201).json(novoPerfil);
   } catch (error) {
-    response.status(500).json({ message: 'Erro ao criar usuário', error });
+    console.log(error);
+    response.status(500).json({ message: 'Erro ao criar perfil', error });
   }
 });
 
-// atualiza um usuário
+// atualiza o perfil
 router.put('/perfil/:id', async (request, response) => {
   try {
-    const usuario = await Perfil.findByIdAndUpdate(request.params.id, request.body, { new: true });
-    if (!usuario) return response.status(404).json({ message: 'Usuário não encontrado' });
-    response.json(usuario);
+    const perfil = await Perfil.findByIdAndUpdate(request.params.id, request.body, { new: true });
+    if (!perfil) return response.status(404).json({ message: 'Perfil não encontrado' });
+    response.json(perfil);
   } catch (error) {
-    response.status(500).json({ message: 'Erro ao atualizar usuário', error });
+    console.log(error);
+    response.status(500).json({ message: 'Erro ao atualizar perfil', error });
   }
 });
 
-// deleta um usuário
+// deleta um perfil
 router.delete('/protected/perfil/:id',
   passport.authenticate("jwt", { session: false }),
   async (request, response) => {
   try {
-    const usuario = await Perfil.findByIdAndDelete(request.params.id);
-    if (!usuario) return response.status(404).json({ message: 'Usuário não encontrado' });
-    response.json(usuario);
+    const perfil = await Perfil.findByIdAndDelete(request.params.id);
+    if (!perfil) return response.status(404).json({ message: 'Perfil não encontrado' });
+    response.json(perfil);
   } catch (error) {
-    response.status(500).json({ message: 'Erro ao deletar usuário', error });
+    console.log(error);
+    response.status(500).json({ message: 'Erro ao deletar perfil', error });
   }
 });
 
