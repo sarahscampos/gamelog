@@ -16,10 +16,22 @@ router.get('/perfil', async (request, response) => {
   }
 });
 
-// pega um único perfil com id
+// pega um único perfil com username
 router.get('/perfil/:username', async (request, response) => {
   try {
     const perfil = await Perfil.findOne({username: request.params.username});
+    if (!perfil) return response.status(404).json({ message: 'Perfil não encontrado' });
+    response.json(perfil);
+  } catch (error) {
+    console.log(error);
+    response.status(500).json({ message: 'Erro ao obter perfil', error });
+  }
+});
+
+// pega um único perfil com id
+router.get('/perfil/:id', async (request, response) => {
+  try {
+    const perfil = await Perfil.findById(request.params.id);
     if (!perfil) return response.status(404).json({ message: 'Perfil não encontrado' });
     response.json(perfil);
   } catch (error) {
@@ -43,9 +55,9 @@ router.post('/perfil', //protected
 });
 
 // atualiza o perfil
-router.put('/perfil/:username', async (request, response) => {
+router.put('/perfil/:id', async (request, response) => {
   try {
-    const perfil = await Perfil.findByIdAndUpdate(request.params.username, request.body, { new: true });
+    const perfil = await Perfil.findByIdAndUpdate(request.params.id, request.body, { new: true });
     if (!perfil) return response.status(404).json({ message: 'Perfil não encontrado' });
     response.json(perfil);
   } catch (error) {
@@ -55,8 +67,8 @@ router.put('/perfil/:username', async (request, response) => {
 });
 
 // deleta um perfil
-router.delete('/perfil/:username', // protected
-  //passport.authenticate("jwt", { session: false }),
+router.delete('/perfil/:id', // protected
+  passport.authenticate("jwt", { session: false }),
   async (request, response) => {
   try {
     const perfil = await Perfil.findByIdAndDelete(request.params.username);
@@ -65,6 +77,17 @@ router.delete('/perfil/:username', // protected
   } catch (error) {
     console.log(error);
     response.status(500).json({ message: 'Erro ao deletar perfil', error });
+  }
+});
+
+// deleta todos perfis
+router.delete('/perfil', async (req, res) => {
+  try {
+    const result = await Perfil.deleteMany({});  // Deletes all documents in the collection
+    res.json({ message: `${result.deletedCount} perfil(s) deletado(s) com sucesso` });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erro ao deletar os perfis', error });
   }
 });
 

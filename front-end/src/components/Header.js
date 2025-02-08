@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { IoLogInOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/img/logoGAMELOG2.svg";
 import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../slices/loginSlice";
 
 const navLinks = [
-  {
-    title: "Perfil",
-    link: '/perfil',
-  },
   {
     title: "Listas",
     link: "/listas",
@@ -21,17 +18,23 @@ const navLinks = [
   {
     title: "Login",
     link: "/login",
-    icon: <IoLogInOutline size={'1.4rem'} />,
+    icon: <IoLogInOutline size={"1.4rem"} />,
   },
 ];
 
 export const Header = () => {
-  const dispatch = useDispatch(); 
-  const user = useSelector((state) => state.auth.user);
+  const user = useSelector((state) => state.auth?.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
   const handleMenu = () => {
     setOpen((prev) => !prev);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout()); 
+    navigate("/login"); // vai pro login dps do logout
   };
 
   return (
@@ -47,17 +50,15 @@ export const Header = () => {
 
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
-                
                 {user ? (
                   <>
-                   
                     <Link
-                      to="/perfil"
+                      to={`/perfil/${user._id}`}
                       className="inline-flex items-center gap-1 text-white transition-all duration-300 hover:bg-indigo-600 px-3 py-2 rounded-md text-md font-medium"
                     >
                       Perfil
                     </Link>
-                    {navLinks.slice(1, 3).map((link, index) => (
+                    {navLinks.slice(0, 2).map((link, index) => (
                       <Link
                         key={index}
                         to={link.link}
@@ -67,10 +68,15 @@ export const Header = () => {
                         {link.icon && <span>{link.icon}</span>}
                       </Link>
                     ))}
+                    <button
+                      onClick={handleLogout}
+                      className="inline-flex items-center gap-1 text-white transition-all duration-300 hover:bg-red-600 px-3 py-2 rounded-md text-md font-medium"
+                    >
+                      Logout
+                    </button>
                   </>
                 ) : (
-                 
-                  navLinks.slice(3).map((link, index) => (
+                  navLinks.slice(2).map((link, index) => (
                     <Link
                       key={index}
                       to={link.link}
@@ -82,8 +88,7 @@ export const Header = () => {
                   ))
                 )}
 
-                
-                {user?.role === 'admin' && (
+                {user?.role === "admin" && (
                   <Link
                     to="/admin"
                     className="inline-flex items-center gap-1 text-white transition-all duration-300 hover:bg-indigo-600 px-3 py-2 rounded-md text-md font-medium"
@@ -112,14 +117,13 @@ export const Header = () => {
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {user ? (
                 <>
-                  {/* Perfil para usuário logado */}
                   <Link
-                    to="/perfil/0"
+                    to={`/perfil/${user._id}`}
                     className="text-white hover:bg-indigo-600 block px-3 py-2 rounded-md text-base font-medium"
                   >
                     Perfil
                   </Link>
-                  {navLinks.slice(1, 3).map((link, index) => (
+                  {navLinks.slice(0, 2).map((link, index) => (
                     <Link
                       key={index}
                       to={link.link}
@@ -128,10 +132,15 @@ export const Header = () => {
                       {link.title}
                     </Link>
                   ))}
+                  <button
+                    onClick={handleLogout}
+                    className="text-white hover:bg-red-600 block px-3 py-2 rounded-md text-base font-medium"
+                  >
+                    Logout
+                  </button>
                 </>
               ) : (
-                // Login para usuário não logado
-                navLinks.slice(3).map((link, index) => (
+                navLinks.slice(2).map((link, index) => (
                   <Link
                     key={index}
                     to={link.link}
@@ -142,8 +151,7 @@ export const Header = () => {
                 ))
               )}
 
-              {/* Link para admin */}
-              {user?.role === 'admin' && (
+              {user?.role === "admin" && (
                 <Link
                   to="/admin"
                   className="text-white hover:bg-indigo-600 block px-3 py-2 rounded-md text-base font-medium"

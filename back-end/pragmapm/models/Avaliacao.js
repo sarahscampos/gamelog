@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 //Esquema classe avaliação
 const avaliacaoSchema = new mongoose.Schema({
-    gameId: {type: String, required: true, unique: true},
+    gameId: {type: mongoose.Schema.Types.ObjectId, required: true, unique: true},
     avaliacoes: [{
         userId: { type: String, required: true },
         avaliacaoId: { type: String, required: true, unique:true},

@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 
 const perfilSchema = new mongoose.Schema({
-  username: {type: String, required: true, trim: true, unique: true}, // CHAVE ESTRANGEIRA PRO NOME DO USUARIO
-  nomePerfil: { type: String, required: true },
-  avatar: { type: String, required: true },
+  userId: {type: mongoose.Schema.Types.ObjectId, required: true, trim: true, unique: true},
+  username: {type: String, required: true, trim: true, unique: true},
+  nomePerfil: { type: String, required: true},
+  avatar: { type: String , default: "https://via.placeholder.com/100"},
   descricao: { type: String },
   analises: { type: Number, default: 0 },
   media: { type: Number, default: 0 },
