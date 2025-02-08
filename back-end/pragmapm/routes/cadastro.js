@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('../models/User');
+const Perfil = require('../models/Perfil');
 const router = express.Router();
 const cors = require('./cors');
 
@@ -18,7 +19,11 @@ router.post('/cadastro', async (req, res) => {
       if(userExists) {
         return res.status(400).json({ message: 'Este email já está em uso'});
       }
+      const idDoUsuario = novoUsuario._id
+      const nomeUsuario = novoUsuario.nome
 
+      const novoPerfil = new Perfil({userId:idDoUsuario, username:nomeUsuario, nomePerfil:nomeUsuario})
+      await novoPerfil.save();
   
       await novoUsuario.save();
       res.status(201).json({ message: 'Usuário cadastrado com sucesso!' });

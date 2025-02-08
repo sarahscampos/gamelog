@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const fetchPerfil = createAsyncThunk('avaliacoes/fetchPerfil', async (userId) => {
-  const response = await fetch(`http://localhost:3000/perfil/${userId}`);
+  const response = await fetch(`http://localhost:3000/perfil/caio`);
   if (!response.ok) throw new Error('Erro ao carregar o perfil');
   return response.json();
 });
