@@ -16,6 +16,18 @@ router.get('/perfil', async (request, response) => {
   }
 });
 
+// pega um único perfil com id
+router.get('/perfil/:id', async (request, response) => {
+  try {
+    const perfil = await Perfil.findById(request.params.id);
+    if (!perfil) return response.status(404).json({ message: 'Perfil não encontrado' });
+    response.json(perfil);
+  } catch (error) {
+    console.log(error);
+    response.status(500).json({ message: 'Erro ao obter perfil', error });
+  }
+});
+
 // pega um único perfil com username
 router.get('/perfil/:username', async (request, response) => {
   try {
@@ -28,17 +40,6 @@ router.get('/perfil/:username', async (request, response) => {
   }
 });
 
-// pega um único perfil com id
-router.get('/perfil/:id', async (request, response) => {
-  try {
-    const perfil = await Perfil.findById(request.params.id);
-    if (!perfil) return response.status(404).json({ message: 'Perfil não encontrado' });
-    response.json(perfil);
-  } catch (error) {
-    console.log(error);
-    response.status(500).json({ message: 'Erro ao obter perfil', error });
-  }
-});
 
 // cria um perfil
 router.post('/perfil', //protected
