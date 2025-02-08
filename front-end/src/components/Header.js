@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 const navLinks = [
   {
     title: "Perfil",
-    link: "/perfil/0",
+    link: '/perfil',
   },
   {
     title: "Listas",
@@ -52,7 +52,7 @@ export const Header = () => {
                   <>
                    
                     <Link
-                      to="/perfil/0"
+                      to="/perfil"
                       className="inline-flex items-center gap-1 text-white transition-all duration-300 hover:bg-indigo-600 px-3 py-2 rounded-md text-md font-medium"
                     >
                       Perfil

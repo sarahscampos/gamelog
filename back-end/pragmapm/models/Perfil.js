@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
 const perfilSchema = new mongoose.Schema({
-  nome: { type: String, required: true },
+  username: {type: String, required: true, trim: true, unique: true}, // CHAVE ESTRANGEIRA PRO NOME DO USUARIO
+  nomePerfil: { type: String, required: true },
   avatar: { type: String, required: true },
   descricao: { type: String },
   analises: { type: Number, default: 0 },

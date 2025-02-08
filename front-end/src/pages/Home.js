@@ -27,7 +27,6 @@ const UserInfo = ({ user }) => {
 };
 
 export const Home = ({dados}) => {
-
   const user = useSelector((state) => state.cadastro.user);
 
 

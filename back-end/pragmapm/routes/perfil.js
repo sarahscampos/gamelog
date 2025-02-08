@@ -17,9 +17,9 @@ router.get('/perfil', async (request, response) => {
 });
 
 // pega um único perfil com id
-router.get('/perfil/:id', async (request, response) => {
+router.get('/perfil/:username', async (request, response) => {
   try {
-    const perfil = await Perfil.findById(request.params.id);
+    const perfil = await Perfil.findOne({username: request.params.username});
     if (!perfil) return response.status(404).json({ message: 'Perfil não encontrado' });
     response.json(perfil);
   } catch (error) {
@@ -29,8 +29,8 @@ router.get('/perfil/:id', async (request, response) => {
 });
 
 // cria um perfil
-router.post('/protected/perfil',
-  passport.authenticate("jwt", { session: false }),
+router.post('/perfil', //protected
+  //passport.authenticate("jwt", { session: false }),
   async (request, response) => {
   try {
     const novoPerfil = new Perfil(request.body);  // Criando uma instância do modelo Perfil
@@ -43,9 +43,9 @@ router.post('/protected/perfil',
 });
 
 // atualiza o perfil
-router.put('/perfil/:id', async (request, response) => {
+router.put('/perfil/:username', async (request, response) => {
   try {
-    const perfil = await Perfil.findByIdAndUpdate(request.params.id, request.body, { new: true });
+    const perfil = await Perfil.findByIdAndUpdate(request.params.username, request.body, { new: true });
     if (!perfil) return response.status(404).json({ message: 'Perfil não encontrado' });
     response.json(perfil);
   } catch (error) {
@@ -55,11 +55,11 @@ router.put('/perfil/:id', async (request, response) => {
 });
 
 // deleta um perfil
-router.delete('/protected/perfil/:id',
-  passport.authenticate("jwt", { session: false }),
+router.delete('/perfil/:username', // protected
+  //passport.authenticate("jwt", { session: false }),
   async (request, response) => {
   try {
-    const perfil = await Perfil.findByIdAndDelete(request.params.id);
+    const perfil = await Perfil.findByIdAndDelete(request.params.username);
     if (!perfil) return response.status(404).json({ message: 'Perfil não encontrado' });
     response.json(perfil);
   } catch (error) {

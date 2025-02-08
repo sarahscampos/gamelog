@@ -42,10 +42,9 @@ const AppRoutes = () => {
   useEffect(() => {
     if (jogosStatus === 'idle') dispatch(fetchJogos());
     if (avaliacoesStatus === 'idle') dispatch(fetchAvaliacoes());
-    // perfil.id;
-    if (perfilLogadoStatus === 'idle') dispatch(fetchPerfil(perfilLogado.id)); // ID DO USUARIO LOGADO!
-    if (listasStatus === 'idle') dispatch(fetchListas(perfilLogado.id));
-  }, [jogosStatus, avaliacoesStatus, perfilLogadoStatus, listasStatus, dispatch]);
+    if (perfilLogadoStatus === 'idle') dispatch(fetchPerfil(perfilLogado.username)); // ID DO USUARIO LOGADO!
+    if (listasStatus === 'idle') dispatch(fetchListas(perfilLogado.username));
+  }, [jogosStatus, avaliacoesStatus, perfilLogadoStatus, listasStatus, dispatch, perfilLogado.username]);
 
   if (jogosStatus === 'loading' || avaliacoesStatus === 'loading' || listasStatus === 'loading' || perfilLogadoStatus === 'loading') {
     return <Loading />;
@@ -66,7 +65,7 @@ const AppRoutes = () => {
            <Route element = { <Forum dados = {jogos}/>} path = "/forum/:id"/>
            <Route element = { <Cadastro/>} path = "/cadastro"/>;
            <Route element = { <Login/> } path = "/login"/>;
-           <Route element = { <Perfil dados={jogos} listas={listas.listas} perfilLogado={perfilLogado} />} path = "/perfil/:id"/>
+           <Route element = { <Perfil dados={jogos} listas={listas.listas} perfilLogado={perfilLogado} />} path = "/perfil/:username"/>
            <Route element = { <Ranking/>} path="/Ranking/"/>
            <Route element={<Admin />} path="/admin" />
         </Routes>
