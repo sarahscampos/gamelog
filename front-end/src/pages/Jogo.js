@@ -19,10 +19,11 @@ import {deleteAvaliacao} from "../slices/avaliacoesSlice";
 
 
 const Jogo = ({dados, avaliacaoInfo, listas, perfilLogado}) => {
+ 
   const { id } = useParams();
   const dispatch = useDispatch();
-  const numericId = parseInt(id, 10);
-  
+ 
+  const jogo = dados.find((jogo) => jogo._id === id);
   const navigate = useNavigate();
 
   const [isModalAvaliacaoOpen, setIsModalAvaliacaoOpen] = useState(false);
@@ -54,7 +55,7 @@ const Jogo = ({dados, avaliacaoInfo, listas, perfilLogado}) => {
     setSelectedList(list);
     dispatch(addJogoToList({ idJogo: id, idLista: list.id , userId: perfilLogado.id})) // por enquanto
     .then(() => {
-      toast.success(`${dados[numericId].nome} foi adicionado à lista ${list.nome}!`);
+      toast.success(`${jogo.nome} foi adicionado à lista ${list.nome}!`);
       closeModal();
     })
     .catch((error) => {
@@ -65,7 +66,7 @@ const Jogo = ({dados, avaliacaoInfo, listas, perfilLogado}) => {
   {/* por enquanto usuarioId = 0 */}
   const avaliacaoUsuario = avaliacaoInfo[id]?.find(avaliacao => avaliacao.usuarioId === perfilLogado.id);
 
-  if (!dados || !dados[numericId]) {
+  if (!jogo) {
     return <Loading />;
   }
 
@@ -73,7 +74,7 @@ const Jogo = ({dados, avaliacaoInfo, listas, perfilLogado}) => {
     <>
     <Helmet>
       <meta charSet="utf-8" />
-      <title>{`${dados[numericId].nome}`}</title>
+      <title>{`${jogo.nome}`}</title>
       <link rel="canonical" href="http://mysite.com/example" />
       <meta name="description" content="Página de jogo" />
     </Helmet>
@@ -86,14 +87,14 @@ const Jogo = ({dados, avaliacaoInfo, listas, perfilLogado}) => {
       </button>
       <Link to='/Ranking' className="items-center gap-1 inline-flex px-4 py-2 rounded-lg border-2 border-cyan-600 text-white hover:bg-cyan-600 font-inter transition-all duration-300">
       <FaRankingStar/>
-      Ranking {dados[numericId].colocacao}
+      Ranking {jogo.colocacao}
       </Link>
     </div>
 
     <div className="flex flex-col items-center m-10">
-        <img src={`${dados[numericId].capa}`} alt={dados[numericId].nome} className="w-52 h-72 ring-4 ring-indigo-700 rounded-md mb-6 lg:h-96 lg:w-72"/>
-        <h2 className ="text-xl sm:text-2xl lg:text-3xl font-inter font-bold text-white mb-3">{dados[numericId].nome}</h2>
-        <p className="text-white rounded bg-gradient-to-tl from-indigo-500 to-cyan-600 px-5 py-2 font-fira">Nota média: {dados[numericId].notaMedia}</p>
+        <img src={`${jogo.capa}`} alt={jogo.nome} className="w-52 h-72 ring-4 ring-indigo-700 rounded-md mb-6 lg:h-96 lg:w-72"/>
+        <h2 className ="text-xl sm:text-2xl lg:text-3xl font-inter font-bold text-white mb-3">{jogo.nome}</h2>
+        <p className="text-white rounded bg-gradient-to-tl from-indigo-500 to-cyan-600 px-5 py-2 font-fira">Nota média: {jogo.notaMedia}</p>
 
       </div>
       
@@ -150,7 +151,7 @@ const Jogo = ({dados, avaliacaoInfo, listas, perfilLogado}) => {
         overlayClassName="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50"
       >
         <h2 className="text-xl font-semibold mb-4">Escolha uma lista</h2>
-        <ul className="space-y-4">
+        {/* <ul className="space-y-4">
           {listas.map((lista, index) => (<li key={index}>
             <button
               onClick={() => addToList(lista)}
@@ -159,7 +160,7 @@ const Jogo = ({dados, avaliacaoInfo, listas, perfilLogado}) => {
               {lista.nome}
             </button>
           </li>))}
-        </ul>
+        </ul> */}
         <button
           onClick={closeModal}
           className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-400"
@@ -183,23 +184,23 @@ const Jogo = ({dados, avaliacaoInfo, listas, perfilLogado}) => {
 
     <div className="flex flex-col gap-3 mt-7 font-fira">
       <div className = "flex space-x-4 mb-7">
-        {dados[numericId].generos.map((genero, index) => {
-          return <p key={dados[numericId].id} className = "text-lg font-medium text-white px-3 py-1 rounded bg-zinc-500">{genero}</p>
+        {jogo.generos.map((genero, index) => {
+          return <p key={jogo.id} className = "text-lg font-medium text-white px-3 py-1 rounded bg-zinc-500">{genero}</p>
         })}
       </div>
 
       {/* <hr class="border-2"> */}
       <div className = "flex justify-between text-sm sm:text-lg font-medium">
       <h2 className = "text-sm sm:text-lg">Data de lançamento</h2>
-      <h2 className = "text-sm sm:text-lg">{dados[numericId].dataLancamento}</h2>
+      <h2 className = "text-sm sm:text-lg">{jogo.dataLancamento}</h2>
       </div>
       <div className = "flex justify-between text-sm sm:text-lg font-medium">
         <h2 className = "text-sm sm:text-lg">Desenvolvedora</h2>
-        <h2 className = "text-sm sm:text-lg">{dados[numericId].desenvolvedora}</h2>
+        <h2 className = "text-sm sm:text-lg">{jogo.desenvolvedora}</h2>
       </div>
       <div className = "flex justify-between text-sm sm:text-lg font-medium">
         <h2 className = "text-sm sm:text-lg">Distribuidora</h2>
-        <h2 className = "text-sm sm:text-lg">{dados[numericId].distribuidora}</h2>
+        <h2 className = "text-sm sm:text-lg">{jogo.distribuidora}</h2>
       </div>
 
       {/* <hr class="border-2"> */}
@@ -210,7 +211,7 @@ const Jogo = ({dados, avaliacaoInfo, listas, perfilLogado}) => {
     <h2 className="text-2xl p-4 font-bold font-inter">Sumário</h2>
       <div className="flex space-x-4 p-4 w-full">
         <p className="font-fira">
-          {dados[numericId].sumario}
+          {jogo.sumario}
         </p>
       </div>
     
@@ -225,8 +226,8 @@ const Jogo = ({dados, avaliacaoInfo, listas, perfilLogado}) => {
     {/* substituir 0 pelo userID real*/}
     <section className = "mx-auto my-5 px-10 text-left md:px-64">
       { 
-      avaliacaoInfo[numericId]?.length ? (
-        <Avaliacao dadosAvaliacao={avaliacaoInfo[numericId][0]} userId={0} />
+      avaliacaoInfo[id]?.length ? (
+        <Avaliacao dadosAvaliacao={avaliacaoInfo[id][0]} userId={0} />
       ) : (
         <p>Não possui avaliações</p>
       )
@@ -241,7 +242,7 @@ const Jogo = ({dados, avaliacaoInfo, listas, perfilLogado}) => {
         <div className="mx-auto my-0 px-10 text-center md:px-64 py-20"> 
       <div className="flex items-center gap-2 flex-col py-4 px-8 bg-gradient-to-tl from-indigo-500 to-cyan-600 rounded-lg w-full mb-8">
         
-        <Link to={`/forum/${id}`} className="text-white text-2xl px-4 py-2 font-inter font-bold underline decoration-solid"> Acesse o fórum de {dados[numericId].nome}</Link>
+        <Link to={`/forum/${id}`} className="text-white text-2xl px-4 py-2 font-inter font-bold underline decoration-solid"> Acesse o fórum de {jogo.nome}</Link>
         <p className="text-gray-300 text-md"> Converse • Tire dúvidas • Compartilhe curiosidades</p>
 
       </div>

@@ -35,11 +35,14 @@ const Carrossel = ({jogos}) => {
         <>
         <Carousel responsive={responsive} removeArrowOnDeviceType={["mobile"]} className='p-5'>
         {jogos.map((item, index) => (
-            <div key={index} className='w-40 drop-shadow-md cursor-pointer hover:scale-105 transition lg:w-56' onClick={() => navigate(`/jogo/${item.id}`)}>
+          <>
+_            <div key={index} className='w-40 drop-shadow-md cursor-pointer hover:scale-105 transition lg:w-56' onClick={() => navigate(`/jogo/${item._id}`)}>
+            
             <img src={item.capa} alt="logoGamelog" className='w-40 h-52 mb-1 ring-solid ring-2 ring-indigo-600 rounded-sm lg:w-52 lg:h-72' />
             <p className='text-center font-fira text-base'>{item.nome}</p>
             
             </div>
+          </>
         ))}
         </Carousel>
         </>
