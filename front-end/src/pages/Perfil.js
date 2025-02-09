@@ -20,6 +20,7 @@ import { logout } from "../slices/loginSlice"; // Importe a ação de logout
 // - nota do usuario pros jogos aparecendo junto aos jogos
 
 const Perfil = ({listas, dados, idLogado}) => {
+  const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logout());
   
@@ -30,11 +31,10 @@ const Perfil = ({listas, dados, idLogado}) => {
 
   const perfilLogado = fetchPerfil(idLogado); // desisto nao consigo fazewr funcionar isso aqui queria mt 
 
-  const { id } = useParams(); // Captura o ID do usuário na URL
+  const { username } = useParams(); // Captura o ID do usuário na URL
   const [anyUser, setAnyUser] = useState(null);
   
   const [loading, setLoading] = useState(true);
-  const dispatch = useDispatch();
   const [isFixaListaModalOpen, setIsFixaListaModalOpen] = useState(false);
   const [isEditaPerfilModalOpen, setIsEditaPerfilModalOpen] = useState(false);
 
@@ -68,7 +68,7 @@ const Perfil = ({listas, dados, idLogado}) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/perfil/${id}`);
+        const response = await fetch(`http://localhost:3000/perfil/${username}`);
         if (!response.ok) throw new Error("Erro ao carregar o perfil do usuário");
         const userData = await response.json();
         console.log(userData); 
@@ -81,10 +81,10 @@ const Perfil = ({listas, dados, idLogado}) => {
       }
     };
   
-    if (id) {
+    if (username) {
       fetchUser();
     }
-  }, [id]);
+  }, [username]);
 
   const atualizaPerfil = createAsyncThunk('perfil/atualizaPerfil', async ({ updatedUserData }) => {
     const response = await fetch(`http://localhost:3000/perfil/${idLogado}`, {
@@ -219,7 +219,7 @@ const Perfil = ({listas, dados, idLogado}) => {
             className="w-full p-2 border border-gray-300 rounded-md"
             maxLength={25}
           />
-          <p className="text-sm text-gray-500">{25 - formData.nome.length} caracteres restantes</p>
+          <p className="text-sm text-gray-500">{25 - formData.nome?.length} caracteres restantes</p>
         </div>
         <div>
           <label className="block font-medium mb-2" htmlFor="avatar">Avatar URL:</label>
@@ -242,7 +242,7 @@ const Perfil = ({listas, dados, idLogado}) => {
             className="w-full p-2 border border-gray-300 rounded-md"
             maxLength={150}
           />
-          <p className="text-sm text-gray-500">{150 - formData.descricao.length} caracteres restantes</p>
+          <p className="text-sm text-gray-500">{150 - formData.descricao?.length} caracteres restantes</p>
         </div>
         <div>
           <label className="block font-medium mb-2" htmlFor="localizacao">Localização:</label>
@@ -255,7 +255,7 @@ const Perfil = ({listas, dados, idLogado}) => {
             className="w-full p-2 border border-gray-300 rounded-md"
             maxLength={20}
           />
-          <p className="text-sm text-gray-500">{20 - formData.localizacao.length} caracteres restantes</p>
+          <p className="text-sm text-gray-500">{20 - formData.localizacao?.length} caracteres restantes</p>
         </div>
         <div className="flex justify-between mt-4">
           <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-400">
@@ -277,7 +277,9 @@ const Perfil = ({listas, dados, idLogado}) => {
 
   if (loading) {
     return (
+      <>
       <Loading />
+      </>
     );
   }
 
@@ -312,7 +314,7 @@ const Perfil = ({listas, dados, idLogado}) => {
         {/* Cabeçalho */}
         <div className="flex justify-between p-4 bg-blue-500 text-white">
           <span className="text-sm font-semibold">{anyUser.nome}</span>
-          {id === idLogado && (
+          {username === idLogado && (
     <div className="flex items-center gap-3">
       <button className="flex items-center text-sm font-semibold" onClick={openEditaPerfilModal}>
         <MdEdit size={25} />
@@ -327,7 +329,7 @@ const Perfil = ({listas, dados, idLogado}) => {
     </div>
   )}
         </div>
-        <EditaPerfilModal />
+        {/* <EditaPerfilModal /> */}
         <ToastContainer />
         
 
@@ -335,10 +337,10 @@ const Perfil = ({listas, dados, idLogado}) => {
         <div className="text-center p-4 font-inter">
           <img
             src={anyUser.avatar}
-            alt={anyUser.nome}
+            alt={anyUser.nomePerfil}
             className="w-24 h-24 rounded-full mx-auto shadow-lg"
           />
-          <h2 className="mt-2 text-2xl font-semibold">{anyUser.nome}</h2>
+          <h2 className="mt-2 text-2xl font-semibold">{anyUser.nomePerfil}</h2>
           <p className="text-gray-500 break-all">{anyUser.descricao}</p>
           <p className="text-xs text-gray-400 mt-1">
             {anyUser.localizacao} • Membro desde {anyUser.membroDesde}
@@ -350,11 +352,11 @@ const Perfil = ({listas, dados, idLogado}) => {
           <h3 className="text-lg font-semibold">Estatísticas</h3>
           <div className="grid grid-cols-3 text-center">
             <div>
-              <span className="text-lg font-bold">{anyUser.avaliacaoCount}</span>
+              <span className="text-lg font-bold">{anyUser.analises}</span>
               <p className="text-gray-500 text-sm">Avaliações</p>
             </div>
             <div>
-              <span className="text-lg font-bold">{anyUser.avaliacaoMedia}</span>
+              <span className="text-lg font-bold">{anyUser.media}</span>
               <p className="text-gray-500 text-sm">Média</p>
             </div>
             <div>

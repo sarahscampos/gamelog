@@ -22,7 +22,7 @@ router.post('/cadastro', async (req, res) => {
       const idDoUsuario = novoUsuario._id
       const nomeUsuario = novoUsuario.nome
 
-      const novoPerfil = new Perfil({userId:idDoUsuario, username:nomeUsuario, nomePerfil:nomeUsuario})
+      const novoPerfil = new Perfil({userId: idDoUsuario, username: nomeUsuario, nomePerfil: nomeUsuario})
       await novoPerfil.save();
   
       await novoUsuario.save();

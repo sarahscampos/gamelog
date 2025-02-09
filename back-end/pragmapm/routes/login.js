@@ -23,7 +23,7 @@ router.post('/login', async (req, res) => {
     const payload = { id: user.id, role: user.role }; // Inclua o papel do usuário (role)
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    res.json({ token, user: { id: user.id, email: user.email, role: user.role } });
+    res.json({ token, user: { id: user.id, email: user.email, role: user.role, username: user.nome } });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Erro no servidor' });

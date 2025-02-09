@@ -24,6 +24,7 @@ const navLinks = [
 
 export const Header = () => {
   const user = useSelector((state) => state.auth?.user);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -53,7 +54,7 @@ export const Header = () => {
                 {user ? (
                   <>
                     <Link
-                      to={`/perfil/${user._id}`}
+                      to={`/perfil/${user.username}`}
                       className="inline-flex items-center gap-1 text-white transition-all duration-300 hover:bg-indigo-600 px-3 py-2 rounded-md text-md font-medium"
                     >
                       Perfil

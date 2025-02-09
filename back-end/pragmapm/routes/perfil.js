@@ -16,8 +16,8 @@ router.get('/perfil', async (request, response) => {
   }
 });
 
-// pega um único perfil com id
-router.get('/perfil/:id', async (request, response) => {
+// pega um único perfil com id 
+/*router.get('/perfil/:id', async (request, response) => { // não pode existir essas duas rotas nao da pra diferenciar
   try {
     const perfil = await Perfil.findById(request.params.id);
     if (!perfil) return response.status(404).json({ message: 'Perfil não encontrado' });
@@ -26,7 +26,8 @@ router.get('/perfil/:id', async (request, response) => {
     console.log(error);
     response.status(500).json({ message: 'Erro ao obter perfil', error });
   }
-});
+});*/
+
 
 // pega um único perfil com username
 router.get('/perfil/:username', async (request, response) => {
