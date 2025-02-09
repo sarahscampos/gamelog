@@ -6,24 +6,26 @@ import logo from "../assets/img/logoGAMELOG2.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../slices/loginSlice";
 
-const navLinks = [
-  {
-    title: "Listas",
-    link: "/listas",
-  },
-  {
-    title: "Ranking",
-    link: "/Ranking",
-  },
-  {
-    title: "Login",
-    link: "/login",
-    icon: <IoLogInOutline size={"1.4rem"} />,
-  },
-];
+
 
 export const Header = () => {
   const user = useSelector((state) => state.auth?.user);
+
+  const navLinks = [
+    {
+      title: "Listas",
+      link: `/listas/${user.username}`,
+    },
+    {
+      title: "Ranking",
+      link: "/Ranking",
+    },
+    {
+      title: "Login",
+      link: "/login",
+      icon: <IoLogInOutline size={"1.4rem"} />,
+    },
+  ];
   
   const dispatch = useDispatch();
   const navigate = useNavigate();

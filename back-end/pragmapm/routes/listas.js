@@ -8,9 +8,9 @@ router.use(cors.corsWithOptions);
 router.use(bodyParser.json());
 
 // GET /listas/:userId
-router.get('/listas/:userId', async (req, res) => {
+router.get('/listas/:username', async (req, res) => {
   try {
-    const listas = await Lista.find({ userId: req.params.userId });
+    const listas = await Lista.find({ username: req.params.username });
     if (!listas.length) {
       return res.status(404).json({ error: 'Usuário não encontrado ou sem listas' });
     }
@@ -21,7 +21,7 @@ router.get('/listas/:userId', async (req, res) => {
 });
 
 // POST /listas/:userId
-router.post('/listas/:userId', async (req, res) => {
+router.post('/listas/:username', async (req, res) => {
   try {
     const novaLista = new Lista({ ...req.body, userId: req.params.userId });
     await novaLista.save();
@@ -32,7 +32,7 @@ router.post('/listas/:userId', async (req, res) => {
 });
 
 // PATCH /listas/:userId/:idLista
-router.patch('/listas/:userId/:idLista', async (req, res) => {
+router.patch('/listas/:username/:idLista', async (req, res) => {
   try {
     const { idJogo } = req.body;
     const lista = await Lista.findOneAndUpdate(
@@ -48,7 +48,7 @@ router.patch('/listas/:userId/:idLista', async (req, res) => {
 });
 
 // PATCH /listas/:userId/:idLista/remove
-router.patch('/listas/:userId/:idLista/remove', async (req, res) => {
+router.patch('/listas/:username/:idLista/remove', async (req, res) => {
   try {
     const { idJogo } = req.body;
     const lista = await Lista.findOneAndUpdate(
@@ -64,7 +64,7 @@ router.patch('/listas/:userId/:idLista/remove', async (req, res) => {
 });
 
 // DELETE /listas/:userId/:idLista
-router.delete('/listas/:userId/:idLista', async (req, res) => {
+router.delete('/listas/:username/:idLista', async (req, res) => {
   try {
     const lista = await Lista.findOneAndDelete({ _id: req.params.idLista, userId: req.params.userId });
     if (!lista) return res.status(404).json({ error: 'Lista não encontrada' });

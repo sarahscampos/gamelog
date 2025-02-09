@@ -36,15 +36,16 @@ const AppRoutes = () => {
   const listas = useSelector((state) => state.listas.dados);
   const listasStatus = useSelector((state) => state.listas.status);
 
-  const idUsuarioLogado = useSelector((state) => state.auth.user?.id);
+  const idUsuarioLogado = useSelector((state) => state.auth.user?.i);
   const usuarioLogadoStatus = useSelector((state) => state.auth.status);
+  const username = useSelector((state) => state.auth.user?.username);
 
   useEffect(() => {
     if (jogosStatus === 'idle') dispatch(fetchJogos());
     if (avaliacoesStatus === 'idle') dispatch(fetchAvaliacoes());
     if (usuarioLogadoStatus === 'idle') dispatch(fetchPerfil(idUsuarioLogado));
-    if (listasStatus === 'idle') dispatch(fetchListas(idUsuarioLogado));
-  }, [jogosStatus, avaliacoesStatus, usuarioLogadoStatus, listasStatus, dispatch]);
+    if (listasStatus === 'idle') dispatch(fetchListas(username));
+  }, [jogosStatus, avaliacoesStatus, username, listasStatus, dispatch]);
 
   if (jogosStatus === 'loading' || avaliacoesStatus === 'loading' || listasStatus === 'loading' || usuarioLogadoStatus === 'loading') {
     return <Loading />;
@@ -58,8 +59,8 @@ const AppRoutes = () => {
            <Route element = { <Home dados={jogos}/> }  path="/" exact />
            <Route element = { <Jogo dados={jogos} avaliacaoInfo={avaliacoes} listas={listas.listas} idUsuarioLogado={idUsuarioLogado}/> }  path="/jogo/:id" />
            <Route element = { <Avaliacoes avaliacoes={avaliacoes}/> }  path="/avaliacoes/:id" />
-           <Route element = { <Listas listas={listas.listas} dados={jogos} idUsuarioLogado={idUsuarioLogado} /> }  path="/listas" />
-           <Route element = { <Lista listas={listas.listas} dados={jogos} /> }  path="/lista/:id" />
+           <Route element = { <Listas listas={listas.listas} dados={jogos} idUsuarioLogado={idUsuarioLogado} /> }  path="/listas/:username" />
+           <Route element = { <Lista listas={listas.listas} dados={jogos} /> }  path="/lista/:username" />
            <Route element = { <Suporte/>} path = "/suporte"/>
            <Route element = { <Codigo/>} path = "/codigo"/>
            <Route element = { <Forum dados = {jogos}/>} path = "/forum/:id"/>

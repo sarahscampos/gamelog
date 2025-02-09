@@ -1,13 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const fetchListas = createAsyncThunk('listas/fetchListas', async (userId) => {
-  const response = await fetch(`http://localhost:3000/listas/${userId}`);
+export const fetchListas = createAsyncThunk('listas/fetchListas', async (username) => {
+  console.log(username);
+  const response = await fetch(`http://localhost:3000/listas/${username}`);
   if (!response.ok) throw new Error('Erro ao carregar as listas');
-  return response.json();
+  const data = await response.json();
+  console.log(data);
+  return data;
 });
 
-export const addLista = createAsyncThunk('listas/addLista', async ({ userId, novaLista }) => {
-  const response = await fetch(`http://localhost:3000/listas/${userId}`, {
+export const addLista = createAsyncThunk('listas/addLista', async ({ username, novaLista }) => {
+  const response = await fetch(`http://localhost:3000/listas/${username}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(novaLista),
@@ -16,8 +19,8 @@ export const addLista = createAsyncThunk('listas/addLista', async ({ userId, nov
   return response.json();
 });
 
-export const addJogoToList = createAsyncThunk('listas/addJogo', async ({ idJogo, idLista, userId }) => {
-  const response = await fetch(`http://localhost:3000/listas/${userId}/${idLista}`, {
+export const addJogoToList = createAsyncThunk('listas/addJogo', async ({ idJogo, idLista, username }) => {
+  const response = await fetch(`http://localhost:3000/listas/${username}/${idLista}`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ idJogo }),
@@ -26,8 +29,8 @@ export const addJogoToList = createAsyncThunk('listas/addJogo', async ({ idJogo,
   return response.json();
 });
 
-export const removeJogoFromList = createAsyncThunk('listas/removeJogo', async ({ idJogo, idLista, userId }) => {
-  const response = await fetch(`http://localhost:3000/listas/${userId}/${idLista}/remove`, {
+export const removeJogoFromList = createAsyncThunk('listas/removeJogo', async ({ idJogo, idLista, username }) => {
+  const response = await fetch(`http://localhost:3000/listas/${username}/${idLista}/remove`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ idJogo }),

@@ -1,20 +1,31 @@
-import React, { useState} from "react";
+import React, { useEffect, useState} from "react";
 import Carrossel from "../components/Carrossel";
 import { FaArrowCircleRight } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addLista } from "../slices/listasSlice";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Modal from "react-modal";
 import { MdAddCircleOutline } from "react-icons/md";
 import { deleteLista } from "../slices/listasSlice";
+import { fetchListas } from "../slices/listasSlice";
 
-const Listas = ({ listas, dados, perfilLogado }) => {
+const Listas = ({listas, dados, perfilLogado }) => {
+  
+  const user = useSelector((state) => state.auth?.user);
+  const { username } = useParams();
+  const status = useSelector((state) => state.listas.status);
+  
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [novaListaNome, setNovaListaNome] = useState("");
+  // const [listas, setListas] = useState([]);
+  // console.log(listas)
+  const listasUsuario = listas?.find((lista) => lista.username === username);
+  console.log(listas);
+  console.log(`oioi ${listasUsuario}`)
 
   function obtemJogos(index){
     const lista = listas && listas[index] && listas[index].ids
@@ -39,14 +50,12 @@ const Listas = ({ listas, dados, perfilLogado }) => {
     if (novaListaNome.trim()) {
       
       const novaLista = {
-        id: listas.length,
         nome: novaListaNome, 
-        ids: [], 
+        ids: [],
+        username: user.username
       };
-
-      console.log(perfilLogado.id)
       
-      dispatch(addLista({userId: perfilLogado.id, novaLista: novaLista}))
+      dispatch(addLista({username: user.username, novaLista: novaLista}))
         .unwrap()
         .then(() => {
           toast.success(`Lista "${novaListaNome}" criada com sucesso!`);
@@ -75,6 +84,15 @@ const Listas = ({ listas, dados, perfilLogado }) => {
         });
     }
   };
+
+  useEffect(() => {
+    if (perfilLogado && perfilLogado.username) {
+      dispatch(fetchListas(user.username));
+    }
+  }, [dispatch, perfilLogado, user.username]);
+
+  if (status === "loading") return <div>Carregando...</div>;
+  if (status === "failed") return <div>Erro ao carregar listas</div>;
 
   return (
     <>
@@ -159,7 +177,7 @@ const Listas = ({ listas, dados, perfilLogado }) => {
               );
             })
           ) : (
-            <p className="text-white">Nenhuma lista encontrada.</p>
+            <p className="text-black">Nenhuma lista encontrada.</p>
           )}
         </div>
       </section>
