@@ -1,20 +1,19 @@
 var express = require('express');
+const mongoose = require('mongoose');
 const passport = require('passport');
 var router = express.Router();
 const Avaliacao = require('../models/Avaliacao');
+const Perfil = require('../models/Perfil');
 const cors = require('./cors');
 
 router.use(cors.corsWithOptions); 
 //Pega lista de avaliações de um jogo
-router.get("/avaliacoes/:gameId", async (request, response) => {
-  try{
-  const { gameId } = request.params;
-  const game = await Avaliacao.findOne( {gameId} );
-  if(!game){
-      return response.status(404).json({error: 'Jogo não encontrado'})
-  }
+router.get("/avaliacoes/:idJogo", async (request, response) => {
+try{
+  const { idJogo } = request.params;
+  const avaliacoes = await Avaliacao.find( {idJogo} );
 
-  return response.status(200).json(game.avaliacoes)
+  return response.status(200).json(avaliacoes)
 
 } catch(err){
   return response.status(500).json({ error: "Erro ao acessar avaliações", details: err });
@@ -23,39 +22,27 @@ router.get("/avaliacoes/:gameId", async (request, response) => {
 
 //Publica nova avaliação
 router.post(
-  "/protected/avaliacoes/:gameId/:userId",
+  "/protected/avaliacoes",
   passport.authenticate("jwt", { session: false }), // Middleware para proteger a rota
   async (request, response) => {
     try {
-      const { gameId, userId } = request.params;
-      const newAvaliacao = request.body;
-
-      // Verifica campos obrigatórios
-      if (!newAvaliacao.score || !newAvaliacao.avaliacaoId) {
-        return response
-          .status(400)
-          .json({ error: "Dados incompletos para criar o Avaliação." });
+      const newAvaliacao = {
+        username: request.body.username, 
+        comment: request.body.comment, 
+        score: request.body.score, 
+        idJogo: new mongoose.Types.ObjectId(request.body.idJogo)
       }
+      const avaliacao = new Avaliacao(newAvaliacao);
+      const perfil = await Perfil.findOne({username: request.body.username});
+      const newMedia = ((perfil.analises * perfil.media) + request.body.score) / (perfil.analises + 1);
+      const newCount = perfil.analises + 1;
+      perfil.media = newMedia;
+      perfil.analises = newCount;
+      await perfil.save().catch(console.error);
+      await avaliacao.save().catch(console.error);
 
-      // Busca o jogo pelo ID
-      const game = await Avaliacao.findOne({ gameId });
-      if (!game) {
-        return response.status(404).json({ error: "Página não encontrada" });
-      }
+      return response.status(204).json(avaliacao);
 
-      // Verifica se o usuário existe nas avaliações do jogo
-      const usuario = game.avaliacoes.find(
-        (usuario) => usuario.userId === userId
-      );
-      if (!usuario) {
-        return response.status(404).json("Usuário não pode ser encontrado");
-      }
-
-      // Adiciona a nova avaliação ao array de avaliações do jogo
-      game.avaliacoes.push(newAvaliacao);
-      await game.save(); // Salva as alterações no banco de dados
-
-      return response.status(201).json(game.avaliacoes);
     } catch (err) {
       return response
         .status(500)
