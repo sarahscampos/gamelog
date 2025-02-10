@@ -18,8 +18,9 @@ import ReviewModal from "../components/ReviewModal";
 import {deleteAvaliacao} from "../slices/avaliacoesSlice";
 
 
-const Jogo = ({dados, avaliacaoInfo, listas, perfilLogado}) => {
- 
+const Jogo = ({dados, avaliacaoInfo, listas, usernameLogado}) => {
+
+  const perfilLogado = await fetchPerfil(usernameLogado).json();
   const { id } = useParams();
   const dispatch = useDispatch();
  
