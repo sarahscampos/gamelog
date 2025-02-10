@@ -34,6 +34,7 @@ const AppRoutes = () => {
   const avaliacoesStatus = useSelector((state) => state.avaliacoes.status);
 
   const listas = useSelector((state) => state.listas.dados);
+  console.log(`meu deus ${listas}`);
   const listasStatus = useSelector((state) => state.listas.status);
 
   const idUsuarioLogado = useSelector((state) => state.auth.user?.i);
@@ -59,8 +60,8 @@ const AppRoutes = () => {
            <Route element = { <Home dados={jogos}/> }  path="/" exact />
            <Route element = { <Jogo dados={jogos} avaliacaoInfo={avaliacoes} listas={listas.listas} idUsuarioLogado={idUsuarioLogado}/> }  path="/jogo/:id" />
            <Route element = { <Avaliacoes avaliacoes={avaliacoes}/> }  path="/avaliacoes/:id" />
-           <Route element = { <Listas listas={listas.listas} dados={jogos} idUsuarioLogado={idUsuarioLogado} /> }  path="/listas/:username" />
-           <Route element = { <Lista listas={listas.listas} dados={jogos} /> }  path="/lista/:username" />
+           <Route element = { <Listas listas={listas} dados={jogos} idUsuarioLogado={idUsuarioLogado} /> }  path="/listas/:username" />
+           <Route element = { <Lista listas={listas} dados={jogos} /> }  path="/lista/:username" />
            <Route element = { <Suporte/>} path = "/suporte"/>
            <Route element = { <Codigo/>} path = "/codigo"/>
            <Route element = { <Forum dados = {jogos}/>} path = "/forum/:id"/>

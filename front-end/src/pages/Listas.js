@@ -22,7 +22,7 @@ const Listas = ({listas, dados, perfilLogado }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [novaListaNome, setNovaListaNome] = useState("");
   // const [listas, setListas] = useState([]);
-  // console.log(listas)
+
   const listasUsuario = listas?.find((lista) => lista.username === username);
   console.log(listas);
   console.log(`oioi ${listasUsuario}`)
