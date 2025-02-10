@@ -14,7 +14,7 @@ export const Header = () => {
   const navLinks = [
     {
       title: "Listas",
-      link: `/listas/${user.username}`,
+      link: `/listas/${user?.username}`,
     },
     {
       title: "Ranking",
