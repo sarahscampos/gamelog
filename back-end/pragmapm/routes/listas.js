@@ -74,4 +74,28 @@ router.delete('/listas/:username/:idLista', async (req, res) => {
   }
 });
 
+// PATCH /listas/:username/:idLista
+router.post('/listas/:username/:idLista', async (req, res) => {
+  try {
+    const { idJogo } = req.body;
+
+    // Encontra a lista e adiciona o jogo ao array `ids` (ou outro campo designado para os jogos)
+    const lista = await Lista.findOneAndUpdate(
+      { _id: req.params.idLista, username: req.params.username }, // Verifica a lista pelo ID e pelo username
+      { $addToSet: { jogosIds: idJogo } }, // Adiciona o `idJogo` ao array, evitando duplicados
+      { new: true } // Retorna a lista atualizada
+    );
+
+    // Verifica se a lista foi encontrada
+    if (!lista) {
+      return res.status(404).json({ error: 'Lista não encontrada para este usuário' });
+    }
+
+    res.status(200).json(lista); // Retorna a lista atualizada
+  } catch (error) {
+    res.status(400).json({ error: 'Erro ao adicionar jogo à lista' });
+  }
+});
+
+
 module.exports = router;

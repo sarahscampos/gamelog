@@ -47,13 +47,15 @@ const Jogo = ({dados, avaliacaoInfo, listas, perfilLogado}) => {
   }
 
   const deletarAvaliacao = () =>{
-    dispatch(deleteAvaliacao({jogoId: id, usuarioId: perfilLogado.id})) // por enqunato
+    dispatch(deleteAvaliacao({jogoId: id, usuarioId: perfilLogado.username})) // por enqunato
   }
   
+ const user = useSelector((state) => state.auth?.user);
+
   const addToList = (list) => {
 
     setSelectedList(list);
-    dispatch(addJogoToList({ idJogo: id, idLista: list.id , userId: perfilLogado.id})) // por enquanto
+    dispatch(addJogoToList({username: user.username, idLista: list._id, idJogo: id })) // por enquanto
     .then(() => {
       toast.success(`${jogo.nome} foi adicionado à lista ${list.nome}!`);
       closeModal();
@@ -151,7 +153,7 @@ const Jogo = ({dados, avaliacaoInfo, listas, perfilLogado}) => {
         overlayClassName="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50"
       >
         <h2 className="text-xl font-semibold mb-4">Escolha uma lista</h2>
-        {/* <ul className="space-y-4">
+        <ul className="space-y-4">
           {listas.map((lista, index) => (<li key={index}>
             <button
               onClick={() => addToList(lista)}
@@ -160,7 +162,7 @@ const Jogo = ({dados, avaliacaoInfo, listas, perfilLogado}) => {
               {lista.nome}
             </button>
           </li>))}
-        </ul> */}
+        </ul>
         <button
           onClick={closeModal}
           className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-400"

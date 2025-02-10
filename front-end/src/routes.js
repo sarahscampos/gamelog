@@ -58,7 +58,7 @@ const AppRoutes = () => {
        <Header/>
         <Routes>
            <Route element = { <Home dados={jogos}/> }  path="/" exact />
-           <Route element = { <Jogo dados={jogos} avaliacaoInfo={avaliacoes} listas={listas.listas} idUsuarioLogado={idUsuarioLogado}/> }  path="/jogo/:id" />
+           <Route element = { <Jogo dados={jogos} avaliacaoInfo={avaliacoes} listas={listas} idUsuarioLogado={idUsuarioLogado}/> }  path="/jogo/:id" />
            <Route element = { <Avaliacoes avaliacoes={avaliacoes}/> }  path="/avaliacoes/:id" />
            <Route element = { <Listas listas={listas} dados={jogos} idUsuarioLogado={idUsuarioLogado} /> }  path="/listas/:username" />
            <Route element = { <Lista listas={listas} dados={jogos} /> }  path="/lista/:username" />
@@ -67,7 +67,7 @@ const AppRoutes = () => {
            <Route element = { <Forum dados = {jogos}/>} path = "/forum/:id"/>
            <Route element = { <Cadastro/>} path = "/cadastro"/>;
            <Route element = { <Login/> } path = "/login"/>;
-           <Route element = { <Perfil dados={jogos} listas={listas.listas} />} path = "/perfil/:username"/>
+           <Route element = { <Perfil dados={jogos} listas={listas} />} path = "/perfil/:username"/>
            <Route element = { <Ranking/>} path="/Ranking/"/>
            <Route element={<Admin />} path="/admin" />
         </Routes>

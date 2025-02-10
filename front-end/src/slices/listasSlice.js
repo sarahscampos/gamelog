@@ -21,7 +21,7 @@ export const addLista = createAsyncThunk('listas/addLista', async ({ username, n
 
 export const addJogoToList = createAsyncThunk('listas/addJogo', async ({ idJogo, idLista, username }) => {
   const response = await fetch(`http://localhost:3000/listas/${username}/${idLista}`, {
-    method: 'PATCH',
+    method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ idJogo }),
   });
