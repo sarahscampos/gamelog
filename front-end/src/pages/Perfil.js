@@ -19,7 +19,7 @@ import { logout } from "../slices/loginSlice"; // Importe a ação de logout
 // QUERO IMPLEMENTAR: - tela de todas as avaliacoes do usuario
 // - nota do usuario pros jogos aparecendo junto aos jogos
 
-const Perfil = ({listas, dados, idLogado}) => {
+const Perfil = ({listas, dados, usernameLogado}) => {
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logout());
@@ -29,7 +29,7 @@ const Perfil = ({listas, dados, idLogado}) => {
   };
   // para usuarios que nao sao o perfilLogado:
 
-  const perfilLogado = fetchPerfil(idLogado); // desisto nao consigo fazewr funcionar isso aqui queria mt 
+  const perfilLogado = await fetchPerfil(usernameLogado).json(); // desisto nao consigo fazewr funcionar isso aqui queria mt 
 
   const { username } = useParams(); // Captura o ID do usuário na URL
   const [anyUser, setAnyUser] = useState(null);
@@ -87,7 +87,7 @@ const Perfil = ({listas, dados, idLogado}) => {
   }, [username]);
 
   const atualizaPerfil = createAsyncThunk('perfil/atualizaPerfil', async ({ updatedUserData }) => {
-    const response = await fetch(`http://localhost:3000/perfil/${idLogado}`, {
+    const response = await fetch(`http://localhost:3000/perfil/${usernameLogado}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
