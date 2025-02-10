@@ -27,11 +27,23 @@ const Listas = ({listas, dados, perfilLogado }) => {
   console.log(listas);
   console.log(`oioi ${listasUsuario}`)
 
-  function obtemJogos(index){
-    const lista = listas && listas[index] && listas[index].ids
-      ? dados.filter((jogo) => listas[index].ids.includes(jogo.id))
-      : [];
-    return lista;
+  function obtemJogos(idLista){
+   // Encontra a lista correspondente ao idLista
+  const listaEncontrada = listas.find((lista) => lista._id === idLista);
+  
+  if (!listaEncontrada || !listaEncontrada.jogosIds) {
+    // Retorna um array vazio se a lista não for encontrada ou não tiver jogos
+    return [];
+  }
+
+  // Filtra os jogos que correspondem aos IDs em jogosIds
+  const jogosDaLista = dados.filter((jogo) =>
+    listaEncontrada.jogosIds.includes(jogo._id)
+  );
+  console.log(jogosDaLista);
+
+  console.log(jogosDaLista); // Verifica os jogos retornados no console
+  return jogosDaLista;
   }
 
   const openNovaListaModal = () => {
@@ -150,7 +162,7 @@ const Listas = ({listas, dados, perfilLogado }) => {
         <div className="mt-5">
           {listas && listas.length > 0 ? (
             listas.map((item, index) => {
-              const jogosLista = obtemJogos(index);
+              const jogosLista = obtemJogos(item._id);
               return (
                 <div key={index} className="flex flex-col">
                   <div className="flex justify-between items-center">
@@ -169,6 +181,7 @@ const Listas = ({listas, dados, perfilLogado }) => {
                     </button>
                   </div>
                   {jogosLista.length !== 0 ? (
+                    // console.log(jogosLista)
                     <Carrossel jogos={jogosLista} />
                   ) : (
                     <p className="mb-10 mt-2 font-fira">Lista vazia</p>
