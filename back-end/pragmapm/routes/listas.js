@@ -11,8 +11,8 @@ router.use(bodyParser.json());
 router.get('/listas/:username', async (req, res) => {
   try {
     const listas = await Lista.find({ username: req.params.username });
-    if (!listas.length) {
-      return res.status(404).json({ error: 'Usuário não encontrado ou sem listas' });
+    if (!listas) {
+      return res.status(404).json({ error: 'Usuário não encontrado' });
     }
     res.status(200).json(listas);
   } catch (error) {
