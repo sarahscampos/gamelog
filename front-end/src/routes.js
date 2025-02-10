@@ -37,18 +37,17 @@ const AppRoutes = () => {
   console.log(`meu deus ${listas}`);
   const listasStatus = useSelector((state) => state.listas.status);
 
-  const idUsuarioLogado = useSelector((state) => state.auth.user?.i);
-  const usuarioLogadoStatus = useSelector((state) => state.auth.status);
-  const username = useSelector((state) => state.auth.user?.username);
+  const usernameLogadoStatus = useSelector((state) => state.auth.status);
+  const usernameLogado = useSelector((state) => state.auth.user?.username);
 
   useEffect(() => {
     if (jogosStatus === 'idle') dispatch(fetchJogos());
     if (avaliacoesStatus === 'idle') dispatch(fetchAvaliacoes());
-    if (usuarioLogadoStatus === 'idle') dispatch(fetchPerfil(idUsuarioLogado));
-    if (listasStatus === 'idle') dispatch(fetchListas(username));
-  }, [jogosStatus, avaliacoesStatus, username, listasStatus, dispatch]);
+    if (usuarioLogadoStatus === 'idle') dispatch(fetchPerfil(usernameLogado));
+    if (listasStatus === 'idle') dispatch(fetchListas(usernameLogado));
+  }, [jogosStatus, avaliacoesStatus, usernameLogado, listasStatus, dispatch]);
 
-  if (jogosStatus === 'loading' || avaliacoesStatus === 'loading' || listasStatus === 'loading' || usuarioLogadoStatus === 'loading') {
+  if (jogosStatus === 'loading' || avaliacoesStatus === 'loading' || listasStatus === 'loading' || usernameLogadoStatus === 'loading') {
     return <Loading />;
   }
 
@@ -58,16 +57,16 @@ const AppRoutes = () => {
        <Header/>
         <Routes>
            <Route element = { <Home dados={jogos}/> }  path="/" exact />
-           <Route element = { <Jogo dados={jogos} avaliacaoInfo={avaliacoes} listas={listas} idUsuarioLogado={idUsuarioLogado}/> }  path="/jogo/:id" />
+           <Route element = { <Jogo dados={jogos} avaliacaoInfo={avaliacoes} listas={listas} usernameLogado={usernameLogado}/> }  path="/jogo/:id" />
            <Route element = { <Avaliacoes avaliacoes={avaliacoes}/> }  path="/avaliacoes/:id" />
-           <Route element = { <Listas listas={listas} dados={jogos} idUsuarioLogado={idUsuarioLogado} /> }  path="/listas/:username" />
+           <Route element = { <Listas listas={listas} dados={jogos} usernameLogado={usernameLogado} /> }  path="/listas/:username" />
            <Route element = { <Lista listas={listas} dados={jogos} /> }  path="/lista/:username/:idLista" />
            <Route element = { <Suporte/>} path = "/suporte"/>
            <Route element = { <Codigo/>} path = "/codigo"/>
            <Route element = { <Forum dados = {jogos}/>} path = "/forum/:id"/>
            <Route element = { <Cadastro/>} path = "/cadastro"/>;
            <Route element = { <Login/> } path = "/login"/>;
-           <Route element = { <Perfil dados={jogos} listas={listas} />} path = "/perfil/:username"/>
+           <Route element = { <Perfil dados={jogos} listas={listas} usernameLogado={usernameLogado}/>} path = "/perfil/:username"/>
            <Route element = { <Ranking/>} path="/Ranking/"/>
            <Route element={<Admin />} path="/admin" />
         </Routes>
