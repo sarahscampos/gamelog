@@ -61,7 +61,7 @@ const AppRoutes = () => {
            <Route element = { <Jogo dados={jogos} avaliacaoInfo={avaliacoes} listas={listas} idUsuarioLogado={idUsuarioLogado}/> }  path="/jogo/:id" />
            <Route element = { <Avaliacoes avaliacoes={avaliacoes}/> }  path="/avaliacoes/:id" />
            <Route element = { <Listas listas={listas} dados={jogos} idUsuarioLogado={idUsuarioLogado} /> }  path="/listas/:username" />
-           <Route element = { <Lista listas={listas} dados={jogos} /> }  path="/lista/:username" />
+           <Route element = { <Lista listas={listas} dados={jogos} /> }  path="/lista/:username/:idLista" />
            <Route element = { <Suporte/>} path = "/suporte"/>
            <Route element = { <Codigo/>} path = "/codigo"/>
            <Route element = { <Forum dados = {jogos}/>} path = "/forum/:id"/>

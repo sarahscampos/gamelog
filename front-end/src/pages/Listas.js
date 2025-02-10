@@ -167,7 +167,7 @@ const Listas = ({listas, dados, perfilLogado }) => {
                 <div key={index} className="flex flex-col">
                   <div className="flex justify-between items-center">
                     <Link
-                      to={`/lista/${index}`}
+                      to={`/lista/${username}/${item._id}`}
                       className="text-2xl font-bold font-inter flex items-center gap-5 mt-10"
                     >
                       {item.nome}
