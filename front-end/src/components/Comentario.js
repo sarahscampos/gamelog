@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-const Comentario = ({ post, username }) => {
+const Comentario = ({ post }) => {
   const dispatch = useDispatch();
   
   const [perfil, setPerfil] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
-  /*
+  
   const dataHora = new Date(post.createdAt).toLocaleString('pt-BR', {
     day: '2-digit',
     month: '2-digit',
     year: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
-  });*/
+  });
   
   useEffect(() => {
     const fetchPerfil = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/perfil/${username}`);
+        const response = await fetch(`http://localhost:3000/perfil/${post.username}`);
         if (!response.ok) {
           throw new Error('Erro ao carregar perfil do usuário');
         }
@@ -33,10 +33,10 @@ const Comentario = ({ post, username }) => {
       }
     };
 
-    if (username) {
+    if (post.username) {
       fetchPerfil(); 
     }
-  }, [username]);
+  }, [post.username]);
 
   if (loading) {
     return <div>Carregando...</div>;
@@ -75,11 +75,11 @@ const Comentario = ({ post, username }) => {
           className="w-10 h-10 rounded-full"
         />
         <div>
-          <span className="font-semibold text-gray-800">{perfil?.username || 'Usuário Anônimo'}</span>
+          <span className="font-semibold text-gray-800">{perfil?.nomePerfil || 'Usuário Anônimo'}</span>
         </div>
       </div>
       <p className="break-words text-left">{post.coment}</p>
-      <span className="text-sm text-gray-500">{post.createdAt}</span>
+      <span className="text-sm text-gray-500">{dataHora}</span>
     </div>
   );
 };

@@ -49,7 +49,7 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
   }
 
   const deletarAvaliacao = () =>{
-    dispatch(deleteAvaliacao({jogoId: id, usuarioId: perfilLogado.username})) // por enqunato
+    dispatch(deleteAvaliacao({jogoId: id, usuarioId: perfilLogado?.username})) // por enqunato
   }
   
  const user = useSelector((state) => state.auth?.user);
@@ -57,7 +57,7 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
   const addToList = (list) => {
 
     setSelectedList(list);
-    dispatch(addJogoToList({username: user.username, idLista: list._id, idJogo: id })) // por enquanto
+    dispatch(addJogoToList({username: user?.username, idLista: list._id, idJogo: id })) // por enquanto
     .then(() => {
       toast.success(`${jogo.nome} foi adicionado à lista ${list.nome}!`);
       closeModal();
@@ -73,7 +73,7 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
   
 
   {/* por enquanto usuarioId = 0 */}
-  const avaliacaoUsuario = avaliacoesJogo?.find(avaliacao => avaliacao.username === user.username);
+  const avaliacaoUsuario = avaliacoesJogo?.find(avaliacao => avaliacao.username === user?.username);
 
   if (!jogo) {
     return <Loading />;

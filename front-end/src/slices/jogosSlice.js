@@ -6,6 +6,12 @@ export const fetchJogos = createAsyncThunk('jogos/fetchJogos', async () => {
   return response.json();
 });
 
+export const fetchJogo = createAsyncThunk('jogos/fetchJogos', async () => {
+  const response = await fetch('http://localhost:3000/jogos/id');
+  if (!response.ok) throw new Error('Erro ao carregar os jogos');
+  return response.json();
+});
+
 const jogosSlice = createSlice({
   name: 'jogos',
   initialState: {

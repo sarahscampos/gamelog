@@ -5,7 +5,6 @@ const forumComentSchema = mongoose.Schema(
     {
       gameId: { type: mongoose.Schema.Types.ObjectId, required: true },
       username: { type: String, required: true },
-      //comentId: { type: Number, required: true, unique: true },
       coment: { type: String, required: true, minlength: 1, maxlength: 500 }
     },
     { timestamps: true }

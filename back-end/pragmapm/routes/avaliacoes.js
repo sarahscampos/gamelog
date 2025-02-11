@@ -5,6 +5,7 @@ var router = express.Router();
 const Avaliacao = require('../models/Avaliacao');
 const Perfil = require('../models/Perfil');
 const cors = require('./cors');
+const Jogo = require('../models/Jogo');
 
 router.use(cors.corsWithOptions); 
 //Pega lista de avaliações de um jogo
@@ -34,12 +35,20 @@ router.post(
       }
       const avaliacao = new Avaliacao(newAvaliacao);
       const perfil = await Perfil.findOne({username: request.body.username});
+      const jogo = await Jogo.findById(newAvaliacao.idJogo);
       const newMedia = ((perfil.analises * perfil.media) + request.body.score) / (perfil.analises + 1);
       const newCount = perfil.analises + 1;
+      const newMediaJogo = ((jogo.analises * jogo.notaMedia) + request.body.score) / (jogo.analises + 1);
+      const newCountJogo = jogo.analises + 1;
+      
       perfil.media = newMedia;
       perfil.analises = newCount;
+      jogo.notaMedia = newMediaJogo;
+      jogo.analises = newCountJogo;
+
       await perfil.save().catch(console.error);
       await avaliacao.save().catch(console.error);
+      await jogo.save().catch(console.error);
 
       return response.status(204).json(avaliacao);
 

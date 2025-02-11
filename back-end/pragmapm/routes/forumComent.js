@@ -82,8 +82,8 @@ router.get("/forum/:gameId", async (request, response) => {
     if (comentarios.length === 0) {
       return response.status(404).json({ error: "Jogo não encontrado." });
     }
-
     return response.status(200).json(comentarios);
+    
   } catch (err) {
     return response.status(500).json({ error: "Erro interno do servidor." });
   }
