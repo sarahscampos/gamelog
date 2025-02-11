@@ -85,6 +85,7 @@ router.delete("/avaliacoes/:gameId/:userId/:avaliacaoId", async (request, respon
 
     //Deleta avaliação do banco
     game.avaliacoes.splice(index, 1);
+    await game.save();
     return response.status(200).json(game.avaliacoes);
 
   } catch(err){
@@ -132,4 +133,4 @@ router.patch("/avaliacoes/:gameId/:userId/:avaliacaoId", async(request, response
 
 
 
-module.exports = router;
+module.exports = router;

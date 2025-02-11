@@ -49,7 +49,7 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
   }
 
   const deletarAvaliacao = () =>{
-    dispatch(deleteAvaliacao({jogoId: id, usuarioId: perfilLogado?.username})) // por enqunato
+    dispatch(deleteAvaliacao({jogoId: id, usuarioId: perfilLogado?.username, avaliacaoId: avaliacaoUsuario._id}))
   }
   
  const user = useSelector((state) => state.auth?.user);
