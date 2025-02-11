@@ -87,7 +87,7 @@ const Listas = ({listas, dados, usernameLogado }) => {
 
   const handleDeletarLista = (idLista) => {
     if (window.confirm("Tem certeza que deseja deletar esta lista?")) {
-      dispatch(deleteLista({ userId: perfilLogado.id, idLista }))
+      dispatch(deleteLista({ username: user.username, idLista }))
         .unwrap()
         .then(() => {
           toast.success("Lista deletada com sucesso!");
@@ -103,7 +103,7 @@ const Listas = ({listas, dados, usernameLogado }) => {
     if (perfilLogado && perfilLogado.username) {
       dispatch(fetchListas(user.username));
     }
-  }, [dispatch, perfilLogado, user.username]);
+  }, [dispatch, perfilLogado, user.username, listas]);
 
   if (status === "loading") return <div>Carregando...</div>;
   if (status === "failed") return <div>Erro ao carregar listas</div>;
@@ -176,7 +176,7 @@ const Listas = ({listas, dados, usernameLogado }) => {
                       <FaArrowCircleRight className="text-indigo-600" />
                     </Link>
                     <button
-                      onClick={() => handleDeletarLista(item.id)}
+                      onClick={() => handleDeletarLista(item._id)}
                       className="text-red-600 hover:text-red-400 font-bold"
                     >
                       Deletar

@@ -49,12 +49,12 @@ router.patch('/listas/:username/:idLista', async (req, res) => {
 });
 
 // PATCH /listas/:userId/:idLista/remove
-router.patch('/listas/:username/:idLista/remove', async (req, res) => {
+router.patch('/lista/:username/:idLista/remove', async (req, res) => {
   try {
     const { idJogo } = req.body;
     const lista = await Lista.findOneAndUpdate(
-      { _id: req.params.idLista, userId: req.params.userId },
-      { $pull: { ids: idJogo } },
+      { _id: req.params.idLista, username: req.params.username },
+      { $pull: { jogosIds: idJogo } },
       { new: true }
     );
     if (!lista) return res.status(404).json({ error: 'Lista não encontrada' });

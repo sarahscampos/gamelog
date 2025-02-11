@@ -31,11 +31,12 @@ const responsive = {
 
   
   const CarrosselEdit = ({jogos, id}) => {
+    const user = useSelector((state) => state.auth?.user.username);
     const dispatch = useDispatch();
     const remove = (idJogo, idLista) => {
       console.log("AAAAAAAAAAAAAAAAAAAAAAAA");
-      console.log(id);
-      dispatch(removeJogoFromList({ idJogo: idJogo, idLista: idLista, userId: 0 })) // por enquanto
+      console.log(idJogo);
+      dispatch(removeJogoFromList({ idJogo: idJogo, idLista: idLista, username: user })) // por enquanto
       .then(() => {
       })
       .catch((error) => {
@@ -57,7 +58,7 @@ const responsive = {
               className="mt-5 text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter transition"
               onClick={(e) => {
                 e.stopPropagation(); // Evita a navegação ao clicar no botão
-                remove(item.id, id);
+                remove(item._id, id);
               }}
             >
               Remover

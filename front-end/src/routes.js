@@ -56,7 +56,7 @@ const AppRoutes = () => {
        <ScrollToTop />
        <Header/>
         <Routes>
-           <Route element = { <Home dados={jogos}/> }  path="/" exact />
+           <Route element = { <Home dados={jogos} username= {usernameLogado}/> }  path="/" exact />
            <Route element = { <Jogo dados={jogos} avaliacaoInfo={avaliacoes} listas={listas} usernameLogado={usernameLogado}/> }  path="/jogo/:id" />
            <Route element = { <Avaliacoes avaliacoes={avaliacoes}/> }  path="/avaliacoes/:id" />
            <Route element = { <Listas listas={listas} dados={jogos} usernameLogado={usernameLogado} /> }  path="/listas/:username" />

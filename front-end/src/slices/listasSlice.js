@@ -29,8 +29,8 @@ export const addJogoToList = createAsyncThunk('listas/addJogo', async ({ idJogo,
   return response.json();
 });
 
-export const removeJogoFromList = createAsyncThunk('listas/removeJogo', async ({ idJogo, idLista, username }) => {
-  const response = await fetch(`http://localhost:3000/listas/${username}/${idLista}/remove`, {
+export const removeJogoFromList = createAsyncThunk('lista/removeJogo', async ({ idJogo, idLista, username }) => {
+  const response = await fetch(`http://localhost:3000/lista/${username}/${idLista}/remove`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ idJogo }),
@@ -39,8 +39,8 @@ export const removeJogoFromList = createAsyncThunk('listas/removeJogo', async ({
   return response.json();
 });
 
-export const deleteLista = createAsyncThunk('listas/deleteLista', async ({ userId, idLista }) => {
-  const response = await fetch(`http://localhost:3000/listas/${userId}/${idLista}`, {
+export const deleteLista = createAsyncThunk('listas/deleteLista', async ({ username, idLista }) => {
+  const response = await fetch(`http://localhost:3000/listas/${username}/${idLista}`, {
     method: 'DELETE',
   });
   if (!response.ok) throw new Error('Erro ao excluir lista');

@@ -1,9 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const fetchAvaliacoes = createAsyncThunk('avaliacoes/fetchAvaliacoes', async () => {
-  const response = await fetch('http://localhost:3000/avaliacoes');
+export const fetchAvaliacoes = createAsyncThunk('avaliacoes/fetchAvaliacoes', async (idJogo) => {
+  const response = await fetch(`http://localhost:3000/avaliacoes/${idJogo}`);
   if (!response.ok) throw new Error('Erro ao carregar as avaliações');
-  return response.json();
+  const data = await response.json();
+  console.log(data);
+  return data;
 });
 
 export const addAvaliacoes = createAsyncThunk('Avaliacoes/addAvaliacoes', async ({ username, score, comment,  idJogo, token}) => {
@@ -29,7 +31,7 @@ export const addAvaliacoes = createAsyncThunk('Avaliacoes/addAvaliacoes', async 
   }
 );
 
-//delete Jogo
+//delete Avaliação
 export const deleteAvaliacao = createAsyncThunk('Avaliacoes/deleteAvaliacao',
   async ({ jogoId, usuarioId }, { getState }) => {
     
