@@ -33,20 +33,15 @@ export const addAvaliacoes = createAsyncThunk('Avaliacoes/addAvaliacoes', async 
 
 //delete Avaliação
 export const deleteAvaliacao = createAsyncThunk('Avaliacoes/deleteAvaliacao',
-  async ({ jogoId, usuarioId }, { getState }) => {
-    
+  async ({ jogoId, usuarioId, avaliacaoId }, { getState }) => {
     const state = getState();
     const data = state.avaliacoes.dados;
 
     if (!data[jogoId]) throw new Error("Jogo não possui avaliações.");
 
-    const novasAvaliacoes = data[jogoId].filter(
-      (avaliacao) => avaliacao.usuarioId !== usuarioId
-    );
-
     // Atualiza o backend com a nova lista
-    const response = await fetch(`http://localhost:3000/avaliacoes`, {
-      method: 'PUT',
+    const response = await fetch(`http://localhost:3000/avaliacoes/${jogoId}/${usuarioId}/${avaliacaoId}`, {
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
