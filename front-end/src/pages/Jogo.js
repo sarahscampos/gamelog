@@ -20,6 +20,7 @@ import {deleteAvaliacao} from "../slices/avaliacoesSlice";
 const Jogo = ({dados, avaliacaoInfo, listas}) => {
 
   const perfilLogado = useSelector((state) => state.perfil.dados);
+  const token = useSelector((state) => state.auth?.token);
 
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -49,7 +50,8 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
   }
 
   const deletarAvaliacao = () =>{
-    dispatch(deleteAvaliacao({jogoId: id, usuarioId: perfilLogado?.username, avaliacaoId: avaliacaoUsuario._id}))
+    console.log(token)
+    dispatch(deleteAvaliacao({jogoId: id, usuarioId: perfilLogado?.username, avaliacaoId: avaliacaoUsuario._id, token: token}))
   }
   
  const user = useSelector((state) => state.auth?.user);

@@ -61,37 +61,59 @@ router.post(
 );
 
 //Deleta uma avaliação
-router.delete("/avaliacoes/:gameId/:userId/:avaliacaoId", async (request, response) =>{
-  try{
-    const { gameId, userId, avaliacaoId} = request.params;
-    const game = await Avaliacao.findOne({ gameId });
+router.delete(
+  "/protected/avaliacoes/:gameId/:userId/:avaliacaoId",
+  passport.authenticate("jwt", { session: false }),
+  async (request, response) => {
+    try {
+      const { gameId, userId, avaliacaoId } = request.params;
 
-    if(!game){
-      return response.status(404).json({error: "Página não encontrada"})
+      // Buscar avaliação diretamente pelo ID
+      const avaliacao = await Avaliacao.findById(avaliacaoId);
+      if (!avaliacao) {
+        return response.status(404).json({ error: "Avaliação não encontrada" });
+      }
+
+      // Verifica se o usuário é o dono da avaliação
+      if (avaliacao.username !== userId) {
+        return response.status(403).json({ error: "Usuário não autorizado" });
+      }
+
+      // Deletar avaliação
+      await Avaliacao.findByIdAndDelete(avaliacaoId);
+
+      // Atualizar o jogo, removendo uma análise e ajustando a média
+      const jogo = await Jogo.findById(gameId);
+      if (jogo) {
+        jogo.analises = Math.max(0, jogo.analises - 1);
+        if (jogo.analises === 0) {
+          jogo.notaMedia = 0;
+        } else {
+          jogo.notaMedia = (jogo.notaMedia * (jogo.analises + 1) - avaliacao.score) / jogo.analises;
+        }
+        await jogo.save();
+      }
+
+      // Atualizar perfil do usuário
+      const perfil = await Perfil.findOne({ username: userId });
+      if (perfil) {
+        perfil.analises = Math.max(0, perfil.analises - 1);
+        if (perfil.analises === 0) {
+          perfil.media = 0;
+        } else {
+          perfil.media = (perfil.media * (perfil.analises + 1) - avaliacao.score) / perfil.analises;
+        }
+        await perfil.save();
+      }
+
+      return response.status(200).json({ message: "Avaliação deletada com sucesso" });
+
+    } catch (err) {
+      return response.status(500).json({ error: "Erro ao deletar avaliação", details: err.message });
     }
-
-    //Procura avaliação a ser deletada
-    const index = game.avaliacoes.findIndex((aval) => aval.avaliacaoId === request.params.avaliacaoId)
-    if(index == -1){
-      return response.status(404).json({error: "Avaliação não pode ser encontrada"})
-    }
-
-    const delAvaliacao = game.avaliacoes[index];
-
-    //Checa id do usuário e avaliação
-    if(delAvaliacao.userId != request.params.userId){
-      return response.status(400).json({error: "Usuário inválido"})
-    }
-
-    //Deleta avaliação do banco
-    game.avaliacoes.splice(index, 1);
-    await game.save();
-    return response.status(200).json(game.avaliacoes);
-
-  } catch(err){
-      return response.status(500).json({ error: "Erro ao deletar avaliação", details: err })
   }
-})
+);
+
 
 router.patch("/avaliacoes/:gameId/:userId/:avaliacaoId", async(request, response) =>{
   try{
