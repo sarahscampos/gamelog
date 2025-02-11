@@ -21,7 +21,7 @@ Navegue ate a pasta backend/pragmapm e instale as dependências com **npm instal
 
 ### 3. Configurar e Iniciar o Frontend:
 
-Navegue até a pasta frontend e instale as dependências com **bom install**, depois inicie com **npm start**.
+Navegue até a pasta frontend e instale as dependências com **npm install**, depois inicie com **npm start**.
 
 
 
