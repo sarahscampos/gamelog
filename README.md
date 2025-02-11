@@ -15,9 +15,13 @@ Este projeto é composto por **backend** e **frontend**. Siga as instruções ab
 
 ### 1. Clonar o Repositório  
 
-### 2. Configurar e Iniciar o Backend: Navegue ate a pasta backend/pragmapm e instale as dependências com **npm install**, depois inicie o servidor com **npm start**.
+### 2. Configurar e Iniciar o Backend:
 
-### 3. Configurar e Iniciar o Frontend: Navegue até a pasta frontend e instale as dependências com **bom install**, depois inicie com **npm start**.
+Navegue ate a pasta backend/pragmapm e instale as dependências com **npm install**, depois inicie o servidor com **npm start**.
+
+### 3. Configurar e Iniciar o Frontend:
+
+Navegue até a pasta frontend e instale as dependências com **bom install**, depois inicie com **npm start**.
 
 
 
