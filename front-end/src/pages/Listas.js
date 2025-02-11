@@ -11,11 +11,11 @@ import Modal from "react-modal";
 import { MdAddCircleOutline } from "react-icons/md";
 import { deleteLista } from "../slices/listasSlice";
 import { fetchListas } from "../slices/listasSlice";
-import { fetchPerfil } from "../slices/perfilSlice";
 
-const Listas = ({listas, dados, usernameLogado }) => {
+const Listas = ({listas, dados}) => {
 
-  const perfilLogado = fetchPerfil(usernameLogado);
+  const perfilLogado = useSelector((state) => state.perfil.dados);
+
   const user = useSelector((state) => state.auth?.user);
   const { username } = useParams();
   const status = useSelector((state) => state.listas.status);
