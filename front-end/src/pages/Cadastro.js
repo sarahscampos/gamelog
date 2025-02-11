@@ -31,10 +31,31 @@ const Cadastro = () => {
     resolver: yupResolver(schema), // Conecta o Yup ao React Hook Form
   });
 
-  const onSubmit = (data) => {
-    dispatch(saveUser(data)); // Salva os dados do usuário no Redux
-    alert('Cadastro realizado com sucesso!');
-    navigate('/');
+  const onSubmit = async (data) => {
+    try {
+      const response = await fetch('http://localhost:3000/cadastro', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nome: data.nome,
+          email: data.email,
+          password: data.senha,
+        }),
+      });
+
+      if (response.ok) {
+        alert('Cadastro realizado com sucesso!');
+        navigate('/login'); 
+      } else {
+        const error = await response.json();
+        alert(error.message || 'Erro ao cadastrar');
+      }
+    } catch (error) {
+      console.error('Erro ao cadastrar:', error);
+      alert(`Erro interno: ${error.message || error}`);
+    }
   };
 
   return (

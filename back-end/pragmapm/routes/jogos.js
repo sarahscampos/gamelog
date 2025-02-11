@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 const Jogo = require('../models/Jogo');
+const cors = require('./cors');
+
+router.use(cors.corsWithOptions);
 
 router.post("/jogos", async (request, response) => {
   const { nome, colocacao, capa, desenvolvedora, dataLancamento, distribuidora, generos, sumario } = request.body;
@@ -26,7 +29,7 @@ router.get("/jogos", async (request, response) => {
   }
 });
 
-router.delete("/jogos/:id", async (req, res) => {
+router.delete("/jogo/:id", async (req, res) => {
   try {
       const jogo = await Jogo.findByIdAndDelete(req.params.id);
       if (!jogo) return res.status(404).json({ message: 'Jogo não encontrado' });
@@ -36,7 +39,7 @@ router.delete("/jogos/:id", async (req, res) => {
     }
 })
 
-router.get('/jogos/:id', async (request, response) => {
+router.get('/jogo/:id', async (request, response) => {
   try {
     const jogo = await Jogo.findById(request.params.id);
     if (!jogo) return response.status(404).json({ message: 'Jogo não encontrado' });

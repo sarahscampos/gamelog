@@ -1,7 +1,16 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const usuarioSchema = new mongoose.Schema({
-  login: {
+
+  nome: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: true
+  },
+
+  email: {
     type: String,
     required: true,
     unique: true, // Garante que não haverá dois usuários com o mesmo login
@@ -12,12 +21,7 @@ const usuarioSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 6, // Exige que a senha tenha pelo menos 6 caracteres
-  },
-  idPerfil: {
-    type: String,
-    required: true,
-    unique: true,
-  },
+  }
 });
 
 // Middleware para hash da senha antes de salvar
@@ -34,4 +38,4 @@ usuarioSchema.methods.isValidPassword = async function (password) {
   return bcrypt.compare(password, this.password); // Compara senha fornecida com o hash armazenado
 };
 
-module.exports = mongoose.model('Usuario', usuarioSchema);
+module.exports = mongoose.model('User', usuarioSchema);

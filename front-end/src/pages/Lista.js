@@ -6,18 +6,31 @@ import {Helmet} from "react-helmet";
 
 
 const Lista = ({listas, dados}) => {
-  const { id } = useParams();
-  const numericId = parseInt(id, 10);
+  const { username, idLista } = useParams();
+
   const navigate = useNavigate();
 
-
-  function obtemJogos(index){
-    const lista = listas && listas[index] && listas[index].ids
-      ? dados.filter((jogo) => listas[index].ids.includes(jogo.id))
-      : [];
-    return lista;
-  }
-  const jogosLista = obtemJogos(id); 
+  console.log(username)
+  console.log(idLista)
+  function obtemJogos(idLista){
+    // Encontra a lista correspondente ao idLista
+   const listaEncontrada = listas.find((lista) => lista._id === idLista);
+   
+   if (!listaEncontrada || !listaEncontrada.jogosIds) {
+     // Retorna um array vazio se a lista não for encontrada ou não tiver jogos
+     return [];
+   }
+ 
+   // Filtra os jogos que correspondem aos IDs em jogosIds
+   const jogosDaLista = dados.filter((jogo) =>
+     listaEncontrada.jogosIds.includes(jogo._id)
+   );
+   console.log(jogosDaLista);
+ 
+   console.log(jogosDaLista); // Verifica os jogos retornados no console
+   return jogosDaLista;
+   }
+  const jogosLista = obtemJogos(idLista); 
 
   return (
     <>
@@ -32,17 +45,17 @@ const Lista = ({listas, dados}) => {
 
         <div className="mt-16">
            
-              <div key={id} className="flex flex-col">
+              <div key={username} className="flex flex-col">
                 <h2  className="text-2xl font-bold font-inter flex items-center gap-5">
-                  {listas ? listas[id]['nome'] : ''}
+                  {console.log(listas)}
                   <Helmet>
                     <meta charSet="utf-8" />
-                    <title>{`Lista | ${listas[id]['nome']}`}</title>
+                    <title>{`Lista`}</title>
                     <link rel="canonical" href="http://mysite.com/example" />
                     <meta name="description" content="Página de jogo" />
                   </Helmet>
                 </h2>
-                <CarrosselEdit jogos={jogosLista} id={numericId} />
+                <CarrosselEdit jogos={jogosLista} id={idLista} />
               </div>
   
           

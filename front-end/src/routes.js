@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -22,7 +22,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchJogos } from "./slices/jogosSlice";
 import { fetchAvaliacoes } from "./slices/avaliacoesSlice";
 import { fetchListas } from "./slices/listasSlice";
-import { fetchUsuario } from "./slices/usuarioSlice"
+import { fetchPerfil } from "./slices/perfilSlice"
 
 const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -34,19 +34,20 @@ const AppRoutes = () => {
   const avaliacoesStatus = useSelector((state) => state.avaliacoes.status);
 
   const listas = useSelector((state) => state.listas.dados);
+  console.log(`meu deus ${listas}`);
   const listasStatus = useSelector((state) => state.listas.status);
 
-  const usuarioLogado = useSelector((state) => state.perfil.dados);
-  const usuarioLogadoStatus = useSelector((state) => state.perfil.status);
+  const usernameLogadoStatus = useSelector((state) => state.auth.status);
+  const usernameLogado = useSelector((state) => state.auth.user?.username);
 
   useEffect(() => {
     if (jogosStatus === 'idle') dispatch(fetchJogos());
     if (avaliacoesStatus === 'idle') dispatch(fetchAvaliacoes());
-    if (usuarioLogadoStatus === 'idle') dispatch(fetchUsuario("0"));
-    if (listasStatus === 'idle') dispatch(fetchListas("0")); // usuarioLogado.id
-  }, [jogosStatus, avaliacoesStatus, usuarioLogadoStatus, listasStatus, dispatch]);
+    if (usernameLogadoStatus === 'idle') dispatch(fetchPerfil(usernameLogado));
+    if (listasStatus === 'idle') dispatch(fetchListas(usernameLogado));
+  }, [jogosStatus, avaliacoesStatus, usernameLogadoStatus, usernameLogado, listasStatus, dispatch]);
 
-  if (jogosStatus === 'loading' || avaliacoesStatus === 'loading' || listasStatus === 'loading') {
+  if (jogosStatus === 'loading' || avaliacoesStatus === 'loading' || listasStatus === 'loading' || usernameLogadoStatus === 'loading') {
     return <Loading />;
   }
 
@@ -55,17 +56,17 @@ const AppRoutes = () => {
        <ScrollToTop />
        <Header/>
         <Routes>
-           <Route element = { <Home dados={jogos}/> }  path="/" exact />
-           <Route element = { <Jogo dados={jogos} avaliacaoInfo={avaliacoes} listas={listas.listas} usuarioLogado={usuarioLogado}/> }  path="/jogo/:id" />
+           <Route element = { <Home dados={jogos} username= {usernameLogado}/> }  path="/" exact />
+           <Route element = { <Jogo dados={jogos} avaliacaoInfo={avaliacoes} listas={listas} usernameLogado={usernameLogado}/> }  path="/jogo/:id" />
            <Route element = { <Avaliacoes avaliacoes={avaliacoes}/> }  path="/avaliacoes/:id" />
-           <Route element = { <Listas listas={listas.listas} dados={jogos} usuarioLogado={usuarioLogado} /> }  path="/listas" />
-           <Route element = { <Lista listas={listas.listas} dados={jogos} /> }  path="/lista/:id" />
+           <Route element = { <Listas listas={listas} dados={jogos}/> }  path="/listas/:username" />
+           <Route element = { <Lista listas={listas} dados={jogos} /> }  path="/lista/:username/:idLista" />
            <Route element = { <Suporte/>} path = "/suporte"/>
            <Route element = { <Codigo/>} path = "/codigo"/>
            <Route element = { <Forum dados = {jogos}/>} path = "/forum/:id"/>
            <Route element = { <Cadastro/>} path = "/cadastro"/>;
            <Route element = { <Login/> } path = "/login"/>;
-           <Route element = { <Perfil dados={jogos} listas={listas.listas} usuarioLogado={usuarioLogado} />} path = "/perfil/:id"/>
+           <Route element = { <Perfil dados={jogos} listas={listas} usernameLogado={usernameLogado}/>} path = "/perfil/:username"/>
            <Route element = { <Ranking/>} path="/Ranking/"/>
            <Route element={<Admin />} path="/admin" />
         </Routes>

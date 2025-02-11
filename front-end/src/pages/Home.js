@@ -1,19 +1,16 @@
-import React, {useState, useEffect} from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import BarraPesquisa from '../components/BarraPesquisa';
 import Carrossel from '../components/Carrossel';
 import background from "../assets/img/backgroundJogo.png";
 import logo from "../assets/img/logoGAMELOG2.svg";
-
 import "react-multi-carousel/lib/styles.css";
 import {Helmet} from "react-helmet";
-import { useSelector } from 'react-redux';
 
 const UserInfo = ({ user }) => {
   return (
     <div className="p-4">
       {user ? (
-        <p>Bem-vindo, {user.nome}!</p>
+        <p>Bem-vindo(a), {user}!</p>
       ) : (
         <div className="flex flex-col items-center gap-4">
           <p className="text-center underline decoration-solid font-bold">Novo por aqui?</p>
@@ -26,11 +23,8 @@ const UserInfo = ({ user }) => {
   );
 };
 
-export const Home = ({dados}) => {
-
-  const user = useSelector((state) => state.cadastro.user);
-
-
+export const Home = ({dados, username}) => {
+  const user = username;
 
   const navigate = useNavigate();
 

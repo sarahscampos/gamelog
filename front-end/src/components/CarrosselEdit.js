@@ -31,11 +31,12 @@ const responsive = {
 
   
   const CarrosselEdit = ({jogos, id}) => {
+    const user = useSelector((state) => state.auth?.user.username);
     const dispatch = useDispatch();
     const remove = (idJogo, idLista) => {
       console.log("AAAAAAAAAAAAAAAAAAAAAAAA");
-      console.log(id);
-      dispatch(removeJogoFromList({ idJogo: idJogo, idLista: idLista, userId: 0 })) // por enquanto
+      console.log(idJogo);
+      dispatch(removeJogoFromList({ idJogo: idJogo, idLista: idLista, username: user })) // por enquanto
       .then(() => {
       })
       .catch((error) => {
@@ -50,14 +51,14 @@ const responsive = {
         <>
         <Carousel responsive={responsive} removeArrowOnDeviceType={["mobile"]} className='p-5'>
         {jogos.map((item, index) => (
-            <div key={index} className='w-40 drop-shadow-md cursor-pointer hover:scale-105 transition lg:w-56 flex flex-col items-center' onClick={() => navigate(`/jogo/${item.id}`)}>
+            <div key={index} className='w-40 drop-shadow-md cursor-pointer hover:scale-105 transition lg:w-56 flex flex-col items-center' onClick={() => navigate(`/jogo/${item._id}`)}>
             <img src={item.capa} alt="logoGamelog" className='w-40 h-52 mb-1 ring-solid ring-2 ring-indigo-600 rounded-sm lg:w-52 lg:h-72' />
             <p className='text-center font-fira text-base'>{item.nome}</p>
             <button
               className="mt-5 text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter transition"
               onClick={(e) => {
                 e.stopPropagation(); // Evita a navegação ao clicar no botão
-                remove(item.id, id);
+                remove(item._id, id);
               }}
             >
               Remover

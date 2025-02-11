@@ -1,26 +1,49 @@
-import React, { useState} from "react";
+import React, { useEffect, useState} from "react";
 import Carrossel from "../components/Carrossel";
 import { FaArrowCircleRight } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addLista } from "../slices/listasSlice";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Modal from "react-modal";
 import { MdAddCircleOutline } from "react-icons/md";
 import { deleteLista } from "../slices/listasSlice";
+import { fetchListas } from "../slices/listasSlice";
 
-const Listas = ({ listas, dados, usuarioLogado }) => {
+const Listas = ({listas, dados}) => {
+  const perfilLogado = null; // SO ASSIM FUNCIONA!
+  const user = useSelector((state) => state.auth?.user);
+  const { username } = useParams();
+  const status = useSelector((state) => state.listas.status);
+  
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [novaListaNome, setNovaListaNome] = useState("");
+  // const [listas, setListas] = useState([]);
 
-  function obtemJogos(index){
-    const lista = listas && listas[index] && listas[index].ids
-      ? dados.filter((jogo) => listas[index].ids.includes(jogo.id))
-      : [];
-    return lista;
+  const listasUsuario = listas?.find((lista) => lista?.username === username);
+  console.log(listas);
+  console.log(`oioi ${listasUsuario}`)
+
+  function obtemJogos(idLista){
+   // Encontra a lista correspondente ao idLista
+  const listaEncontrada = listas.find((lista) => lista._id === idLista);
+  
+  if (!listaEncontrada || !listaEncontrada.jogosIds) {
+    // Retorna um array vazio se a lista não for encontrada ou não tiver jogos
+    return [];
+  }
+
+  // Filtra os jogos que correspondem aos IDs em jogosIds
+  const jogosDaLista = dados.filter((jogo) =>
+    listaEncontrada.jogosIds?.includes(jogo._id)
+  );
+  console.log(jogosDaLista);
+
+  console.log(jogosDaLista); // Verifica os jogos retornados no console
+  return jogosDaLista;
   }
 
   const openNovaListaModal = () => {
@@ -39,14 +62,12 @@ const Listas = ({ listas, dados, usuarioLogado }) => {
     if (novaListaNome.trim()) {
       
       const novaLista = {
-        id: listas.length,
         nome: novaListaNome, 
-        ids: [], 
+        ids: [],
+        username: user?.username
       };
-
-      console.log(usuarioLogado.id)
       
-      dispatch(addLista({userId: usuarioLogado.id, novaLista: novaLista}))
+      dispatch(addLista({username: user?.username, novaLista: novaLista}))
         .unwrap()
         .then(() => {
           toast.success(`Lista "${novaListaNome}" criada com sucesso!`);
@@ -64,7 +85,7 @@ const Listas = ({ listas, dados, usuarioLogado }) => {
 
   const handleDeletarLista = (idLista) => {
     if (window.confirm("Tem certeza que deseja deletar esta lista?")) {
-      dispatch(deleteLista({ userId: usuarioLogado.id, idLista }))
+      dispatch(deleteLista({ username: user.username, idLista }))
         .unwrap()
         .then(() => {
           toast.success("Lista deletada com sucesso!");
@@ -75,6 +96,15 @@ const Listas = ({ listas, dados, usuarioLogado }) => {
         });
     }
   };
+
+  useEffect(() => {
+    if (perfilLogado && perfilLogado.username) {
+      dispatch(fetchListas(user.username));
+    }
+  }, [dispatch, user.username, listas]);
+
+  if (status === "loading") return <div>Carregando...</div>;
+  if (status === "failed") return <div>Erro ao carregar listas</div>;
 
   return (
     <>
@@ -132,25 +162,26 @@ const Listas = ({ listas, dados, usuarioLogado }) => {
         <div className="mt-5">
           {listas && listas.length > 0 ? (
             listas.map((item, index) => {
-              const jogosLista = obtemJogos(index);
+              const jogosLista = obtemJogos(item._id);
               return (
                 <div key={index} className="flex flex-col">
                   <div className="flex justify-between items-center">
                     <Link
-                      to={`/lista/${index}`}
+                      to={`/lista/${username}/${item._id}`}
                       className="text-2xl font-bold font-inter flex items-center gap-5 mt-10"
                     >
                       {item.nome}
                       <FaArrowCircleRight className="text-indigo-600" />
                     </Link>
                     <button
-                      onClick={() => handleDeletarLista(item.id)}
+                      onClick={() => handleDeletarLista(item._id)}
                       className="text-red-600 hover:text-red-400 font-bold"
                     >
                       Deletar
                     </button>
                   </div>
                   {jogosLista.length !== 0 ? (
+                    // console.log(jogosLista)
                     <Carrossel jogos={jogosLista} />
                   ) : (
                     <p className="mb-10 mt-2 font-fira">Lista vazia</p>
@@ -159,7 +190,7 @@ const Listas = ({ listas, dados, usuarioLogado }) => {
               );
             })
           ) : (
-            <p className="text-white">Nenhuma lista encontrada.</p>
+            <p className="text-black">Nenhuma lista encontrada.</p>
           )}
         </div>
       </section>

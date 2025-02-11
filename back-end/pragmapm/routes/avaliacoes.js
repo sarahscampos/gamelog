@@ -1,18 +1,20 @@
 var express = require('express');
+const mongoose = require('mongoose');
 const passport = require('passport');
 var router = express.Router();
 const Avaliacao = require('../models/Avaliacao');
+const Perfil = require('../models/Perfil');
+const cors = require('./cors');
+const Jogo = require('../models/Jogo');
 
+router.use(cors.corsWithOptions); 
 //Pega lista de avaliações de um jogo
-router.get("/avaliacoes/:gameId", async (request, response) => {
-  try{
-  const { gameId } = request.params;
-  const game = await Avaliacao.findOne( {gameId} );
-  if(!game){
-      return response.status(404).json({error: 'Jogo não encontrado'})
-  }
+router.get("/avaliacoes/:idJogo", async (request, response) => {
+try{
+  const { idJogo } = request.params;
+  const avaliacoes = await Avaliacao.find( {idJogo} );
 
-  return response.status(200).json(game.avaliacoes)
+  return response.status(200).json(avaliacoes)
 
 } catch(err){
   return response.status(500).json({ error: "Erro ao acessar avaliações", details: err });
@@ -21,39 +23,44 @@ router.get("/avaliacoes/:gameId", async (request, response) => {
 
 //Publica nova avaliação
 router.post(
-  "/protected/avaliacoes/:gameId/:userId",
+  "/protected/avaliacoes",
   passport.authenticate("jwt", { session: false }), // Middleware para proteger a rota
   async (request, response) => {
     try {
-      const { gameId, userId } = request.params;
-      const newAvaliacao = request.body;
+      const newAvaliacao = {
+        username: request.body.username, 
+        comment: request.body.comment, 
+        score: request.body.score, 
+        idJogo: new mongoose.Types.ObjectId(request.body.idJogo)
+      }
+      const avaliacao = new Avaliacao(newAvaliacao);
+      const perfil = await Perfil.findOne({username: request.body.username});
+      const jogo = await Jogo.findById(newAvaliacao.idJogo);
+      const newMedia = ((perfil.analises * perfil.media) + request.body.score) / (perfil.analises + 1);
+      const newCount = perfil.analises + 1;
+      const newMediaJogo = ((jogo.analises * jogo.notaMedia) + request.body.score) / (jogo.analises + 1);
+      const newCountJogo = jogo.analises + 1;
+      
+      perfil.media = newMedia;
+      perfil.analises = newCount;
+      jogo.notaMedia = newMediaJogo;
+      jogo.analises = newCountJogo;
 
-      // Verifica campos obrigatórios
-      if (!newAvaliacao.score || !newAvaliacao.avaliacaoId) {
-        return response
-          .status(400)
-          .json({ error: "Dados incompletos para criar o Avaliação." });
+      await perfil.save().catch(console.error);
+      await avaliacao.save().catch(console.error);
+      await jogo.save().catch(console.error);
+
+      const jogosOrdenados = await Jogo.find().sort({ notaMedia: -1 });
+
+      for (let i = 0; i < jogosOrdenados.length; i++) {
+        jogosOrdenados[i].colocacao = i + 1; // Atualiza a colocação com base na posição
+        await jogosOrdenados[i].save();
       }
 
-      // Busca o jogo pelo ID
-      const game = await Avaliacao.findOne({ gameId });
-      if (!game) {
-        return response.status(404).json({ error: "Página não encontrada" });
-      }
+      return response.status(204).json(avaliacao);
 
-      // Verifica se o usuário existe nas avaliações do jogo
-      const usuario = game.avaliacoes.find(
-        (usuario) => usuario.userId === userId
-      );
-      if (!usuario) {
-        return response.status(404).json("Usuário não pode ser encontrado");
-      }
+      
 
-      // Adiciona a nova avaliação ao array de avaliações do jogo
-      game.avaliacoes.push(newAvaliacao);
-      await game.save(); // Salva as alterações no banco de dados
-
-      return response.status(201).json(game.avaliacoes);
     } catch (err) {
       return response
         .status(500)
@@ -63,36 +70,59 @@ router.post(
 );
 
 //Deleta uma avaliação
-router.delete("/avaliacoes/:gameId/:userId/:avaliacaoId", async (request, response) =>{
-  try{
-    const { gameId, userId, avaliacaoId} = request.params;
-    const game = await Avaliacao.findOne({ gameId });
+router.delete(
+  "/protected/avaliacoes/:gameId/:userId/:avaliacaoId",
+  passport.authenticate("jwt", { session: false }),
+  async (request, response) => {
+    try {
+      const { gameId, userId, avaliacaoId } = request.params;
 
-    if(!game){
-      return response.status(404).json({error: "Página não encontrada"})
+      // Buscar avaliação diretamente pelo ID
+      const avaliacao = await Avaliacao.findById(avaliacaoId);
+      if (!avaliacao) {
+        return response.status(404).json({ error: "Avaliação não encontrada" });
+      }
+
+      // Verifica se o usuário é o dono da avaliação
+      if (avaliacao.username !== userId) {
+        return response.status(403).json({ error: "Usuário não autorizado" });
+      }
+
+      // Deletar avaliação
+      await Avaliacao.findByIdAndDelete(avaliacaoId);
+
+      // Atualizar o jogo, removendo uma análise e ajustando a média
+      const jogo = await Jogo.findById(gameId);
+      if (jogo) {
+        jogo.analises = Math.max(0, jogo.analises - 1);
+        if (jogo.analises === 0) {
+          jogo.notaMedia = 0;
+        } else {
+          jogo.notaMedia = (jogo.notaMedia * (jogo.analises + 1) - avaliacao.score) / jogo.analises;
+        }
+        await jogo.save();
+      }
+
+      // Atualizar perfil do usuário
+      const perfil = await Perfil.findOne({ username: userId });
+      if (perfil) {
+        perfil.analises = Math.max(0, perfil.analises - 1);
+        if (perfil.analises === 0) {
+          perfil.media = 0;
+        } else {
+          perfil.media = (perfil.media * (perfil.analises + 1) - avaliacao.score) / perfil.analises;
+        }
+        await perfil.save();
+      }
+
+      return response.status(200).json({ message: "Avaliação deletada com sucesso" });
+
+    } catch (err) {
+      return response.status(500).json({ error: "Erro ao deletar avaliação", details: err.message });
     }
-
-    //Procura avaliação a ser deletada
-    const index = game.avaliacoes.findIndex((aval) => aval.avaliacaoId === request.params.avaliacaoId)
-    if(index == -1){
-      return response.status(404).json({error: "Avaliação não pode ser encontrada"})
-    }
-
-    const delAvaliacao = game.avaliacoes[index];
-
-    //Checa id do usuário e avaliação
-    if(delAvaliacao.userId != request.params.userId){
-      return response.status(400).json({error: "Usuário inválido"})
-    }
-
-    //Deleta avaliação do banco
-    game.avaliacoes.splice(index, 1);
-    return response.status(200).json(game.avaliacoes);
-
-  } catch(err){
-      return response.status(500).json({ error: "Erro ao deletar avaliação", details: err })
   }
-})
+);
+
 
 router.patch("/avaliacoes/:gameId/:userId/:avaliacaoId", async(request, response) =>{
   try{
@@ -121,7 +151,8 @@ router.patch("/avaliacoes/:gameId/:userId/:avaliacaoId", async(request, response
     }
 
     //Substitui avaliação antiga por nova
-    aval = newAval;
+    aval.score = newAval.score;
+    aval.coment = newAval.coment;
     await game.save();
 
     return response.status(200).json(aval)
@@ -133,4 +164,4 @@ router.patch("/avaliacoes/:gameId/:userId/:avaliacaoId", async(request, response
 
 
 
-module.exports = router;
+module.exports = router;

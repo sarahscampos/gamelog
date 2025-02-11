@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { addAvaliacoes } from "../slices/avaliacoesSlice";
 
 const GameReviewModal = ({id,close}) => {
+  const user = useSelector((state) => state.auth?.user);
+  const token = useSelector((state) => state.auth?.token);
   const dispatch = useDispatch();
 
   const [newAvaliacao, setNewAvaliacao] = useState('');
@@ -15,7 +17,7 @@ const GameReviewModal = ({id,close}) => {
       return;
     }
     {/*trocar userid 0 pelo real*/}
-    dispatch(addAvaliacoes({userId: "0", avaliacaoId: id, avaliacaoReview: newAvaliacao, avaliacaoNum : newAvaliacaoNota}))
+    dispatch(addAvaliacoes({username: user?.username, comment: newAvaliacao, score : newAvaliacaoNota, idJogo: id, token: token}))
     .then(() => {
       close();
     });

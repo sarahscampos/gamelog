@@ -45,7 +45,7 @@ const Ranking = () => {
             </div> */}
 
             <div className="ml-12 mr-12">
-                {topJogos.map((jogo) => (<RankItem key={jogo.id} jogo={jogo} />))}
+                {topJogos.map((jogo) => (<RankItem key={jogo._id} jogo={jogo} />))}
             </div>
 
         </div>

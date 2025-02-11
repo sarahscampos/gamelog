@@ -1,44 +1,81 @@
 // src/pages/Forum.js
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch} from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { addPost } from '../slices/forumSlice';
 import Comentario from '../components/Comentario';
+import {addForumComent} from '../slices/forumSlice';
+import {useEffect} from 'react'
 
-const Forum = ({dados}) => {
+
+const Forum = () => {
   const { id } = useParams();
-  const numericId = parseInt(id, 10);
+
+  const usernameLogado = useSelector((state) => state.auth?.user?.username);
 
   const [newPost, setNewPost] = useState('');
-  const posts = useSelector((state) => state.forum.jogos[id] || []);
+  const [jogo, setJogo] = useState(null);
+  const [comentarios, setComentarios] = useState('');
+
   const dispatch = useDispatch();
 
   const handleAddPost = (event) => {
     event.preventDefault();
     if (newPost.trim() !== '' && newPost.length < 512) {
-      // Adicionando a data de criação ao post
-      dispatch(addPost({
-        jogoId: id,
-        post: {
-          id: Date.now(),
-          content: newPost,
-          createdAt: new Date(), // Armazenando a data de criação
-        },
-      }));
-      setNewPost('');
+      if(!usernameLogado){
+        return alert("Usuário não está logado."); // bota um toast bonitinho
+      }
+        dispatch(addForumComent({
+          jogoId: id,
+          username: usernameLogado,
+          coment: newPost,
+        }));
+        setNewPost('');
     }
     else{
       return alert("O comentário não pode estar vazio ou ultrapassar 512 caracteres")
     }
   };
 
+  useEffect(() => {
+    const fetchJogo = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/jogo/${id}`);
+        if (!response.ok) throw new Error("Erro ao carregar o jogo");
+        const data = await response.json();
+        setJogo(data);
+      } catch (error) {
+        console.error(error.message);
+      }
+    };
+      fetchJogo();
+  }, [id]);
+  
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const fetchComentarios = async () => {
+        try {
+          const responseComentarios = await fetch(`http://localhost:3000/forum/${id}`);
+          if (!responseComentarios.ok) throw new Error("Erro ao carregar os comentarios do forum");
+          const dataComentarios = await responseComentarios.json();
+          setComentarios(dataComentarios);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+  
+      fetchComentarios();
+    }, 1500);
+  
+    return () => clearInterval(intervalId);
+  }, [id, comentarios]);
+  
   return (
     <>
     <div className="p-6 bg-gray-100 min-h-screen">
-    {dados[numericId] ?
+    {jogo ?
       <div className="flex flex-col items-center m-10">
-        <h1 className="text-3xl font-bold text-center text-blue-600 mb-6 font-inter">Fórum de {dados[numericId].nome}</h1>
-        <img src={`${dados[numericId].capa}`} alt={dados[numericId].nome} className="w-52 h-72 ring-4 ring-indigo-700 rounded-md mb-6 lg:h-96 lg:w-72" />
+        <h1 className="text-3xl font-bold text-center text-blue-600 mb-6 font-inter">Fórum de {jogo.nome}</h1>
+        <img src={`${jogo.capa}`} alt={jogo.nome} className="w-52 h-72 ring-4 ring-indigo-700 rounded-md mb-6 lg:h-96 lg:w-72" />
       </div> : (<div></div>) }
 
       <div className="max-w-2xl mx-auto text-right">
@@ -55,14 +92,14 @@ const Forum = ({dados}) => {
           Enviar
         </button>
 
-        {/*TROCAR PELO ID DO USUARIO DE VDD userId = 0 default*/}
         <div className="mt-6 space-y-4">
-          {posts
-            .slice()
-            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Ordenando os posts pela data mais recente
-            .map((post) => (
-              <Comentario key={post.id} post={post} userId={0} />
-            ))}
+          {
+          comentarios ? comentarios.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          .map((post, index) => (
+              <Comentario key={index} post={post} />
+            )): null }
+            
+            
         </div>
       </div>
     </div>
