@@ -12,7 +12,7 @@ const RankItem = ({jogo}) => {
                 <div className='text-xl font-semibold text-2xl text-indigo-600'>{jogo.colocacao}</div>
 
             <div className='flex flex-col flex-grow gap-2 lg:space-x-20 px-7 py-3 drop-shadow-md items-center md:flex-row' 
-            onClick={() => navigate(`/jogo/${jogo.id}`)}>
+            onClick={() => navigate(`/jogo/${jogo._id}`)}>
                 <img
                     src={jogo.capa}
                     alt={`Capa do jogo ${jogo.nome}`}
@@ -22,7 +22,7 @@ const RankItem = ({jogo}) => {
                     <div className='flex-col text-gray-800 text-xl font-semibold'>
                         <div className='text-center items-center gap-2 text-yellow-500 text-2xl lg:text-3xl flex'>
                             <FaStar />
-                        <div className='text-center'>{jogo.notaMedia}</div>
+                        <div className='text-center'>{(jogo.notaMedia).toFixed(2)}</div>
                         </div>
                     </div>
                     <div>{jogo.nome}</div>

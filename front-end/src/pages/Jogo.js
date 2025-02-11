@@ -105,7 +105,7 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
     <div className="flex flex-col items-center m-10">
         <img src={`${jogo.capa}`} alt={jogo.nome} className="w-52 h-72 ring-4 ring-indigo-700 rounded-md mb-6 lg:h-96 lg:w-72"/>
         <h2 className ="text-xl sm:text-2xl lg:text-3xl font-inter font-bold text-white mb-3">{jogo.nome}</h2>
-        <p className="text-white rounded bg-gradient-to-tl from-indigo-500 to-cyan-600 px-5 py-2 font-fira">Nota média: {jogo.notaMedia}</p>
+        <p className="text-white rounded bg-gradient-to-tl from-indigo-500 to-cyan-600 px-5 py-2 font-fira">Nota média: {(jogo.notaMedia).toFixed(2)}</p>
 
       </div>
       

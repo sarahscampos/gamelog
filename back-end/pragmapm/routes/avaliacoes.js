@@ -50,7 +50,16 @@ router.post(
       await avaliacao.save().catch(console.error);
       await jogo.save().catch(console.error);
 
+      const jogosOrdenados = await Jogo.find().sort({ notaMedia: -1 });
+
+      for (let i = 0; i < jogosOrdenados.length; i++) {
+        jogosOrdenados[i].colocacao = i + 1; // Atualiza a colocação com base na posição
+        await jogosOrdenados[i].save();
+      }
+
       return response.status(204).json(avaliacao);
+
+      
 
     } catch (err) {
       return response

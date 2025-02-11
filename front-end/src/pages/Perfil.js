@@ -8,11 +8,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { MdEdit } from "react-icons/md";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import Loading from "../components/Loading";
-import { MdOutlinePushPin } from "react-icons/md";
+//import { MdOutlinePushPin } from "react-icons/md";
 import {Helmet} from "react-helmet";
 import { fetchPerfil } from "../slices/perfilSlice"
 import { logout } from "../slices/loginSlice"; // Importe a ação de logout
-import {FixaListaModal} from "../components/FixaListaModal";
+//import {FixaListaModal} from "../components/FixaListaModal";
 import {EditaPerfilModal} from "../components/EditaPerfilModal";
 
 // QUERO IMPLEMENTAR: - tela de todas as avaliacoes do usuario
@@ -31,31 +31,23 @@ const Perfil = ({listas, dados, usernameLogado}) => {
 
   const { username } = useParams(); // Captura o ID do usuário na URL
   const [anyUser, setAnyUser] = useState(null);
+  const [anyListas, setAnyListas] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const [isFixaListaModalOpen, setIsFixaListaModalOpen] = useState(false);
+  //const [isFixaListaModalOpen, setIsFixaListaModalOpen] = useState(false);
   const [isEditaPerfilModalOpen, setIsEditaPerfilModalOpen] = useState(false);
 
-  const openFixaListaModal = () => setIsFixaListaModalOpen(true);
-
-  const closeFixaListaModal = () => setIsFixaListaModalOpen(false);
+  //const openFixaListaModal = () => setIsFixaListaModalOpen(true);
+  //const closeFixaListaModal = () => setIsFixaListaModalOpen(false);
 
   const openEditaPerfilModal = () => setIsEditaPerfilModalOpen(true);
 
   const closeEditaPerfilModal = () => setIsEditaPerfilModalOpen(false);
 
-  function obtemJogos(index){
-    const lista = listas && listas[index] && listas[index].ids
-      ? dados.filter((jogo) => listas[index].ids.includes(jogo.id))
-      : [];
-    return lista;
-  }
-
   const perfilLogado = useSelector((state) => state.perfil?.dados); // Pega o perfil logado salvo no redux
-  console.log("PERFIL LOGADO: " + perfilLogado)
-
-  const favIndex = listas && listas.findIndex((lista) => lista.nome === "Favoritos");
-  const jogosFav = obtemJogos(favIndex);
+  //const listasLogado = useSelector((state) => state.listas?.dados);
+  console.log("PERFIL LOGADO: ");
+  console.log(perfilLogado);
 
   useEffect(() => {
     if (username) {
@@ -94,9 +86,54 @@ const Perfil = ({listas, dados, usernameLogado}) => {
       setLoading(false);
     }
   }, [username, usernameLogado, perfilLogado]); // trigga quando um dos dois muda
-  
 
-  console.log("ANY USER: " + anyUser);
+  useEffect(() => {
+    // se for diferente do logado, fetch!
+    if (username && username !== usernameLogado) {
+      const fetchListas = async () => {
+        try {
+          const response = await fetch(`http://localhost:3000/listas/${username}`);
+          if (!response.ok) throw new Error("Erro ao carregar o perfil do usuário");
+          const listasData = await response.json();
+          setAnyListas(listasData);
+        } catch (error) {
+          console.error("Erro:", error.message);
+          setAnyUser(null);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchListas();
+    } else {
+      setAnyListas(listas);
+      setLoading(false);
+    }
+  }, [username, listas, usernameLogado]); // trigga quando um dos dois muda
+
+  const listaFav = anyListas?.find((item) => item.nome === 'Favoritos')
+
+  function obtemJogos(idLista){
+    // Encontra a lista correspondente ao idLista
+    const listaEncontrada = anyListas?.find((lista) => lista._id === idLista);
+    
+    if (!listaEncontrada || !listaEncontrada.jogosIds) {
+      // Retorna um array vazio se a lista não for encontrada ou não tiver jogos
+      return [];
+    }
+  
+    // Filtra os jogos que correspondem aos IDs em jogosIds
+    const jogosDaLista = dados.filter((jogo) =>
+      listaEncontrada.jogosIds?.includes(jogo._id)
+    );
+    
+    return jogosDaLista;
+   }
+
+  const jogosFav = obtemJogos(listaFav?._id);
+
+  console.log("ANY USER: ")
+  console.log(anyUser);
+  console.log(anyListas);
 
   
   if (loading) {
@@ -197,7 +234,7 @@ const Perfil = ({listas, dados, usernameLogado}) => {
               <p className="text-gray-500 text-sm">Avaliações</p>
             </div>
             <div>
-              <span className="text-lg font-bold">{anyUser?.media}</span>
+              <span className="text-lg font-bold">{(anyUser?.media).toFixed(2)}</span>
               <p className="text-gray-500 text-sm">Média</p>
             </div>
             <div>
@@ -217,9 +254,9 @@ const Perfil = ({listas, dados, usernameLogado}) => {
               <Carrossel jogos={jogosFav} />
           </div>
         </div>
-
-        {/* LISTAS QUE O perfilLogado DESEJAR MOSTRAR: */}
-        <div className="flex justify-center mt-8">
+        
+        
+        {/* <div className="flex justify-center mt-8">
           <button className="text-lg flex items-center gap-2 px-8 py-2 rounded-md bg-indigo-500 text-white hover:bg-indigo-400 font-inter transition" onClick={openFixaListaModal}>
             <MdOutlinePushPin size={20}/>
           
@@ -238,26 +275,23 @@ const Perfil = ({listas, dados, usernameLogado}) => {
           listas={listas}
           perfilLogado={perfilLogado}
         />
-
-        {/*PRINTANDO LISTAS*/}
+        
         {perfilLogado?.listasFixadasIds && perfilLogado?.listasFixadasIds.length > 0 && perfilLogado?.listasFixadasIds.map((idLista) => {
-          const lista = listas.find((l) => l.id === idLista);
+          const lista = anyListas?.find((l) => l._id === idLista);
           return lista ? (
             <div key={idLista} className="mb-10">
-              {/* Cabeçalho da lista */}
               <div className="flex justify-between items-center p-4 bg-blue-500 text-white rounded-md mb-1">
                 <h3 className="text-lg font-semibold font-fira">• {lista.nome}</h3>
               </div>
 
-              {/* Carrossel com os jogos */}
                 <div className="bg-white shadow-xl rounded-lg overflow-hidden">
-                  <Carrossel jogos={obtemJogos(lista.id)} />
+                  <Carrossel jogos={obtemJogos(lista?._id)} />
                 </div>
               </div>
               ) : null;
             })}
 
-        </div>
+        </div> */}
       </div>
       </>
   );
