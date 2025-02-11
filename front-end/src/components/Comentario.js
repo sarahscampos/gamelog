@@ -13,6 +13,7 @@ const Comentario = ({ post }) => {
   const [novoComentario, setNovoComentario] = useState(post.coment);
 
   const usernameLogado = useSelector((state) => state.auth?.user.username);
+  //const token = useSelector((state) => state.auth?.token);
   
   const dataHora = new Date(post.createdAt).toLocaleString('pt-BR', {
     day: '2-digit',
@@ -50,7 +51,7 @@ const Comentario = ({ post }) => {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': `Bearer ${token}`,
+          //'Authorization': `Bearer ${token}`,
         },
       });
   
@@ -72,8 +73,9 @@ const Comentario = ({ post }) => {
         method: 'PATCH', // Atualização
         headers: {
           'Content-Type': 'application/json',
+          //'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify({ coment: novoComentario }),
+        body: JSON.stringify({ newComent: novoComentario }),
       });
   
       if (!response.ok) {
@@ -149,12 +151,14 @@ const Comentario = ({ post }) => {
       <div className="flex gap-2">
         {!editando ? (
           <>
+          {post.username === usernameLogado && (
             <button
               onClick={editarComentario}  // Abre o campo de edição
               className="text-blue-500 hover:text-blue-700 text-sm"
             >
               Editar
             </button>
+          )}
             {post.username === usernameLogado && (
               <button
                 onClick={() => deletarComentario(post)}
