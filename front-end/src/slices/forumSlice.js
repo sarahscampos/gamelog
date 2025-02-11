@@ -10,15 +10,15 @@ export const fetchForumComents = createAsyncThunk('forumComent/fetchForumComents
 export const addForumComent = createAsyncThunk('forumComent/addForumComent', async ({jogoId, username, coment}) => {
   const response = await fetch(`http://localhost:3000/forum/${jogoId}`, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json',
+      headers: {
+        'Content-Type': 'application/json',
+      },
         body: JSON.stringify({
+          gameId: jogoId,
           coment: coment,
           username: username,
-          createdAt: coment.createdAt // 🔹 Trocar pelo usuário real
         }),
-      //credentials: 'include',
-      }
-  });
+      });
   if(!response.ok) throw new Error('Erro ao adicionar comentario');
   return response.json();
 });

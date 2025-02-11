@@ -1,6 +1,7 @@
 const express = require("express");
 const passport = require("passport");
-const Forum = require("../models/ForumComentSchema");
+const ForumComentSchema = require("../models/ForumComentSchema");
+const Jogo = require("../models/Jogo");
 
 const router = express.Router();
 const cors = require('./cors');
@@ -76,7 +77,7 @@ router.post("/forum/:gameId",
 router.get("/forum/:gameId", async (request, response) => {
   try {
     const { gameId } = request.params;
-    const comentarios = await Forum.find({ gameId });
+    const comentarios = await ForumComentSchema.find({ gameId });
 
     if (comentarios.length === 0) {
       return response.status(404).json({ error: "Jogo não encontrado." });
@@ -88,9 +89,10 @@ router.get("/forum/:gameId", async (request, response) => {
   }
 });
 
+// pra ver os foruns diferentes
 router.get("/forum", async (request, response) => {
     try {
-      const forums = await Forum.distinct("gameId");
+      const forums = await ForumComentSchema.distinct("gameId");
       response.json(forums);
     } catch (err) {
       return response.status(500).json({ error: "Erro interno do servidor." });

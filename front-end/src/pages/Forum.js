@@ -5,12 +5,15 @@ import { useParams } from 'react-router-dom';
 import Comentario from '../components/Comentario';
 import {addForumComent} from '../slices/forumSlice';
 
-const Forum = ({dados}) => {
+const Forum = (dados) => {
   const { id } = useParams();
-  const numericId = parseInt(id, 10);
+
+  const username = useSelector((state) => state.auth?.user.username);
 
   const [newPost, setNewPost] = useState('');
+
   const posts = useSelector((state) => state.forum.jogos[id] || []);
+  
   const dispatch = useDispatch();
 
   const handleAddPost = (event) => {
@@ -19,7 +22,7 @@ const Forum = ({dados}) => {
       // Adicionando a data de criação ao post
       dispatch(addForumComent({
         jogoId: id,
-        username: 'username',
+        username: username,
         coment: newPost,
       }));
       setNewPost('');
@@ -29,13 +32,15 @@ const Forum = ({dados}) => {
     }
   };
 
+  
+
   return (
     <>
     <div className="p-6 bg-gray-100 min-h-screen">
-    {dados[numericId] ?
+    {dados[id] ?
       <div className="flex flex-col items-center m-10">
-        <h1 className="text-3xl font-bold text-center text-blue-600 mb-6 font-inter">Fórum de {dados[numericId].nome}</h1>
-        <img src={`${dados[numericId].capa}`} alt={dados[numericId].nome} className="w-52 h-72 ring-4 ring-indigo-700 rounded-md mb-6 lg:h-96 lg:w-72" />
+        <h1 className="text-3xl font-bold text-center text-blue-600 mb-6 font-inter">Fórum de {dados[id].nome}</h1>
+        <img src={`${dados[id].capa}`} alt={dados[id].nome} className="w-52 h-72 ring-4 ring-indigo-700 rounded-md mb-6 lg:h-96 lg:w-72" />
       </div> : (<div></div>) }
 
       <div className="max-w-2xl mx-auto text-right">
@@ -52,13 +57,12 @@ const Forum = ({dados}) => {
           Enviar
         </button>
 
-        {/*TROCAR PELO ID DO USUARIO DE VDD userId = 0 default*/}
         <div className="mt-6 space-y-4">
           {posts
             .slice() 
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Ordenando os posts pela data mais recente
             .map((post) => (
-              <Comentario key={post.id} post={post} userId={0} />
+              <Comentario post={post} username={username} />
             ))}
         </div>
       </div>
