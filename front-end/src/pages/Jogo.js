@@ -119,7 +119,7 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
           {avaliacaoUsuario ? (
             <div className="flex flex-col items-center">
               <p className="text-white text-sm mb-2">
-                Sua nota: <span className="font-bold">{avaliacaoUsuario.nota}</span>
+                Sua nota: <span className="font-bold">{avaliacaoUsuario.score}</span>
               </p>
               <button
                 className="text-lg mb-2 flex items-center gap-2 px-8 py-2 rounded-md bg-green-500 text-white hover:bg-green-400 font-inter transition"

@@ -3,6 +3,7 @@ const User = require('../models/User');
 const Perfil = require('../models/Perfil');
 const router = express.Router();
 const cors = require('./cors');
+const Lista = require('../models/Lista');
 
 router.use(cors.corsWithOptions);
 
@@ -22,10 +23,15 @@ router.post('/cadastro', async (req, res) => {
       const idDoUsuario = novoUsuario._id
       const nomeUsuario = novoUsuario.nome
 
+      const novaLista = new Lista({nome: 'Favoritos', jogosIds: [], username: nomeUsuario});
       const novoPerfil = new Perfil({userId: idDoUsuario, username: nomeUsuario, nomePerfil: nomeUsuario})
+      
       await novoPerfil.save();
-  
+
+      await novaLista.save();
+      
       await novoUsuario.save();
+      
       res.status(201).json({ message: 'Usuário cadastrado com sucesso!' });
     } catch (error) {
       console.log(error)

@@ -40,39 +40,6 @@ router.post("/forum/:gameId",
     }
   );
   
-
-// //Rota POST - Adiciona novo Forum
-// router.post("/forum/:gameId", 
-//     passport.authenticate("jwt", { session: false }),
-//     async (request, response) => {
-//     try{
-//     const { gameId } = request.params;
-//     const comentarios = await Forum.find({gameId});
-
-//     // Verifica se o gameId foi enviado
-//     if (!gameId) {
-//         return response.status(400).json({ error: "gameId é obrigatório" });
-//     }
-
-//     // Verifica se o gameId já existe
-//     const existingGame = await Forum.findOne({gameId});
-//     if (existingGame) {
-//         return response.status(400).json({ error: "gameId já existe" });
-//     }
-
-//     // Cria um novo fórum/jogo
-//     const newGame = new Forum({
-//         gameId,
-//     });
-    
-//     await newGame.save();
-
-//     return response.status(201).json(newGame);
-// } catch(err){
-//     return response.status(500).json({error: "Erro interno do servidor"});
-// }
-// });
-
 // Rota GET - Obter Comentários
 router.get("/forum/:gameId", async (request, response) => {
   try {
@@ -100,54 +67,54 @@ router.get("/forum", async (request, response) => {
   });
 
 // Rota DELETE - Remover Comentário
-router.delete("/forum/:comentId", 
-    passport.authenticate("jwt", { session: false }),
-    async (request, response) => {
-  try {
-    const { gameId } = request.params;
-    const comentario = await Forum.findById(comentId);
+router.delete("/forum/:gameId/:comentId",
+  //passport.authenticate("jwt", { session: false }),
+  async (request, response) => {
+try {
+  const { gameId, comentId } = request.params;
 
+  const comentario = await ForumComentSchema.findOneAndDelete({
+    gameId: gameId,
+    _id: comentId
+  });
 
-    if (!comentario) {
-      return response.status(404).json({ error: "Comentario não encontrado." });
-    }
-
-    if (comentario.username !== request.user.username) {
-      return response.status(403).json({ error: "Permissão negada." });
-    }
-
-    await Forum.findByIdAndDelete(comentId);
-
-    return response.status(200).json({ message: "Comentário removido com sucesso."});
-  } catch (err) {
-    return response.status(500).json({ error: "Erro interno do servidor." });
+  if (!comentario) {
+    return response.status(404).json({ error: "Comentário não encontrado." });
   }
+
+  return response.status(200).json({message: "Comentario deletado com sucesso!"});
+} catch (err) {
+  return response.status(500).json({ error: "Erro interno do servidor." });
+}
 });
 
 // Rota PATCH - Atualizar Comentário
-router.patch("/forum/:comentId",
-    passport.authenticate("jwt", { session: false }),
+router.patch("/forum/:gameId/:comentId",
+    //passport.authenticate("jwt", { session: false }),
     async (request, response) => {
   try {
-    const { comentId } = request.params;
-    const { coment } = request.body;
+    const { gameId, comentId } = request.params;
+    const { newComent } = request.body;
 
-    if (!coment || coment.trim() === '') {
+    if (!newComent || newComent.trim() === '') {
       return response.status(400).json({ error: "Comentário não pode ser vazio." });
     }
 
-    const comentario = await Forum.findById(comentId);
+    const comentarios = await ForumComentSchema.find({gameId: gameId});
+    
+    const comentario = comentarios.find(c => c._id.toString() === comentId);
 
     if (!comentario) {
       return response.status(404).json({ error: "Comentário não encontrado." });
     }
-
+    /*
     if (comentario.username !== request.user.username) {
       return response.status(403).json({ error: "Permissão negada." });
     }
+    */
 
     // Atualizando o comentário
-    comentario.coment = coment;
+    comentario.coment = newComent;
     await comentario.save();
 
     return response.status(200).json(comentario);

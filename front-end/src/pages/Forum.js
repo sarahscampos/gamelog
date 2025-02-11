@@ -7,7 +7,7 @@ import {addForumComent} from '../slices/forumSlice';
 import {useEffect} from 'react'
 
 
-const Forum = ({dados}) => {
+const Forum = () => {
   const { id } = useParams();
 
   const usernameLogado = useSelector((state) => state.auth?.user?.username);
@@ -15,8 +15,6 @@ const Forum = ({dados}) => {
   const [newPost, setNewPost] = useState('');
   const [jogo, setJogo] = useState(null);
   const [comentarios, setComentarios] = useState('');
-
-  const posts = useSelector((state) => state.forum.jogos[id] || []);
 
   const dispatch = useDispatch();
 
@@ -39,20 +37,38 @@ const Forum = ({dados}) => {
   };
 
   useEffect(() => {
-    const fetchJogo= async () => {
-        const responseJogo = await fetch(`http://localhost:3000/jogo/${id}`);
-        if (!responseJogo.ok) throw new Error("Erro ao carregar o jogo");
-        const dataJogo = await responseJogo.json();
-        setJogo(dataJogo);
-
-        const responseComentarios = await fetch(`http://localhost:3000/forum/${id}`);
-        if (!responseComentarios.ok) throw new Error("Erro ao carregar os comentarios do forum");
-        const dataComentarios = await responseComentarios.json();
-        setComentarios(dataComentarios);
+    const fetchJogo = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/jogo/${id}`);
+        if (!response.ok) throw new Error("Erro ao carregar o jogo");
+        const data = await response.json();
+        setJogo(data);
+      } catch (error) {
+        console.error(error.message);
+      }
     };
-    fetchJogo();
-  },  [id]);
-
+      fetchJogo();
+  }, [id]);
+  
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const fetchComentarios = async () => {
+        try {
+          const responseComentarios = await fetch(`http://localhost:3000/forum/${id}`);
+          if (!responseComentarios.ok) throw new Error("Erro ao carregar os comentarios do forum");
+          const dataComentarios = await responseComentarios.json();
+          setComentarios(dataComentarios);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+  
+      fetchComentarios();
+    }, 1500);
+  
+    return () => clearInterval(intervalId);
+  }, [id, comentarios]);
+  
   return (
     <>
     <div className="p-6 bg-gray-100 min-h-screen">
