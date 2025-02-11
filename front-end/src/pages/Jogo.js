@@ -19,7 +19,7 @@ import {deleteAvaliacao} from "../slices/avaliacoesSlice";
 
 const Jogo = ({dados, avaliacaoInfo, listas}) => {
 
-  const perfilLogado = useSelector((state) => state.perfil.dados);
+  //const perfilLogado = useSelector((state) => state.perfil.dados);
   const token = useSelector((state) => state.auth?.token);
 
   const { id } = useParams();
