@@ -57,9 +57,14 @@ router.post('/perfil', //protected
 });
 
 // atualiza o perfil
-router.put('/perfil/:id', async (request, response) => {
+router.put('/perfil/:username', async (request, response) => {
   try {
-    const perfil = await Perfil.findByIdAndUpdate(request.params.id, request.body, { new: true });
+    const perfil = await Perfil.findOneAndUpdate(
+      { username: request.params.username }, 
+      request.body, 
+      { new: true }
+    );
+
     if (!perfil) return response.status(404).json({ message: 'Perfil não encontrado' });
     response.json(perfil);
   } catch (error) {
@@ -69,18 +74,19 @@ router.put('/perfil/:id', async (request, response) => {
 });
 
 // deleta um perfil
-router.delete('/perfil/:id', // protected
+router.delete('/perfil/:username', // protected
   passport.authenticate("jwt", { session: false }),
   async (request, response) => {
-  try {
-    const perfil = await Perfil.findByIdAndDelete(request.params.username);
-    if (!perfil) return response.status(404).json({ message: 'Perfil não encontrado' });
-    response.json(perfil);
-  } catch (error) {
-    console.log(error);
-    response.status(500).json({ message: 'Erro ao deletar perfil', error });
+    try {
+      const perfil = await Perfil.findOneAndDelete({ username: request.params.username });
+      if (!perfil) return response.status(404).json({ message: 'Perfil não encontrado' });
+      response.json({ message: 'Perfil deletado com sucesso' });
+    } catch (error) {
+      console.log(error);
+      response.status(500).json({ message: 'Erro ao deletar perfil', error });
+    }
   }
-});
+);
 
 // deleta todos perfis
 router.delete('/perfil', async (req, res) => {

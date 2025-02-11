@@ -118,7 +118,7 @@ const Perfil = ({listas, dados, usernameLogado}) => {
     };
   
     // Dispara a ação para atualizar o perfil
-    dispatch(atualizaPerfil({ updatedUserData }))
+    dispatch(atualizaPerfil(updatedUserData))
       .then(() => {
         const action = isListaFixada ? "desfixada" : "fixada";
         toast.success(`A lista "${lista.nome}" foi ${action} no perfil!`);
@@ -172,7 +172,7 @@ const Perfil = ({listas, dados, usernameLogado}) => {
         ...updateData, // Sobrescreve com as novas informações
       };
 
-    dispatch(atualizaPerfil({ updatedUserData }))
+    dispatch(atualizaPerfil(updatedUserData))
     .then(() => {
       toast.success();
       closeEditaPerfilModal();
@@ -208,18 +208,18 @@ const Perfil = ({listas, dados, usernameLogado}) => {
       <h2 className="text-xl font-semibold mb-4">Editar Perfil</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block font-medium mb-2" htmlFor="nome">Nome:</label>
+          <label className="block font-medium mb-2" htmlFor="nomePerfil">Nome de Perfil:</label>
           <input
             required
             type="text"
-            id="nome"
-            name="nome"
+            id="nomePerfil"
+            name="nomePerfil"
             value={formData.nomePerfil}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-md"
             maxLength={25}
           />
-          <p className="text-sm text-gray-500">{25 - formData.nome?.length} caracteres restantes</p>
+          <p className="text-sm text-gray-500">{25 - formData.nomePerfil?.length} caracteres restantes</p>
         </div>
         <div>
           <label className="block font-medium mb-2" htmlFor="avatar">Avatar URL:</label>
