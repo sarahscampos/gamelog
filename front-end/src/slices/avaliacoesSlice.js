@@ -33,28 +33,26 @@ export const addAvaliacoes = createAsyncThunk('Avaliacoes/addAvaliacoes', async 
 
 //delete Avaliação
 export const deleteAvaliacao = createAsyncThunk('Avaliacoes/deleteAvaliacao',
-  async ({ jogoId, usuarioId, avaliacaoId }, { getState }) => {
+  async ({ jogoId, usuarioId, avaliacaoId, token }, { getState }) => {
+    
     const state = getState();
     const data = state.avaliacoes.dados;
 
     if (!data[jogoId]) throw new Error("Jogo não possui avaliações.");
 
     // Atualiza o backend com a nova lista
-    const response = await fetch(`http://localhost:3000/avaliacoes/${jogoId}/${usuarioId}/${avaliacaoId}`, {
+    const response = await fetch(`http://localhost:3000/protected/avaliacoes/${jogoId}/${usuarioId}/${avaliacaoId}`, {
       method: 'DELETE',
       headers: {
-        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify({
-        ...data,
-        [jogoId]: novasAvaliacoes,
-      }),
     });
 
     if (!response.ok) {
       throw new Error("Erro ao deletar a avaliação");
     }
 
+    /* Acredito q isso não seja mais usado
     // Incrementar o avaliacaoCount no perfil do usuário
     const perfilResponse = await fetch(`http://localhost:3000/perfil/${usuarioId}`);
     if (!perfilResponse.ok) {
@@ -88,8 +86,14 @@ export const deleteAvaliacao = createAsyncThunk('Avaliacoes/deleteAvaliacao',
     if (!updatePerfilResponse.ok) {
       throw new Error(`Erro ao atualizar o perfil do usuário: ${updatePerfilResponse.statusText}`);
     }
+    */
 
-    return { jogoId, novasAvaliacoes, avaliacoes: data.avaliacoes, perfil: updatedPerfil };
+    return { jogoId, 
+      //novasAvaliacoes,
+        avaliacoes: data.avaliacoes
+        //, perfil: updatedPerfil 
+         };
+    
   }
 );
 
