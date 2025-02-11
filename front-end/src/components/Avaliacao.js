@@ -31,7 +31,7 @@ const Avaliacao = ({dadosAvaliacao}) => {
           <div className="flex flex-col items-center space-x-4 py-8 px-8 bg-indigo-100 rounded-lg w-full mb-8 lg:flex-row">
             <img src={usuario.avatar} alt="Foto do usuário" className="w-16 h-16 ring-4  ring-indigo-600 rounded-full" />
             <div className="flex flex-col gap-2 p-4">
-              <p className="text-gray-800 text-sm italic">{usuario.nome}</p>
+              <p className="text-gray-800 text-sm italic">{usuario.nomePerfil}</p>
               <p className="text-0.8xl text-indigo-600 font-bold font-inter">Nota: {dadosAvaliacao.score}</p>
               <p className="text-md">
                 {dadosAvaliacao.comment}

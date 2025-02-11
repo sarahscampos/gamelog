@@ -30,6 +30,7 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
   const [isModalAvaliacaoOpen, setIsModalAvaliacaoOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedList, setSelectedList] = useState("");
+  const [avaliacoesJogo, setAvaliacoesJogo] = useState();
 
   const openModalAvaliacao = () => {
     setIsModalAvaliacaoOpen(true);
@@ -66,8 +67,13 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
     });
   }
 
+  useEffect(() => {
+    fetch(`http://localhost:3000/avaliacoes/${id}`).then((r) => r.json()).then(setAvaliacoesJogo);
+  }, [id])
+  
+
   {/* por enquanto usuarioId = 0 */}
-  const avaliacaoUsuario = avaliacaoInfo[id]?.find(avaliacao => avaliacao.usuarioId === perfilLogado.id);
+  const avaliacaoUsuario = avaliacoesJogo?.find(avaliacao => avaliacao.username === user.username);
 
   if (!jogo) {
     return <Loading />;
@@ -229,8 +235,8 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
     {/* substituir 0 pelo userID real*/}
     <section className = "mx-auto my-5 px-10 text-left md:px-64">
       { 
-      avaliacaoInfo[id]?.length ? (
-        <Avaliacao dadosAvaliacao={avaliacaoInfo[id][0]} userId={0} />
+      avaliacoesJogo?.length ? (
+        <Avaliacao dadosAvaliacao={avaliacoesJogo.at(-1)}/>
       ) : (
         <p>Não possui avaliações</p>
       )
