@@ -29,7 +29,7 @@ const Perfil = ({listas, dados, usernameLogado}) => {
   };
   // para usuarios que nao sao o perfilLogado:
 
-  const perfilLogado = fetchPerfil(usernameLogado).json(); // desisto nao consigo fazewr funcionar isso aqui queria mt 
+  const perfilLogado = fetchPerfil(usernameLogado); // desisto nao consigo fazewr funcionar isso aqui queria mt 
 
   const { username } = useParams(); // Captura o ID do usuário na URL
   const [anyUser, setAnyUser] = useState(null);

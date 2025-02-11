@@ -15,7 +15,7 @@ import { fetchPerfil } from "../slices/perfilSlice";
 
 const Listas = ({listas, dados, usernameLogado }) => {
 
-  const perfilLogado = fetchPerfil(usernameLogado).json();
+  const perfilLogado = fetchPerfil(usernameLogado);
   const user = useSelector((state) => state.auth?.user);
   const { username } = useParams();
   const status = useSelector((state) => state.listas.status);

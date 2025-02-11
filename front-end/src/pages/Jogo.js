@@ -22,7 +22,7 @@ import {fetchPerfil} from "../slices/perfilSlice";
 
 const Jogo = ({dados, avaliacaoInfo, listas, usernameLogado}) => {
 
-  const perfilLogado = fetchPerfil(usernameLogado).json();
+  const perfilLogado = fetchPerfil(usernameLogado);
   const { id } = useParams();
   const dispatch = useDispatch();
  
