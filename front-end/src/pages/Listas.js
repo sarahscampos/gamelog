@@ -13,9 +13,7 @@ import { deleteLista } from "../slices/listasSlice";
 import { fetchListas } from "../slices/listasSlice";
 
 const Listas = ({listas, dados}) => {
-
-  const perfilLogado = useSelector((state) => state.perfil.dados);
-
+  const perfilLogado = null; // SO ASSIM FUNCIONA!
   const user = useSelector((state) => state.auth?.user);
   const { username } = useParams();
   const status = useSelector((state) => state.listas.status);
@@ -25,7 +23,7 @@ const Listas = ({listas, dados}) => {
   const [novaListaNome, setNovaListaNome] = useState("");
   // const [listas, setListas] = useState([]);
 
-  const listasUsuario = listas?.find((lista) => lista.username === username);
+  const listasUsuario = listas?.find((lista) => lista?.username === username);
   console.log(listas);
   console.log(`oioi ${listasUsuario}`)
 
@@ -40,7 +38,7 @@ const Listas = ({listas, dados}) => {
 
   // Filtra os jogos que correspondem aos IDs em jogosIds
   const jogosDaLista = dados.filter((jogo) =>
-    listaEncontrada.jogosIds.includes(jogo._id)
+    listaEncontrada.jogosIds?.includes(jogo._id)
   );
   console.log(jogosDaLista);
 
@@ -66,10 +64,10 @@ const Listas = ({listas, dados}) => {
       const novaLista = {
         nome: novaListaNome, 
         ids: [],
-        username: user.username
+        username: user?.username
       };
       
-      dispatch(addLista({username: user.username, novaLista: novaLista}))
+      dispatch(addLista({username: user?.username, novaLista: novaLista}))
         .unwrap()
         .then(() => {
           toast.success(`Lista "${novaListaNome}" criada com sucesso!`);
@@ -103,7 +101,7 @@ const Listas = ({listas, dados}) => {
     if (perfilLogado && perfilLogado.username) {
       dispatch(fetchListas(user.username));
     }
-  }, [dispatch, perfilLogado, user.username, listas]);
+  }, [dispatch, user.username, listas]);
 
   if (status === "loading") return <div>Carregando...</div>;
   if (status === "failed") return <div>Erro ao carregar listas</div>;

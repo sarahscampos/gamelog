@@ -20,7 +20,7 @@ router.post("/forum/:gameId",
           return response.status(400).json({ error: "Comentário ou usuário não informado corretamente." });
         }
 
-        const jogoExiste = await Jogo.findById(gameId);  // Assuming you have a Game model
+        const jogoExiste = await Jogo.findById(gameId);
         if (!jogoExiste) {
           return response.status(404).json({ error: "Jogo não encontrado." });
         }
