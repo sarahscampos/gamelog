@@ -2,7 +2,6 @@ import React, { useEffect, useState} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Carrossel from '../components/Carrossel';
 import background from "../assets/img/backgroundJogo.png";
-import Modal from "react-modal"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from "react-redux";
@@ -11,9 +10,10 @@ import { RiArrowGoBackFill } from "react-icons/ri";
 import Loading from "../components/Loading";
 import { MdOutlinePushPin } from "react-icons/md";
 import {Helmet} from "react-helmet";
-import { atualizaPerfil } from "../slices/perfilSlice";
 import { fetchPerfil } from "../slices/perfilSlice"
 import { logout } from "../slices/loginSlice"; // Importe a ação de logout
+import {FixaListaModal} from "../components/FixaListaModal";
+import {EditaPerfilModal} from "../components/EditaPerfilModal";
 
 // QUERO IMPLEMENTAR: - tela de todas as avaliacoes do usuario
 // - nota do usuario pros jogos aparecendo junto aos jogos
@@ -36,20 +36,13 @@ const Perfil = ({listas, dados, usernameLogado}) => {
   const [isFixaListaModalOpen, setIsFixaListaModalOpen] = useState(false);
   const [isEditaPerfilModalOpen, setIsEditaPerfilModalOpen] = useState(false);
 
-  const openFixaListaModal = () => {
-    setIsFixaListaModalOpen(true);
-  };
+  const openFixaListaModal = () => setIsFixaListaModalOpen(true);
 
-  const closeFixaListaModal = () => {
-    setIsFixaListaModalOpen(false)
-  }
-  const openEditaPerfilModal = () => {
-    setIsEditaPerfilModalOpen(true);
-  };
+  const closeFixaListaModal = () => setIsFixaListaModalOpen(false);
 
-  const closeEditaPerfilModal = () => {
-    setIsEditaPerfilModalOpen(false)
-  }
+  const openEditaPerfilModal = () => setIsEditaPerfilModalOpen(true);
+
+  const closeEditaPerfilModal = () => setIsEditaPerfilModalOpen(false);
 
   function obtemJogos(index){
     const lista = listas && listas[index] && listas[index].ids
@@ -115,183 +108,6 @@ const Perfil = ({listas, dados, usernameLogado}) => {
     return <div className="text-center mt-20 text-lg font-inter text-red-600">Não foi possível carregar o perfil.</div>;
   }
 
-  const toggleFixaLista = (lista) => {
-    // Verifica se a lista já está fixada
-    const isListaFixada = perfilLogado?.listasFixadasIds.includes(lista.id);
-  
-    // Atualiza o array de IDs com base no estado atual
-    const updatedListasFixadasIds = isListaFixada
-      ? perfilLogado?.listasFixadasIds.filter((id) => id !== lista.id) // Remove a lista se já estiver fixada
-      : [...perfilLogado?.listasFixadasIds, lista.id]; // Adiciona a lista se não estiver fixada
-  
-    const updatedUserData = {
-      ...perfilLogado, // Mantém todas as outras informações do usuário
-      listasFixadasIds: updatedListasFixadasIds, // Atualiza apenas as listas fixadas
-    };
-  
-    // Dispara a ação para atualizar o perfil
-    dispatch(atualizaPerfil(updatedUserData));
-    toast.success(`A lista "${lista.nome}" foi ${isListaFixada ? "desfixada" : "fixada"} no perfil!`);
-    /*
-      .then(() => {
-        const action = isListaFixada ? "desfixada" : "fixada";
-        toast.success(`A lista "${lista.nome}" foi ${action} no perfil!`);
-      })
-      .catch((error) => {
-        console.error("Erro ao atualizar as listas fixadas:", error);
-        toast.error("Erro ao atualizar a lista no perfil.");
-      });
-    */
-  };
-
-
-
-  //Componentes Modais
-  const FixaListaModal = () =>{
-    return(
-    <Modal
-          ariaHideApp={false}
-          isOpen={isFixaListaModalOpen}
-          onRequestClose={closeFixaListaModal}
-          contentLabel="Escolha as Listas"
-          className="bg-white p-6 rounded-lg w-96 font-fira"
-          overlayClassName="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50"
-        >
-          <h2 className="text-xl font-semibold mb-4 ">Escolha as listas para fixar/desfixar no perfil</h2>
-          <ul className="space-y-4">
-            {listas && listas.length > 0 && listas.map((lista, index) => (
-              <li key={index} className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={perfilLogado?.listasFixadasIds?.includes(lista.id) || false}
-                  onChange={() => toggleFixaLista(lista)}
-                  className="mr-3"
-                />
-                <span>{lista.nome}</span>
-              </li>
-            ))}
-          </ul>
-          <button
-            onClick={closeFixaListaModal}
-            className="mt-4 px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-400"
-          >
-            Fechar
-          </button>
-        </Modal>
-    )
-  }
-
-  const editaPerfil = (updateData) =>{
-      const updatedUserData = {
-        ...perfilLogado, // Mantém as informações existentes
-        ...updateData, // Sobrescreve com as novas informações
-      };
-
-    dispatch(atualizaPerfil(updatedUserData))
-    .then(() => {
-      toast.success();
-      closeEditaPerfilModal();
-    })
-    .catch((error) => {
-      console.error("Erro ao editar o perfil:", error);
-      toast.error("Erro ao editar o perfil.");
-    });
-  }
-
-  const EditaPerfilModal = () => {
-    const [formData, setFormData] = useState(perfilLogado || { username: username, nomePerfil: "", avatar: "", descricao: "", localizacao: "" });
-    const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-    /*
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setFormData((prev) => ({ ...prev, [name]: value }));
-    };*/
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      editaPerfil(formData); // Chama a função com os dados atualizados
-    };
-    
-
-    return (
-    <Modal
-      ariaHideApp={false}
-      isOpen={isEditaPerfilModalOpen}
-      onRequestClose={closeEditaPerfilModal}
-      contentLabel="Editar Perfil"
-      className="bg-white p-6 rounded-lg w-96"
-      overlayClassName="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50"
-    >
-      <h2 className="text-xl font-semibold mb-4">Editar Perfil</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block font-medium mb-2" htmlFor="nomePerfil">Nome de Perfil:</label>
-          <input
-            required
-            type="text"
-            id="nomePerfil"
-            name="nomePerfil"
-            value={formData.nomePerfil}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded-md"
-            maxLength={25}
-          />
-          <p className="text-sm text-gray-500">{25 - formData.nomePerfil?.length} caracteres restantes</p>
-        </div>
-        <div>
-          <label className="block font-medium mb-2" htmlFor="avatar">Avatar URL:</label>
-          <input
-            type="text"
-            id="avatar"
-            name="avatar"
-            value={formData.avatar}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded-md"
-          />
-        </div>
-        <div>
-          <label className="block font-medium mb-2" htmlFor="descricao">Descrição:</label>
-          <textarea
-            id="descricao"
-            name="descricao"
-            value={formData.descricao}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded-md"
-            maxLength={150}
-          />
-          <p className="text-sm text-gray-500">{150 - formData.descricao?.length} caracteres restantes</p>
-        </div>
-        <div>
-          <label className="block font-medium mb-2" htmlFor="localizacao">Localização:</label>
-          <input
-            type="text"
-            id="localizacao"
-            name="localizacao"
-            value={formData.localizacao}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded-md"
-            maxLength={20}
-          />
-          <p className="text-sm text-gray-500">{20 - formData.localizacao?.length} caracteres restantes</p>
-        </div>
-        <div className="flex justify-between mt-4">
-          <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-400">
-            Salvar
-          </button>
-          <button
-            type="button"
-            onClick={closeEditaPerfilModal}
-            className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-400"
-          >
-            Cancelar
-          </button>
-        </div>
-      </form>
-    </Modal>
-
-    )
-  };
-
   /*
   if (loading) {
     return (
@@ -309,7 +125,6 @@ const Perfil = ({listas, dados, usernameLogado}) => {
       </div>
     );
   }
-  
 
   //Página
   return (
@@ -348,7 +163,14 @@ const Perfil = ({listas, dados, usernameLogado}) => {
     </div>
   )}
         </div>
-        <EditaPerfilModal />
+
+        <EditaPerfilModal
+          perfilLogado={perfilLogado}
+          username={username}
+          isEditaPerfilModalOpen={isEditaPerfilModalOpen}
+          closeEditaPerfilModal={closeEditaPerfilModal}
+         />
+
         <ToastContainer />
         
 
@@ -410,7 +232,12 @@ const Perfil = ({listas, dados, usernameLogado}) => {
           <h3 className="text-lg font-semibold font-inter">Minhas Listas Fixadas</h3>
         </div>
 
-        <FixaListaModal/>
+        <FixaListaModal
+          isFixaListaModalOpen={isFixaListaModalOpen}
+          closeFixaListaModal={closeFixaListaModal}
+          listas={listas}
+          perfilLogado={perfilLogado}
+        />
 
         {/*PRINTANDO LISTAS*/}
         {perfilLogado?.listasFixadasIds && perfilLogado?.listasFixadasIds.length > 0 && perfilLogado?.listasFixadasIds.map((idLista) => {
