@@ -21,10 +21,10 @@ import { logout } from "../slices/loginSlice"; // Importe a ação de logout
 const Perfil = ({listas, dados, usernameLogado}) => {
   
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(logout());
-  
   
     navigate("/login");
   };
@@ -35,8 +35,6 @@ const Perfil = ({listas, dados, usernameLogado}) => {
 
   const [isFixaListaModalOpen, setIsFixaListaModalOpen] = useState(false);
   const [isEditaPerfilModalOpen, setIsEditaPerfilModalOpen] = useState(false);
-
-  const navigate = useNavigate();
 
   const openFixaListaModal = () => {
     setIsFixaListaModalOpen(true);
@@ -60,16 +58,25 @@ const Perfil = ({listas, dados, usernameLogado}) => {
     return lista;
   }
 
-  const perfilLogado = useSelector((state) => state.perfil.dados); // Pega o perfil logado salvo no redux
+  const perfilLogado = useSelector((state) => state.perfil?.dados); // Pega o perfil logado salvo no redux
+  console.log("PERFIL LOGADO: " + perfilLogado)
 
   const favIndex = listas && listas.findIndex((lista) => lista.nome === "Favoritos");
   const jogosFav = obtemJogos(favIndex);
 
   useEffect(() => {
+    if (username) {
+      dispatch(fetchPerfil(username));
+    }
+  }, [username, dispatch]);
+  
+  
+  useEffect(() => {
     if (usernameLogado) {
       dispatch(fetchPerfil(usernameLogado)); // perfil logado do redux!
     }
   }, [usernameLogado, dispatch]);
+  
   
   useEffect(() => {
     // se for diferente do logado, fetch!
@@ -93,24 +100,29 @@ const Perfil = ({listas, dados, usernameLogado}) => {
       setAnyUser(perfilLogado);
       setLoading(false);
     }
-  }, [username, usernameLogado]); // trigga quando um dos dois muda
+  }, [username, usernameLogado, perfilLogado]); // trigga quando um dos dois muda
+  
+
+  console.log("ANY USER: " + anyUser);
+
   
   if (loading) {
     return <Loading />;
   }
-
+  
+ 
   if (!anyUser && !perfilLogado) {
     return <div className="text-center mt-20 text-lg font-inter text-red-600">Não foi possível carregar o perfil.</div>;
   }
 
   const toggleFixaLista = (lista) => {
     // Verifica se a lista já está fixada
-    const isListaFixada = perfilLogado.listasFixadasIds.includes(lista.id);
+    const isListaFixada = perfilLogado?.listasFixadasIds.includes(lista.id);
   
     // Atualiza o array de IDs com base no estado atual
     const updatedListasFixadasIds = isListaFixada
-      ? perfilLogado.listasFixadasIds.filter((id) => id !== lista.id) // Remove a lista se já estiver fixada
-      : [...perfilLogado.listasFixadasIds, lista.id]; // Adiciona a lista se não estiver fixada
+      ? perfilLogado?.listasFixadasIds.filter((id) => id !== lista.id) // Remove a lista se já estiver fixada
+      : [...perfilLogado?.listasFixadasIds, lista.id]; // Adiciona a lista se não estiver fixada
   
     const updatedUserData = {
       ...perfilLogado, // Mantém todas as outras informações do usuário
@@ -118,7 +130,9 @@ const Perfil = ({listas, dados, usernameLogado}) => {
     };
   
     // Dispara a ação para atualizar o perfil
-    dispatch(atualizaPerfil(updatedUserData))
+    dispatch(atualizaPerfil(updatedUserData));
+    toast.success(`A lista "${lista.nome}" foi ${isListaFixada ? "desfixada" : "fixada"} no perfil!`);
+    /*
       .then(() => {
         const action = isListaFixada ? "desfixada" : "fixada";
         toast.success(`A lista "${lista.nome}" foi ${action} no perfil!`);
@@ -127,6 +141,7 @@ const Perfil = ({listas, dados, usernameLogado}) => {
         console.error("Erro ao atualizar as listas fixadas:", error);
         toast.error("Erro ao atualizar a lista no perfil.");
       });
+    */
   };
 
 
@@ -148,7 +163,7 @@ const Perfil = ({listas, dados, usernameLogado}) => {
               <li key={index} className="flex items-center">
                 <input
                   type="checkbox"
-                  checked={perfilLogado.listasFixadasIds?.includes(lista.id) || false}
+                  checked={perfilLogado?.listasFixadasIds?.includes(lista.id) || false}
                   onChange={() => toggleFixaLista(lista)}
                   className="mr-3"
                 />
@@ -184,11 +199,13 @@ const Perfil = ({listas, dados, usernameLogado}) => {
   }
 
   const EditaPerfilModal = () => {
-    const [formData, setFormData] = useState(perfilLogado);
+    const [formData, setFormData] = useState(perfilLogado || { username: username, nomePerfil: "", avatar: "", descricao: "", localizacao: "" });
+    const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+    /*
     const handleChange = (e) => {
       const { name, value } = e.target;
       setFormData((prev) => ({ ...prev, [name]: value }));
-    };
+    };*/
   
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -275,6 +292,7 @@ const Perfil = ({listas, dados, usernameLogado}) => {
     )
   };
 
+  /*
   if (loading) {
     return (
       <>
@@ -282,6 +300,7 @@ const Perfil = ({listas, dados, usernameLogado}) => {
       </>
     );
   }
+  */
 
   if (!perfilLogado) {
     return (
@@ -313,7 +332,7 @@ const Perfil = ({listas, dados, usernameLogado}) => {
       <div className="max-w-md mx-auto bg-white shadow-xl rounded-lg overflow-hidden">
         {/* Cabeçalho */}
         <div className="flex justify-between p-4 bg-blue-500 text-white">
-          <span className="text-sm font-semibold">{anyUser.nomePerfil}</span>
+          <span className="text-sm font-semibold">{anyUser?.nomePerfil}</span>
           {username === usernameLogado && (
     <div className="flex items-center gap-3">
       <button className="flex items-center text-sm font-semibold" onClick={openEditaPerfilModal}>
@@ -336,14 +355,14 @@ const Perfil = ({listas, dados, usernameLogado}) => {
         {/* Corpo do Perfil */}
         <div className="text-center p-4 font-inter">
           <img
-            src={anyUser.avatar}
-            alt={anyUser.nomePerfil}
+            src={anyUser?.avatar}
+            alt={anyUser?.nomePerfil}
             className="w-24 h-24 rounded-full mx-auto shadow-lg"
           />
-          <h2 className="mt-2 text-2xl font-semibold">{anyUser.nomePerfil}</h2>
-          <p className="text-gray-500 break-all">{anyUser.descricao}</p>
+          <h2 className="mt-2 text-2xl font-semibold">{anyUser?.nomePerfil}</h2>
+          <p className="text-gray-500 break-all">{anyUser?.descricao}</p>
           <p className="text-xs text-gray-400 mt-1">
-            {anyUser.localizacao} • Membro desde {anyUser.membroDesde}
+            {anyUser?.localizacao} • Membro desde {anyUser?.membroDesde}
           </p>
         </div>
 
@@ -352,15 +371,15 @@ const Perfil = ({listas, dados, usernameLogado}) => {
           <h3 className="text-lg font-semibold">Estatísticas</h3>
           <div className="grid grid-cols-3 text-center">
             <div>
-              <span className="text-lg font-bold">{anyUser.analises}</span>
+              <span className="text-lg font-bold">{anyUser?.analises}</span>
               <p className="text-gray-500 text-sm">Avaliações</p>
             </div>
             <div>
-              <span className="text-lg font-bold">{anyUser.media}</span>
+              <span className="text-lg font-bold">{anyUser?.media}</span>
               <p className="text-gray-500 text-sm">Média</p>
             </div>
             <div>
-              <span className="text-lg font-bold">{anyUser.amigos}</span>
+              <span className="text-lg font-bold">{anyUser?.amigos}</span>
               <p className="text-gray-500 text-sm">Amigos</p>
             </div>
           </div>
@@ -394,7 +413,7 @@ const Perfil = ({listas, dados, usernameLogado}) => {
         <FixaListaModal/>
 
         {/*PRINTANDO LISTAS*/}
-        {perfilLogado.listasFixadasIds && perfilLogado.listasFixadasIds.length > 0 && perfilLogado.listasFixadasIds.map((idLista) => {
+        {perfilLogado?.listasFixadasIds && perfilLogado?.listasFixadasIds.length > 0 && perfilLogado?.listasFixadasIds.map((idLista) => {
           const lista = listas.find((l) => l.id === idLista);
           return lista ? (
             <div key={idLista} className="mb-10">
