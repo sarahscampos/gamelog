@@ -11,7 +11,7 @@ var avaliacoesRouter = require('./routes/avaliacoes.js');
 var jogosRouter = require('./routes/jogos.js');
 var listasRouter = require('./routes/listas.js');
 var perfilRouter = require('./routes/perfil.js');
-var forumRouter = require('./routes/forum.js');
+var forumComentRouter = require('./routes/forumComent.js');
 var loginRouter = require('./routes/login.js');
 var cadastroRouter = require('./routes/cadastro.js');
 
@@ -30,7 +30,7 @@ app.use('/', avaliacoesRouter);
 app.use('/', jogosRouter);
 app.use('/', listasRouter);
 app.use('/', perfilRouter);
-app.use('/', forumRouter);
+app.use('/', forumComentRouter);
 app.use('/api/auth', loginRouter);
 app.use('/', cadastroRouter);
 

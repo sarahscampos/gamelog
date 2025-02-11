@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { addPost } from '../slices/forumSlice';
 import Comentario from '../components/Comentario';
+import {addForumComent} from '../slices/forumSlice';
 
 const Forum = ({dados}) => {
   const { id } = useParams();
@@ -17,13 +17,10 @@ const Forum = ({dados}) => {
     event.preventDefault();
     if (newPost.trim() !== '' && newPost.length < 512) {
       // Adicionando a data de criação ao post
-      dispatch(addPost({
+      dispatch(addForumComent({
         jogoId: id,
-        post: {
-          id: Date.now(),
-          content: newPost,
-          createdAt: new Date(), // Armazenando a data de criação
-        },
+        username: 'username',
+        coment: newPost,
       }));
       setNewPost('');
     }
@@ -58,7 +55,7 @@ const Forum = ({dados}) => {
         {/*TROCAR PELO ID DO USUARIO DE VDD userId = 0 default*/}
         <div className="mt-6 space-y-4">
           {posts
-            .slice()
+            .slice() 
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Ordenando os posts pela data mais recente
             .map((post) => (
               <Comentario key={post.id} post={post} userId={0} />

@@ -1,5 +1,6 @@
 import React, { useEffect, useState }  from 'react';
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
+import Loading from './Loading.js'
 
 const Avaliacao = ({dadosAvaliacao}) => {
   
@@ -9,7 +10,7 @@ const Avaliacao = ({dadosAvaliacao}) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/perfil/${dadosAvaliacao.usuarioId}`);
+        const response = await fetch(`http://localhost:3000/perfil/${dadosAvaliacao.username}`);
         if (!response.ok) {
           throw new Error("Erro ao carregar o perfil do usuário");
         }
@@ -20,9 +21,9 @@ const Avaliacao = ({dadosAvaliacao}) => {
       }
     };
     fetchUser();
-  }, [dadosAvaliacao.usuarioId]); // reexecutar o fetch se mudar
+  }, [dadosAvaliacao.username]); // reexecutar o fetch se mudar
   if (!usuario) {
-    return <div>Carregando...</div>;
+    return <Loading />;
   }
 
   return (
@@ -31,9 +32,9 @@ const Avaliacao = ({dadosAvaliacao}) => {
             <img src={usuario.avatar} alt="Foto do usuário" className="w-16 h-16 ring-4  ring-indigo-600 rounded-full" />
             <div className="flex flex-col gap-2 p-4">
               <p className="text-gray-800 text-sm italic">{usuario.nome}</p>
-              <p className="text-0.8xl text-indigo-600 font-bold font-inter">Nota: {dadosAvaliacao.nota}</p>
+              <p className="text-0.8xl text-indigo-600 font-bold font-inter">Nota: {dadosAvaliacao.score}</p>
               <p className="text-md">
-                {dadosAvaliacao.comentario}
+                {dadosAvaliacao.comment}
               </p> 
               <div className="flex justify-end"> 
                 <AiOutlineLike/> 

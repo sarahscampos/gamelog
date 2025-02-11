@@ -10,7 +10,7 @@ const UserInfo = ({ user }) => {
   return (
     <div className="p-4">
       {user ? (
-        <p>Bem-vindo, {user}!</p>
+        <p>Bem-vindo(a), {user}!</p>
       ) : (
         <div className="flex flex-col items-center gap-4">
           <p className="text-center underline decoration-solid font-bold">Novo por aqui?</p>
@@ -23,8 +23,8 @@ const UserInfo = ({ user }) => {
   );
 };
 
-export const Home = ({dados, idUsuarioLogado}) => {
-  const user = idUsuarioLogado;
+export const Home = ({dados, username}) => {
+  const user = username;
 
   const navigate = useNavigate();
 

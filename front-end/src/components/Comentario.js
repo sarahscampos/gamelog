@@ -10,7 +10,8 @@ const Comentario = ({ post, userId }) => {
     minute: '2-digit',
   });
   
-  {/* pegando o usuario */}
+  // USAR O REDUX
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -36,12 +37,12 @@ const Comentario = ({ post, userId }) => {
     <div className="p-4 bg-white border border-gray-200 rounded-md shadow">
       <div className="flex text-wrap items-center gap-3 mb-3">
         <img 
-          src={user.avatar || 'default-avatar-url'} alt={user.nome || 'Usuário Anônimo'} className="w-10 h-10 rounded-full"/>
+          src={user?.avatar || 'default-avatar-url'} alt={user?.nome || 'Usuário Anônimo'} className="w-10 h-10 rounded-full"/>
         <div>
-          <span className="font-semibold text-gray-800">{user.nome || 'Usuário Anônimo'}</span>
+          <span className="font-semibold text-gray-800">{user?.nome || 'Usuário Anônimo'}</span>
         </div>
       </div>
-      <p className="break-words text-left">{post.content}</p>
+      <p className="break-words text-left">{post.coment}</p>
       <span className="text-sm text-gray-500">{dataHora}</span>
     </div>
   );

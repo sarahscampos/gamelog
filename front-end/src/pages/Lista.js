@@ -10,7 +10,8 @@ const Lista = ({listas, dados}) => {
 
   const navigate = useNavigate();
 
-
+  console.log(username)
+  console.log(idLista)
   function obtemJogos(idLista){
     // Encontra a lista correspondente ao idLista
    const listaEncontrada = listas.find((lista) => lista._id === idLista);
