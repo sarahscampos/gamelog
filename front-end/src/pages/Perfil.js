@@ -5,14 +5,13 @@ import background from "../assets/img/backgroundJogo.png";
 import Modal from "react-modal"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch } from "react-redux";
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { useDispatch, useSelector } from "react-redux";
 import { MdEdit } from "react-icons/md";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import Loading from "../components/Loading";
 import { MdOutlinePushPin } from "react-icons/md";
 import {Helmet} from "react-helmet";
-
+import { atualizaPerfil } from "../slices/perfilSlice";
 import { fetchPerfil } from "../slices/perfilSlice"
 import { logout } from "../slices/loginSlice"; // Importe a ação de logout
 
@@ -20,21 +19,20 @@ import { logout } from "../slices/loginSlice"; // Importe a ação de logout
 // - nota do usuario pros jogos aparecendo junto aos jogos
 
 const Perfil = ({listas, dados, usernameLogado}) => {
+  
   const dispatch = useDispatch();
+
   const handleLogout = () => {
     dispatch(logout());
   
   
     navigate("/login");
   };
-  // para usuarios que nao sao o perfilLogado:
-
-  const perfilLogado = fetchPerfil(usernameLogado); // desisto nao consigo fazewr funcionar isso aqui queria mt 
 
   const { username } = useParams(); // Captura o ID do usuário na URL
   const [anyUser, setAnyUser] = useState(null);
-  
   const [loading, setLoading] = useState(true);
+
   const [isFixaListaModalOpen, setIsFixaListaModalOpen] = useState(false);
   const [isEditaPerfilModalOpen, setIsEditaPerfilModalOpen] = useState(false);
 
@@ -61,47 +59,49 @@ const Perfil = ({listas, dados, usernameLogado}) => {
       : [];
     return lista;
   }
+
+  const perfilLogado = useSelector((state) => state.perfil.dados); // Pega o perfil logado salvo no redux
+
   const favIndex = listas && listas.findIndex((lista) => lista.nome === "Favoritos");
   const jogosFav = obtemJogos(favIndex);
-  
-  //agora to tentando usar o slice. mas eu ainda preciso dar fetch caso nao seja o usuario LOGADO
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await fetch(`http://localhost:3000/perfil/${username}`);
-        if (!response.ok) throw new Error("Erro ao carregar o perfil do usuário");
-        const userData = await response.json();
-        console.log(userData); 
-        setAnyUser(userData);
-      } catch (error) {
-        console.error("Erro:", error.message);
-        setAnyUser(null); 
-      } finally {
-        setLoading(false);
-      }
-    };
-  
-    if (username) {
-      fetchUser();
-    }
-  }, [username]);
 
-  const atualizaPerfil = createAsyncThunk('perfil/atualizaPerfil', async ({ updatedUserData }) => {
-    const response = await fetch(`http://localhost:3000/perfil/${usernameLogado}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedUserData),
-    });
-  
-    if (!response.ok) {
-      throw new Error(`Erro ao atualizar perfil: ${response.statusText}`);
+  useEffect(() => {
+    if (usernameLogado) {
+      dispatch(fetchPerfil(usernameLogado)); // perfil logado do redux!
     }
+  }, [usernameLogado, dispatch]);
   
-    const updatedUser = await response.json();
-    return updatedUser;  // Retorna o perfil atualizado
-  });
+  useEffect(() => {
+    // se for diferente do logado, fetch!
+    if (username && username !== usernameLogado) {
+      const fetchUser = async () => {
+        try {
+          const response = await fetch(`http://localhost:3000/perfil/${username}`);
+          if (!response.ok) throw new Error("Erro ao carregar o perfil do usuário");
+          const userData = await response.json();
+          setAnyUser(userData);
+        } catch (error) {
+          console.error("Erro:", error.message);
+          setAnyUser(null);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchUser();
+    } else {
+      // se for o perfilLogado:
+      setAnyUser(perfilLogado);
+      setLoading(false);
+    }
+  }, [username, usernameLogado]); // trigga quando um dos dois muda
+  
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (!anyUser && !perfilLogado) {
+    return <div className="text-center mt-20 text-lg font-inter text-red-600">Não foi possível carregar o perfil.</div>;
+  }
 
   const toggleFixaLista = (lista) => {
     // Verifica se a lista já está fixada
@@ -214,7 +214,7 @@ const Perfil = ({listas, dados, usernameLogado}) => {
             type="text"
             id="nome"
             name="nome"
-            value={formData.nome}
+            value={formData.nomePerfil}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded-md"
             maxLength={25}
@@ -329,7 +329,7 @@ const Perfil = ({listas, dados, usernameLogado}) => {
     </div>
   )}
         </div>
-        {/* <EditaPerfilModal /> */}
+        <EditaPerfilModal />
         <ToastContainer />
         
 
