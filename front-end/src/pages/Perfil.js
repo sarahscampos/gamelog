@@ -5,9 +5,9 @@ import background from "../assets/img/backgroundJogo.png";
 import Modal from "react-modal"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { MdPlaylistAdd, MdEdit } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import Loading from "../components/Loading";
 import { MdOutlinePushPin } from "react-icons/md";
@@ -313,7 +313,7 @@ const Perfil = ({listas, dados, usernameLogado}) => {
       <div className="max-w-md mx-auto bg-white shadow-xl rounded-lg overflow-hidden">
         {/* Cabeçalho */}
         <div className="flex justify-between p-4 bg-blue-500 text-white">
-          <span className="text-sm font-semibold">{anyUser.nome}</span>
+          <span className="text-sm font-semibold">{anyUser.nomePerfil}</span>
           {username === usernameLogado && (
     <div className="flex items-center gap-3">
       <button className="flex items-center text-sm font-semibold" onClick={openEditaPerfilModal}>

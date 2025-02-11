@@ -45,7 +45,7 @@ const AppRoutes = () => {
     if (avaliacoesStatus === 'idle') dispatch(fetchAvaliacoes());
     if (usernameLogadoStatus === 'idle') dispatch(fetchPerfil(usernameLogado));
     if (listasStatus === 'idle') dispatch(fetchListas(usernameLogado));
-  }, [jogosStatus, avaliacoesStatus, usernameLogado, listasStatus, dispatch]);
+  }, [jogosStatus, avaliacoesStatus, usernameLogadoStatus, usernameLogado, listasStatus, dispatch]);
 
   if (jogosStatus === 'loading' || avaliacoesStatus === 'loading' || listasStatus === 'loading' || usernameLogadoStatus === 'loading') {
     return <Loading />;
