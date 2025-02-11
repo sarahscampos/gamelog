@@ -43,7 +43,7 @@ const AppRoutes = () => {
   useEffect(() => {
     if (jogosStatus === 'idle') dispatch(fetchJogos());
     if (avaliacoesStatus === 'idle') dispatch(fetchAvaliacoes());
-    if (usuarioLogadoStatus === 'idle') dispatch(fetchPerfil(usernameLogado));
+    if (usernameLogadoStatus === 'idle') dispatch(fetchPerfil(usernameLogado));
     if (listasStatus === 'idle') dispatch(fetchListas(usernameLogado));
   }, [jogosStatus, avaliacoesStatus, usernameLogado, listasStatus, dispatch]);
 

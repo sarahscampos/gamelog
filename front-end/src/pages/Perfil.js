@@ -29,7 +29,7 @@ const Perfil = ({listas, dados, usernameLogado}) => {
   };
   // para usuarios que nao sao o perfilLogado:
 
-  const perfilLogado = await fetchPerfil(usernameLogado).json(); // desisto nao consigo fazewr funcionar isso aqui queria mt 
+  const perfilLogado = fetchPerfil(usernameLogado).json(); // desisto nao consigo fazewr funcionar isso aqui queria mt 
 
   const { username } = useParams(); // Captura o ID do usuário na URL
   const [anyUser, setAnyUser] = useState(null);
@@ -314,7 +314,7 @@ const Perfil = ({listas, dados, usernameLogado}) => {
         {/* Cabeçalho */}
         <div className="flex justify-between p-4 bg-blue-500 text-white">
           <span className="text-sm font-semibold">{anyUser.nome}</span>
-          {username === idLogado && (
+          {username === usernameLogado && (
     <div className="flex items-center gap-3">
       <button className="flex items-center text-sm font-semibold" onClick={openEditaPerfilModal}>
         <MdEdit size={25} />

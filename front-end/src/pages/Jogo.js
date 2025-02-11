@@ -17,10 +17,12 @@ import backgroundJogo from "../assets/img/backgroundJogo.png";
 import ReviewModal from "../components/ReviewModal";
 import {deleteAvaliacao} from "../slices/avaliacoesSlice";
 
+import {fetchPerfil} from "../slices/perfilSlice";
+
 
 const Jogo = ({dados, avaliacaoInfo, listas, usernameLogado}) => {
 
-  const perfilLogado = await fetchPerfil(usernameLogado).json();
+  const perfilLogado = fetchPerfil(usernameLogado).json();
   const { id } = useParams();
   const dispatch = useDispatch();
  
