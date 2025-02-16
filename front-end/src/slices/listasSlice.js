@@ -72,8 +72,22 @@ const listasSlice = createSlice({
         state.dados.push(action.payload);
       })
       .addCase(deleteLista.fulfilled, (state, action) => {
-        state.dados = state.dados.filter(lista => lista._id !== action.payload._id);
-      });
+        state.dados = state.dados.filter(lista => lista._id !== action.meta.arg.idLista);
+      })
+      .addCase(addJogoToList.fulfilled, (state, action) => {
+        const listaAtualizada = action.payload; // Retorna a lista inteira atualizada
+        const listaIndex = state.dados.findIndex(lista => lista._id === listaAtualizada._id);
+        if (listaIndex !== -1) {
+            state.dados[listaIndex] = listaAtualizada; // Atualiza toda a lista
+        }
+    })
+    .addCase(removeJogoFromList.fulfilled, (state, action) => {
+        const listaAtualizada = action.payload;
+        const listaIndex = state.dados.findIndex(lista => lista._id === listaAtualizada._id);
+        if (listaIndex !== -1) {
+            state.dados[listaIndex] = listaAtualizada; // Atualiza toda a lista
+        }
+    });
   },
 });
 

@@ -64,8 +64,8 @@ export const BarraPesquisa = ({dados}) => {
                         <h2 className="text-xl font-bold mb-4 text-cyan-600">Jogos encontrados:</h2>
                         <ul>
                            {searchResults.map(result => (
-                                   <li key={result.id} className="mb-2 cursor-pointer">
-                                      <p onClick={()=> navigate(`/jogo/${result.id}`)} className="text-black hover:underline">
+                                   <li key={result._id} className="mb-2 cursor-pointer">
+                                      <p onClick={()=> navigate(`/jogo/${result._id}`)} className="text-black hover:underline">
                                          {result.nome}
                                       </p>
                                    </li>
