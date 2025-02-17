@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 export const EditaPerfilModal = ({perfilLogado, username, isEditaPerfilModalOpen, closeEditaPerfilModal}) => {
-  const [formData, setFormData] = useState(perfilLogado || { username: username, nomePerfil: "", avatar: "", descricao: "", localizacao: "" });
+  const [formData, setFormData] = useState({ username: username, nomePerfil: "", avatar: "", descricao: "", localizacao: "" , ...perfilLogado});
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
   /*
   const handleChange = (e) => {
