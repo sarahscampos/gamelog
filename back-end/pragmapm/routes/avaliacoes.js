@@ -77,17 +77,6 @@ router.delete(
     try {
       const { gameId, userId, avaliacaoId } = request.params;
 
-      // Buscar avaliação diretamente pelo ID
-      const avaliacao = await Avaliacao.findById(avaliacaoId);
-      if (!avaliacao) {
-        return response.status(404).json({ error: "Avaliação não encontrada" });
-      }
-
-      // Verifica se o usuário é o dono da avaliação
-      if (avaliacao.username !== userId) {
-        return response.status(403).json({ error: "Usuário não autorizado" });
-      }
-
       // Deletar avaliação
       await Avaliacao.findByIdAndDelete(avaliacaoId);
 

@@ -11,7 +11,7 @@ export const fetchAvaliacoes = createAsyncThunk('avaliacoes/fetchAvaliacoes', as
 export const addAvaliacoes = createAsyncThunk('Avaliacoes/addAvaliacoes', async ({ username, score, comment,  idJogo, token}) => {
     
 
-    const avaliacao = { username, comment, score, idJogo};
+  const avaliacao = { username, comment, score, idJogo};
    
  
   const patchResponse = await fetch('http://localhost:3000/protected/avaliacoes', {
@@ -34,11 +34,10 @@ export const addAvaliacoes = createAsyncThunk('Avaliacoes/addAvaliacoes', async 
 //delete Avaliação
 export const deleteAvaliacao = createAsyncThunk('Avaliacoes/deleteAvaliacao',
   async ({ jogoId, usuarioId, avaliacaoId, token }, { getState }) => {
+
     
     const state = getState();
     const data = state.avaliacoes.dados;
-
-    if (!data[jogoId]) throw new Error("Jogo não possui avaliações.");
 
     // Atualiza o backend com a nova lista
     const response = await fetch(`http://localhost:3000/protected/avaliacoes/${jogoId}/${usuarioId}/${avaliacaoId}`, {

@@ -53,6 +53,11 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
     console.log(token)
     dispatch(deleteAvaliacao({jogoId: id, usuarioId: user?.username, avaliacaoId: avaliacaoUsuario._id, token: token}))
   }
+
+  const editaAvaliacao = () => {
+    deletarAvaliacao();
+    openModalAvaliacao();
+  }
   
  const user = useSelector((state) => state.auth?.user);
 
@@ -125,7 +130,7 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
               </p>
               <button
                 className="text-lg mb-2 flex items-center gap-2 px-8 py-2 rounded-md bg-green-500 text-white hover:bg-green-400 font-inter transition"
-                onClick={openModalAvaliacao}
+                onClick={editaAvaliacao}
               >
                 <MdOutlineRateReview size={25} />
                 Editar avaliação
