@@ -77,8 +77,7 @@ router.delete(
     try {
       const { gameId, userId, avaliacaoId } = request.params;
 
-      // Deletar avaliação
-      await Avaliacao.findByIdAndDelete(avaliacaoId);
+      const avaliacao = await Avaliacao.findById(avaliacaoId);
 
       // Atualizar o jogo, removendo uma análise e ajustando a média
       const jogo = await Jogo.findById(gameId);
@@ -103,6 +102,9 @@ router.delete(
         }
         await perfil.save();
       }
+
+      // Deletar avaliação
+      await Avaliacao.findByIdAndDelete(avaliacaoId);
 
       return response.status(200).json({ message: "Avaliação deletada com sucesso" });
 
