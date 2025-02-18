@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector} from "react-redux";
 import { addAvaliacoes } from "../slices/avaliacoesSlice";
+import { fetchAvaliacoes } from "../slices/avaliacoesSlice";
 
 const GameReviewModal = ({id,close, deletarAvaliacao}) => {
   const user = useSelector((state) => state.auth?.user);
@@ -32,6 +33,7 @@ const GameReviewModal = ({id,close, deletarAvaliacao}) => {
       })
       .then(() => {
         close();
+        dispatch(fetchAvaliacoes(id));
       })
       .catch((error) => {
         console.error("Erro ao atualizar avaliação:", error);

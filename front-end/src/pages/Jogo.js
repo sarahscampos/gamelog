@@ -15,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {Helmet} from "react-helmet";
 import backgroundJogo from "../assets/img/backgroundJogo.png";
 import ReviewModal from "../components/ReviewModal";
+import {fetchAvaliacoes} from "../slices/avaliacoesSlice";
 import {deleteAvaliacao} from "../slices/avaliacoesSlice";
 
 const Jogo = ({dados, avaliacaoInfo, listas}) => {
@@ -31,7 +32,8 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
   const [isModalAvaliacaoOpen, setIsModalAvaliacaoOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedList, setSelectedList] = useState("");
-  const [avaliacoesJogo, setAvaliacoesJogo] = useState();
+  //const [avaliacoesJogo, setAvaliacoesJogo] = useState();
+  const avaliacoesJogo = useSelector((state) => state.avaliacoes.dados)
 
   const openModalAvaliacao = () => {
     setIsModalAvaliacaoOpen(true);
@@ -77,10 +79,12 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
     });
   }
 
+  //useEffect(() => {fetch(`http://localhost:3000/avaliacoes/${id}`).then((r) => r.json()).then(setAvaliacoesJogo);}, [id])
   useEffect(() => {
-    fetch(`http://localhost:3000/avaliacoes/${id}`).then((r) => r.json()).then(setAvaliacoesJogo);
-  }, [id])
-  
+    if (!avaliacoesJogo || avaliacoesJogo.length === 0) {
+      dispatch(fetchAvaliacoes(id));
+    }
+  }, [dispatch, id, avaliacoesJogo]);
 
   {/* por enquanto usuarioId = 0 */}
   const avaliacaoUsuario = avaliacoesJogo?.find(avaliacao => avaliacao.username === user?.username);
