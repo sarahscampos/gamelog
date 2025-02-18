@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector} from "react-redux";
 import { addAvaliacoes } from "../slices/avaliacoesSlice";
 
-const GameReviewModal = ({id,close}) => {
+const GameReviewModal = ({id,close, deletarAvaliacao}) => {
   const user = useSelector((state) => state.auth?.user);
   const token = useSelector((state) => state.auth?.token);
   const dispatch = useDispatch();
@@ -12,15 +12,31 @@ const GameReviewModal = ({id,close}) => {
 
 
   const handleSubmit = () => {
-    if ((newAvaliacaoNota === null) || (newAvaliacaoNota > 10) || (newAvaliacaoNota < 0)) {
-      alert("Por favor, insira uma nota valida antes de enviar.");
+    if (newAvaliacaoNota === null || newAvaliacaoNota > 10 || newAvaliacaoNota < 0) {
+      alert("Por favor, insira uma nota válida antes de enviar.");
       return;
     }
-    {/*trocar userid 0 pelo real*/}
-    dispatch(addAvaliacoes({username: user?.username, comment: newAvaliacao, score : newAvaliacaoNota, idJogo: id, token: token}))
-    .then(() => {
-      close();
-    });
+  
+    deletarAvaliacao()
+      .then(() => {
+        // Após deletar com sucesso, adiciona a nova avaliação
+        return dispatch(
+          addAvaliacoes({
+            username: user?.username,
+            comment: newAvaliacao,
+            score: newAvaliacaoNota,
+            idJogo: id,
+            token: token
+          })
+        );
+      })
+      .then(() => {
+        close();
+      })
+      .catch((error) => {
+        console.error("Erro ao atualizar avaliação:", error);
+        alert("Ocorreu um erro ao atualizar sua avaliação.");
+      });
   };
 
   return (

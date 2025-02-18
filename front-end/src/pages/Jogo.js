@@ -49,13 +49,16 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
     setIsModalOpen(false)
   }
 
-  const deletarAvaliacao = () =>{
-    console.log(token)
-    dispatch(deleteAvaliacao({jogoId: id, usuarioId: user?.username, avaliacaoId: avaliacaoUsuario._id, token: token}))
-  }
+  const deletarAvaliacao = () => {
+    return dispatch(deleteAvaliacao({
+      jogoId: id,
+      usuarioId: user?.username,
+      avaliacaoId: avaliacaoUsuario?._id,
+      token: token
+    }));
+  };
 
   const editaAvaliacao = () => {
-    deletarAvaliacao();
     openModalAvaliacao();
   }
   
@@ -193,7 +196,7 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
         className="bg-white p-6 rounded-lg w-96"
         overlayClassName="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50"
       >
-        <ReviewModal id = {id} close = {closeModalAvaliacao}/>
+        <ReviewModal id = {id} close = {closeModalAvaliacao} deletarAvaliacao={deletarAvaliacao}/>
       </Modal>
   
   <section className="mx-auto my-0 px-10 md:px-64 py-20">
