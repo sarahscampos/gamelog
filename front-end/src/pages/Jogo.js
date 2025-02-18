@@ -87,7 +87,7 @@ const Jogo = ({dados, avaliacaoInfo, listas}) => {
   }, [dispatch, id, avaliacoesJogo]);
 
   {/* por enquanto usuarioId = 0 */}
-  const avaliacaoUsuario = avaliacoesJogo?.find(avaliacao => avaliacao.username === user?.username);
+  const avaliacaoUsuario = avaliacoesJogo?.find(avaliacao => avaliacao.username === user?.username && avaliacao.idJogo === id);
 
   if (!jogo) {
     return <Loading />;
