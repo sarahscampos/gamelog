@@ -1,0 +1,13 @@
+{
+      "nome": "Mario Kart",
+      "colocacao": 1,
+      "notaMedia": 10,
+      "capa": "https://upload.wikimedia.org/wikipedia/pt/0/0d/MarioKart8.jpg",
+      "dataLancamento": "09-17-2013",
+      "desenvolvedora": "Nintendo",
+      "distribuidora": "Nintendo",
+      "generos": [
+        "corrida"
+      ],
+      "sumario": "Mario Kart 8 (マリオカート8 Mario Kāto Aito?) é um jogo de corrida de karts desenvolvido e publicado pela Nintendo para o Wii U. É o décimo primeiro título da franquia Mario Kart, o oitavo da série principal (como o título sugere) e foi lançado em 30 de Maio de 2014. O jogo tem como principal novidade os circuitos antigravitacionais e pistas antigas dos jogos anteriores. Assim como os jogos anteriores, possui modos um jogador e multijogador local e online."
+}

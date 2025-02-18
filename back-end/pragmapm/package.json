@@ -1,0 +1,24 @@
+{
+  "name": "pragmapm",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon jogos.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5",
+    "morgan": "~1.9.1",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
